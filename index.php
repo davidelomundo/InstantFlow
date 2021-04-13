@@ -20,7 +20,12 @@ foreach($rows as $row) {
 
 <div class="col-12 container">
     <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email" placeholder="you@example.com">
+
+    <form action="action_page.php" method="get">
+    <input type="email" class="form-control" name=email id="email" placeholder="you@example.com">
+    <input type="submit" value="Submit">
+    </form>
+
     <div class="invalid-feedback">
     Please enter a valid email address for shipping updates.
     </div>
