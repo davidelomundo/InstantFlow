@@ -1,1 +1,1 @@
-- Categoria abbonamento potrebbe essere non applicabile per il cambio risoluzione nella libreria.
+- Nessuna nota segnata
