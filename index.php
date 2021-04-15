@@ -7,14 +7,14 @@ require_once 'includes/connection.php';
 
 <?php
 
-$tmp = 'SELECT * FROM utenti;';
+/*$tmp = 'SELECT * FROM utenti;';
 
 $risultato=$connessione->query($tmp);
 $rows = $risultato->fetchAll(PDO::FETCH_NUM);
 
 foreach($rows as $row) {
     //printf("$row[0] $row[1] $row[2] $row[3]\n");
-}
+}*/
 
 ?>
 
