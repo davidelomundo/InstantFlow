@@ -1,13 +1,13 @@
 <?php
 require_once 'includes/connection.php';
+$email = $_GET["email"];
 
-$tmp = "SELECT * FROM utenti WHERE utenti.email=" . '\'' . $_GET["email"] . '\'';
+$stmt = $connessione->prepare("SELECT * FROM Utenti WHERE email='" . $email . "';");
+$stmt->execute(array("%$query%"));
 
-$risultato=$connessione->query($tmp);
-$rows = $risultato->fetchAll(PDO::FETCH_NUM);
-
-foreach($rows as $row) {
-    printf("$row[0] $row[1] $row[2] $row[3]\n");
+// iterating over a statement
+foreach($stmt as $row) {
+    echo $row['email'];
 }
 
 ?>
