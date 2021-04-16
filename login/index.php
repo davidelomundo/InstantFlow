@@ -25,21 +25,23 @@ if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]
 
 <div class="container">
     <form method="POST">
+
         <label for="email" class="form-label">Email</label>
-        <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com">
-        <div class="invalid-feedback">
-        Please enter a valid email address for shipping updates.
-        </div>
+            <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com">
+            <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+            </div>
 
         <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-        <div class="invalid-feedback">
-        Please enter a valid email address for shipping updates.
-        </div>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+            <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+            </div>
 
-        <button type="submit">Invio</button>
+        <button type="submit" class="btn btn-success">Invio</button>
     </form>
 </div>
+
 
 <?php
 }
