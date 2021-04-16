@@ -8,15 +8,6 @@ require_once 'includes/connection.php';
 ?>
 
 <div class="col-12 container">
-    <label for="email" class="form-label">Email</label>
-
-    <form action="action_page.php" method="POST">
-    <input type="email" class="form-control" name=email id="email" placeholder="you@example.com">
-    <input type="submit" value="Submit">
-    </form>
-    <div class="invalid-feedback">
-    Please enter a valid email address for shipping updates.
-    </div>
 
     <div class="container">
             <b><p class="text-center">Sei un nuovo utente?</p></b>
@@ -26,6 +17,5 @@ require_once 'includes/connection.php';
             <a type="button" class="btn btn-warning col-6" href="./signup/index.php">Sign-up</a>
         </div>
     </div>
-
 
 </div>

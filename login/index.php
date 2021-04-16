@@ -1,12 +1,23 @@
 <?php
 require_once '../includes/header.php';
+require_once '../includes/connection.php';
 ?>
 
 <?php
 
-if(isset($_POST["email"]) && !empty($_POST["email"]))
+if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
-    echo "Ok";
+    $stmt = $connessione->prepare("SELECT *, COUNT(*) AS numRows FROM Utenti WHERE email='" . $_POST["email"] . "' AND password='" . $_POST["password"] . "';");
+    $stmt->execute(array("%$query%"));
+
+    // iterating over a statement
+    foreach($stmt as $row) {
+        if($row["numRows"] > 0)
+        {
+            echo (strval($row["id"] . $row['email'] . $row['password'] . $row['isAdmin']));
+            header('Location: ./logged.php');
+        }
+    }
 } else {
 ?>
 
@@ -21,7 +32,7 @@ if(isset($_POST["email"]) && !empty($_POST["email"]))
         </div>
 
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password">
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
         <div class="invalid-feedback">
         Please enter a valid email address for shipping updates.
         </div>
