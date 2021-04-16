@@ -7,19 +7,17 @@ require_once 'includes/connection.php';
 
 <?php
 
-/*
 $stmt = $connessione->prepare("SELECT * FROM Utenti;");
 $stmt->execute(array("%$query%"));
 
 
-// iterating over a statement
 foreach($stmt as $row) {
     echo $row['email'];
 }
 
-/*foreach($result as $row) {
+foreach($result as $row) {
     printf("$row[0] $row[1] $row[2] $row[3]\n");
-}*/
+}
 
 ?>
 
