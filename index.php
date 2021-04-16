@@ -19,11 +19,11 @@ require_once 'includes/connection.php';
     </div>
 
     <div class="container">
-    <b>Si un nuovo utente?</b>
+            <b><p class="text-center">Sei un nuovo utente?</p></b>
 
-        <div class="row">
-            <button type="button" class="btn btn-primary col-6">Login</button>
-            <button type="button" class="btn btn-warning col-6">Sign-up</button>
+        <div class="row " >
+            <a type="button" class="btn btn-primary col-6" href="./login/index.php">Login</a>
+            <a type="button" class="btn btn-warning col-6" href="./signup/index.php">Sign-up</a>
         </div>
     </div>
 
