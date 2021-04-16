@@ -1,1 +1,1 @@
-- Nessuna nota segnata
+Nessuna promemoria segnato
