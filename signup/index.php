@@ -4,8 +4,9 @@ require_once '../includes/connection.php';
 
 if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
-    $stmt = $connessione->prepare("INSERT INTO Utenti VALUES('" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . $_POST["email"] . "', '" . $_POST["password"] . "');");
-    $stmt->execute(array("%$query%"));
+    echo "Ok";
+    $stmt = $connessione->prepare("INSERT INTO Utenti (nome, cognome, email, password, isAdmin) VALUES(?, ?, ?, ?, ?)");
+    $stmt->execute([$_POST["nome"], $_POST["cognome"], $_POST["email"], $_POST["password"], FALSE]);
 
     header('Location: ./abbonamento.php');
 } else {
@@ -16,11 +17,11 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
 
 <div class="container">
 
-    <form>
+    <form method="POST">
         <div class="row">
             <div class="col-sm-6">
                 <label for="firstName" class="form-label">First name</label>
-                <input type="text" name="firtName" class="form-control" id="firstName" placeholder="" value="" required="">
+                <input type="text" name="firstName" class="form-control" id="firstName" placeholder="" value="" required="">
                 <div class="invalid-feedback">
                 Valid first name is required.
                 </div>
@@ -36,13 +37,13 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
         </div>
 
         <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com">
+            <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com" required="">
             <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
             </div>
 
         <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="">
             <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
             </div>
