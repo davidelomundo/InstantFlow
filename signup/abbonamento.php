@@ -15,7 +15,7 @@ require_once "../includes/header.php";
             <ul class="list-unstyled mt-3 mb-4">
               <li>Risoluzione 720p</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+            <button type="button" class="btn btn-lg btn-block btn-primary">Seleziona</button>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@ require_once "../includes/header.php";
             <ul class="list-unstyled mt-3 mb-4">
               <li>Risoluzione 1080p</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+            <button type="button" class="btn btn-lg btn-block btn-primary">Seleziona</button>
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@ require_once "../includes/header.php";
             <ul class="list-unstyled mt-3 mb-4">
               <li>Risoluzione 2160p</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+            <button type="button" class="btn btn-lg btn-block btn-primary">Seleziona</button>
           </div>
         </div>
       </div>
