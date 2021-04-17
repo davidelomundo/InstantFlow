@@ -1,9 +1,6 @@
 <?php
 require_once '../includes/header.php';
 require_once '../includes/connection.php';
-?>
-
-<?php
 
 if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {

@@ -1,7 +1,16 @@
 <?php
 require_once '../includes/header.php';
 require_once '../includes/connection.php';
+
+if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
+{
+    $stmt = $connessione->prepare("INSERT INTO Utenti VALUES('" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . $_POST["email"] . "', '" . $_POST["password"] . "');");
+    $stmt->execute(array("%$query%"));
+
+    header('Location: ./abbonamento.php');
+} else {
 ?>
+
 
 <h1 class="text-center">Esegui l'iscrizione</h1>
 
@@ -11,7 +20,7 @@ require_once '../includes/connection.php';
         <div class="row">
             <div class="col-sm-6">
                 <label for="firstName" class="form-label">First name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                <input type="text" name="firtName" class="form-control" id="firstName" placeholder="" value="" required="">
                 <div class="invalid-feedback">
                 Valid first name is required.
                 </div>
@@ -19,7 +28,7 @@ require_once '../includes/connection.php';
 
             <div class="col-sm-6">
                 <label for="lastName" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                <input type="text" name="lastName" class="form-control" id="lastName" placeholder="" value="" required="">
                 <div class="invalid-feedback">
                 Valid last name is required.
                 </div>
@@ -44,3 +53,7 @@ require_once '../includes/connection.php';
     </form>
 
 </div>
+
+<?php
+}
+?>
