@@ -15,8 +15,8 @@ require_once "../includes/header.php";
             <ul class="list-unstyled mt-3 mb-4">
               <li>Risoluzione 720p</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Seleziona</button>
-          </div>
+            <input type="radio" class="btn-check" name="options-outlined" id="basic-outlined" autocomplete="off">
+            <label class="btn btn-lg btn-block btn-outline-primary" for="basic-outlined">Seleziona</label>          </div>
         </div>
       </div>
 
@@ -30,8 +30,8 @@ require_once "../includes/header.php";
             <ul class="list-unstyled mt-3 mb-4">
               <li>Risoluzione 1080p</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Seleziona</button>
-          </div>
+            <input type="radio" class="btn-check" name="options-outlined" id="plus-outlined" autocomplete="off">
+            <label class="btn btn-lg btn-block btn-outline-primary" for="plus-outlined">Seleziona</label>          </div>
         </div>
       </div>
 
@@ -45,9 +45,9 @@ require_once "../includes/header.php";
             <ul class="list-unstyled mt-3 mb-4">
               <li>Risoluzione 2160p</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Seleziona</button>
+            <input type="radio" class="btn-check" name="options-outlined" id="pro-outlined" autocomplete="off">
+            <label class="btn btn-lg btn-block btn-outline-primary" for="pro-outlined">Seleziona</label>
           </div>
         </div>
       </div>
-
-      </div>
+</div>

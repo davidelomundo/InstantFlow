@@ -1,2 +1,1 @@
-- Aggiungere nome e cognome a struttura database
 - Creazione classi
