@@ -38,7 +38,9 @@ if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]
             Please enter a valid email address for shipping updates.
             </div>
 
-        <button type="submit" class="btn btn-success">Invio</button>
+        <div class="row text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg">Invio</button>
+        </div>
     </form>
 </div>
 

@@ -37,8 +37,10 @@ require_once '../includes/connection.php';
             <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
             </div>
-
-        <button type="submit" class="btn btn-success">Invio</button>
+            
+        <div class="row text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg">Invio</button>
+        </div>
     </form>
 
 </div>
