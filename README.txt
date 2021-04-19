@@ -1,1 +1,3 @@
 - Creazione classi
+- Gestione redirect
+- Gestione db

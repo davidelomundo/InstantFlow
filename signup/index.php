@@ -6,7 +6,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
 {
     echo "Ok";
     $stmt = $connessione->prepare("INSERT INTO Utenti (nome, cognome, email, password, isAdmin) VALUES(?, ?, ?, ?, ?)");
-    $stmt->execute([$_POST["nome"], $_POST["cognome"], $_POST["email"], $_POST["password"], FALSE]);
+    $stmt->execute([$_POST["firstName"], $_POST["lastName"], $_POST["email"], $_POST["password"], 0]);
 
     header('Location: ./abbonamento.php');
 } else {
