@@ -15,7 +15,7 @@ require_once "../includes/header.php";
             <ul class="list-unstyled mt-3 mb-4">
               <li>Risoluzione 720p</li>
             </ul>
-            <input type="radio" class="btn-check" name="options-outlined" id="basic-outlined" autocomplete="off">
+            <input type="radio" class="btn-check" name="options-outlined" id="basic-outlined" autocomplete="off" checked>
             <label class="btn btn-lg btn-block btn-outline-primary" for="basic-outlined">Seleziona</label>          </div>
         </div>
       </div>
@@ -52,9 +52,10 @@ require_once "../includes/header.php";
       </div>
 </div>
 
-<h4 class="mb-3">Pagamento</h4>
 
-<div class="row gy-3">
+<div class="container row gy-3">
+  <h4 class="mb-3">Pagamento</h4>
+
             <div class="col-md-6">
               <label for="cc-name" class="form-label">Intestatario</label>
               <input type="text" class="form-control" id="cc-name" placeholder="" required="">
@@ -73,7 +74,7 @@ require_once "../includes/header.php";
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Expiration</label>
+              <label for="cc-expiration" class="form-label">Scadenza</label>
               <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
               <div class="invalid-feedback">
                 Expiration date required
@@ -87,8 +88,10 @@ require_once "../includes/header.php";
                 Security code required
               </div>
             </div>
-          </div>
 
           <hr class="my-4">
 
           <button class="w-100 btn btn-primary btn-lg" type="submit">Continua</button>
+          
+          </div>
+
