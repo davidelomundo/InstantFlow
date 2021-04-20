@@ -1,20 +1,16 @@
 <?php
 require_once '../includes/header.php';
-require_once '../includes/connection.php';
+require_once '../includes/database.php';
 
 if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
-    $stmt = $connessione->prepare("SELECT *, COUNT(*) AS numRows FROM Utenti WHERE email='" . $_POST["email"] . "' AND password='" . $_POST["password"] . "';");
-    $stmt->execute(array("%$query%"));
+    $utente->email = $_SESSION["email"];
+    $utente->password = $_SESSION["password"];
 
-    // iterating over a statement
-    foreach($stmt as $row) {
-        if($row["numRows"] > 0)
-        {
-            echo (strval($row["id"] . $row['email'] . $row['password'] . $row['isAdmin']));
-            header('Location: ./logged.php');
-        }
-    }
+    echo $utente->login();
+
+
+
 } else {
 ?>
 

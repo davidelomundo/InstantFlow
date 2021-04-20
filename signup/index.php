@@ -1,12 +1,11 @@
 <?php
 require_once '../includes/header.php';
-require_once '../includes/connection.php';
+require_once '../includes/database.php';
 
 if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
     echo "Ok";
-    $stmt = $connessione->prepare("INSERT INTO Utenti (nome, cognome, email, password, isAdmin) VALUES(?, ?, ?, ?, ?)");
-    $stmt->execute([$_POST["firstName"], $_POST["lastName"], $_POST["email"], $_POST["password"], 0]);
+    $utente->createUser();
 
     header('Location: ./abbonamento.php');
 } else {

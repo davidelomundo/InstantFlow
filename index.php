@@ -1,10 +1,15 @@
 <?php
+
+session_start();
+include_once("class/utente.php");
+
 require_once 'includes/navbar.php';
 require_once 'includes/header.php';
-require_once 'includes/connection.php';
+require_once 'includes/database.php';
 
-
-
+$database = new Database();
+$db = $database->getConnection();
+$utente = new Utente($db);
 
 ?>
 
@@ -43,5 +48,10 @@ require_once 'includes/connection.php';
   </div>
 
 <?php
+
+foreach($utente->getUsers() as $row)
+{
+    echo $row['nome'] . "";
+}
 require_once 'includes/footer.php';
 ?>
