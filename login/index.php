@@ -7,9 +7,7 @@ if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]
     $utente->email = $_SESSION["email"];
     $utente->password = $_SESSION["password"];
 
-    echo $utente->login();
-
-
+    $utente->login();
 
 } else {
 ?>

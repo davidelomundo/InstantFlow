@@ -28,11 +28,11 @@ class Utente {
     return $stmt;
   }
 
-  public function createUser() {
-    $sqlQuery = "INSERT INTO" . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES(:nome, :cognome, :email, :password, 0);";
+  public function createUser($nome, $cognome, $email, $password) {
+    $sqlQuery = "INSERT INTO" . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $nome . "','" . $cognome . "','" . $email . "','" . $password . "', 0);";
     $stmt = $this->conn->prepare($sqlQuery);
 
-    // sanitize
+    /*// sanitize
     $this->nome = htmlspecialchars(strip_tags($this->nome));
     $this->cognome = htmlspecialchars(strip_tags($this->cognome));
     $this->email = htmlspecialchars(strip_tags($this->email));
@@ -42,7 +42,9 @@ class Utente {
     $stmt->bindParam(':nome', $this->nome);
     $stmt->bindParam(':cognome', $this->cognome);
     $stmt->bindParam(':email', $this->email);
-    $stmt->bindParam(':password', $this->password);
+    $stmt->bindParam(':password', $this->password);*/
+
+
 
     $stmt->execute();
   }

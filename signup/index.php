@@ -5,7 +5,7 @@ require_once '../includes/database.php';
 if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
     echo "Ok";
-    $utente->createUser();
+    $utente->createUser($_POST["firstName"], $_POST["lastName"], $_POST["email"], $_POST["password"]);
 
     header('Location: ./abbonamento.php');
 } else {
@@ -19,7 +19,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
     <form method="POST">
         <div class="row">
             <div class="col-sm-6">
-                <label for="firstName" class="form-label">First name</label>
+                <label for="firstName" class="form-label">Nome</label>
                 <input type="text" name="firstName" class="form-control" id="firstName" placeholder="" value="" required="">
                 <div class="invalid-feedback">
                 Valid first name is required.
@@ -27,7 +27,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
             </div>
 
             <div class="col-sm-6">
-                <label for="lastName" class="form-label">Last name</label>
+                <label for="lastName" class="form-label">Cognome</label>
                 <input type="text" name="lastName" class="form-control" id="lastName" placeholder="" value="" required="">
                 <div class="invalid-feedback">
                 Valid last name is required.
