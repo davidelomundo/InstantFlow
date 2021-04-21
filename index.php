@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-include_once("class/utente.php");
+
+require_once "class/utente.php";
 
 require_once 'includes/navbar.php';
 require_once 'includes/header.php';

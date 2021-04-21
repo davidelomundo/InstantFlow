@@ -1,10 +1,14 @@
 <?php
+require_once "../class/utente.php";
 require_once '../includes/header.php';
 require_once '../includes/database.php';
 
+$database = new Database();
+$db = $database->getConnection();
+$utente = new Utente($db);
+
 if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
-    echo "Ok";
     $utente->createUser($_POST["firstName"], $_POST["lastName"], $_POST["email"], $_POST["password"]);
 
     header('Location: ./abbonamento.php');

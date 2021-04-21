@@ -29,7 +29,7 @@ class Utente {
   }
 
   public function createUser($nome, $cognome, $email, $password) {
-    $sqlQuery = "INSERT INTO" . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $nome . "','" . $cognome . "','" . $email . "','" . $password . "', 0);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $nome . "','" . $cognome . "','" . $email . "','" . $password . "', 0);";
     $stmt = $this->conn->prepare($sqlQuery);
 
     /*// sanitize
@@ -49,17 +49,19 @@ class Utente {
     $stmt->execute();
   }
 
-  public function login() {
+  public function login($email, $password) {
 
-    $sqlQuery = "SELECT *, COUNT(*) AS numRows FROM Utenti WHERE email='" . $_POST["email"] . "' AND password='" . $_POST["password"] . "';";
+    $sqlQuery = "SELECT *, COUNT(*) AS numRows FROM Utenti WHERE email='" . $email . "' AND password='" . $password . "';";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 
-    foreach($stmt as $row)
-    {
-      return $row["id"];
-    }
 
+    foreach ($stmt as $row) {
+      if($row["numRows"]>0)
+        return true;
+      else
+        return false;
+    }
   }
 
 }

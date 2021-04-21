@@ -1,13 +1,20 @@
 <?php
 require_once '../includes/header.php';
 require_once '../includes/database.php';
+require_once "..//class/utente.php";
+
+$database = new Database();
+$db = $database->getConnection();
+$utente = new Utente($db);
 
 if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
-    $utente->email = $_SESSION["email"];
-    $utente->password = $_SESSION["password"];
+    //$utente->email = $_POST["email"];
+    //$utente->password = $_POST["password"];
 
-    $utente->login();
+    if($utente->login($_POST["email"], $_POST["password"])) {
+      header("Location: ./logged.php");
+    }
 
 } else {
 ?>
