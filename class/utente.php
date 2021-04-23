@@ -32,7 +32,7 @@ class Utente {
     $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $nome . "','" . $cognome . "','" . $email . "','" . $password . "', 0);";
     $stmt = $this->conn->prepare($sqlQuery);
 
-    /*// sanitize
+    // sanitize
     $this->nome = htmlspecialchars(strip_tags($this->nome));
     $this->cognome = htmlspecialchars(strip_tags($this->cognome));
     $this->email = htmlspecialchars(strip_tags($this->email));
@@ -42,16 +42,14 @@ class Utente {
     $stmt->bindParam(':nome', $this->nome);
     $stmt->bindParam(':cognome', $this->cognome);
     $stmt->bindParam(':email', $this->email);
-    $stmt->bindParam(':password', $this->password);*/
-
-
+    $stmt->bindParam(':password', $this->password);
 
     $stmt->execute();
   }
 
-  public function login($email, $password) {
+  public function login() {
 
-    $sqlQuery = "SELECT *, COUNT(*) AS numRows FROM Utenti WHERE email='" . $email . "' AND password='" . $password . "';";
+    $sqlQuery = "SELECT *, COUNT(*) AS numRows FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "';";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 

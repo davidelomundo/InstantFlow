@@ -1,4 +1,7 @@
 <?php
+session_start();
+
+echo "Benvenuto" . $_SESSION["email"];
 
 ?>
 

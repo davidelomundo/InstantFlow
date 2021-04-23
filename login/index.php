@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once '../includes/header.php';
 require_once '../includes/database.php';
 require_once "..//class/utente.php";
@@ -9,10 +11,11 @@ $utente = new Utente($db);
 
 if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
-    //$utente->email = $_POST["email"];
-    //$utente->password = $_POST["password"];
-
-    if($utente->login($_POST["email"], $_POST["password"])) {
+    $utente->email = $_POST["email"];
+    $utente->password = $_POST["password"];
+    
+    if($utente->login()) {
+      $_SESSION["email"] = $_POST["email"];
       header("Location: ./logged.php");
     }
 

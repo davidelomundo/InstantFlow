@@ -20,11 +20,11 @@ $utente = new Utente($db);
           <h1 class="cover-heading">Sei un nuovo utente?</h1>
           <div class="row justify-content-center">
             <p class="col-1 lead">
-              <a href="./signup/index.php" class="btn btn-lg btn-secondary">Iscriviti</a>
+              <a href="./login/index.php" class="btn btn-lg btn-secondary">Accedi</a>
             </p>
 
             <p class="col-1 lead">
-              <a href="./login/index.php" class="btn btn-lg btn-secondary">Accedi</a>
+              <a href="./signup/index.php" class="btn btn-lg btn-secondary">Iscriviti</a>
             </p>
           </div>
 
@@ -92,5 +92,6 @@ foreach($utente->getUsers() as $row)
 {
     //echo $row['nome'] . "";
 }
+
 require_once 'includes/footer.php';
 ?>
