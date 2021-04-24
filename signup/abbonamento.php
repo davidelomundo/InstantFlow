@@ -1,16 +1,33 @@
 <?php
+session_start();
+require_once "../class/cartaDiCredito.php";
 require_once "../includes/header.php";
+require_once "../includes/database.php";
 
-if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"])) {
-  
+$database = new Database();
+$db = $database->getConnection();
+$carta = new CartaDiCredito($db);
 
+
+if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && isset($_POST["cognomeIntestatario"]) && !empty($_POST["cognomeIntestatario"]) && isset($_POST["numero"]) && !empty($_POST["numero"]) && isset($_POST["scadenza"]) && !empty($_POST["scadenza"]) && isset($_POST["cvv"]) && !empty($_POST["cvv"])) {
+  $carta->nome = $_POST["nomeIntestatario"];
+  $carta->cognome = $_POST["cognomeIntestatario"];
+  $carta->numero = $_POST["numero"];
+  $carta->scadenza = $_POST["scadenza"];
+  $carta->cvv = $_POST["cvv"];
+
+  $carta->idUtente = $_SESSION["idUtente"];
+
+
+  $carta->newPayment();
+  header("Location: ../login/logged.php");
 }
 
 ?>
 <h1 class="text-center">Seleziona abbonamento</h1>
 
 
-<form method="POST" action="../home/index.php">
+<form method="POST">
   <div class="row card-deck mb-3 text-center">
         <div class="col">
           <div class="card mb-4 box-shadow">
@@ -64,8 +81,17 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
     <h4 class="mb-3">Pagamento</h4>
 
               <div class="col-md-6">
-                <label for="cc-name" class="form-label">Intestatario</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                <label for="cc-name" class="form-label">Nome intestatario</label>
+                <input type="text" class="form-control" name="nomeIntestatario" id="cc-name" placeholder="" required="">
+                <small class="text-muted">Full name as displayed on card</small>
+                <div class="invalid-feedback">
+                  Name on card is required
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="cc-lastname" class="form-label">Intestatario</label>
+                <input type="text" class="form-control" name="cognomeIntestatario" id="cc-lastname" placeholder="" required="">
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
                   Name on card is required
@@ -74,7 +100,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
 
               <div class="col-md-6">
                 <label for="cc-number" class="form-label">Numero carta</label>
-                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                <input type="text" class="form-control" name="numero" id="cc-number" placeholder="" required="">
                 <div class="invalid-feedback">
                   Credit card number is required
                 </div>
@@ -82,7 +108,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
 
               <div class="col-md-3">
                 <label for="cc-expiration" class="form-label">Scadenza</label>
-                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                <input type="text" class="form-control" name="scadenza" id="cc-expiration" placeholder="" required="">
                 <div class="invalid-feedback">
                   Expiration date required
                 </div>
@@ -90,7 +116,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
 
               <div class="col-md-3">
                 <label for="cc-cvv" class="form-label">CVV</label>
-                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                <input type="text" class="form-control" name="cvv" id="cc-cvv" placeholder="" required="">
                 <div class="invalid-feedback">
                   Security code required
                 </div>

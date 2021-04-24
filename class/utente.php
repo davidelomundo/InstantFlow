@@ -44,7 +44,7 @@ class Utente {
     $stmt->bindParam(':email', $this->email);
     $stmt->bindParam(':password', $this->password);
 
-    $obj = $stmt->execute();
+    $stmt->execute();
 
     return true;
   }
