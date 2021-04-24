@@ -1,7 +1,10 @@
 <?php
 session_start();
 
-echo "Benvenuto" . $_SESSION["email"];
+require_once "../includes/header.php";
+require_once "../includes/navbar.php";
+
+echo "Benvenuto " . $_SESSION["email"];
 
 ?>
 

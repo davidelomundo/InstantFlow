@@ -23,6 +23,8 @@
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-5">
         <input type="search" class="form-control form-control-dark" placeholder="Search...">
       </form>
+
+      <a type="button" href="destruct.php" class="btn btn-primary">Logout</a>
     </div>
   </div>
 </header>

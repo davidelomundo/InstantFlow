@@ -28,8 +28,8 @@ class Utente {
     return $stmt;
   }
 
-  public function createUser($nome, $cognome, $email, $password) {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $nome . "','" . $cognome . "','" . $email . "','" . $password . "', 0);";
+  public function createUser() {
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $this->nome . "','" . $this->cognome . "','" . $this->email . "','" . $this->password . "', 0);";
     $stmt = $this->conn->prepare($sqlQuery);
 
     // sanitize
@@ -44,7 +44,9 @@ class Utente {
     $stmt->bindParam(':email', $this->email);
     $stmt->bindParam(':password', $this->password);
 
-    $stmt->execute();
+    $obj = $stmt->execute();
+
+    return true;
   }
 
   public function login() {

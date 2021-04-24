@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once "../class/utente.php";
 require_once '../includes/header.php';
 require_once '../includes/database.php';
@@ -9,9 +11,15 @@ $utente = new Utente($db);
 
 if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
-    $utente->createUser($_POST["firstName"], $_POST["lastName"], $_POST["email"], $_POST["password"]);
-
-    header('Location: ./abbonamento.php');
+    $utente->nome = $_POST["firstName"];
+    $utente->cognome = $_POST["lastName"];
+    $utente->email = $_POST["email"];
+    $utente->password = $_POST["password"];
+    
+    if($utente->createUser()) {
+        $_SESSION["email"] = $_POST["email"];
+        header('Location: ./abbonamento.php');
+    }
 } else {
 ?>
 
