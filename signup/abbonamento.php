@@ -1,7 +1,12 @@
 <?php
 require_once "../includes/header.php";
-?>
 
+if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"])) {
+  
+
+}
+
+?>
 <h1 class="text-center">Seleziona abbonamento</h1>
 
 
