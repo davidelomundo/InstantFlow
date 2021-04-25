@@ -64,6 +64,16 @@ class Utente {
     }
   }
 
+  public function getInfo() {
+
+    $sqlQuery = "SELECT * FROM Utenti WHERE id=" . $this->id . ";";
+    $stmt = $this->conn->prepare($sqlQuery);
+    $stmt->execute();
+
+    foreach ($stmt as $row) {
+      echo $row["email"] .  " " . $row["password"];
+    }
+  }
 
 
 }
