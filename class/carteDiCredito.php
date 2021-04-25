@@ -23,7 +23,8 @@ class CartaDiCredito {
 
   // Methods
   public function newPayment() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . "(nome, cognome, numero, scadenza, cvv, idUtente) VALUES ('" . $this->nome . "','" . $this->cognome . "','" . $this->numero . "','" . $this->scadenza . "','" . $this->cvv . "','" . $this->idUtente . ");";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, numero, scadenza, cvv, idUtente) VALUES ('" . $this->nome . "','" . $this->cognome . "','" . $this->numero . "','" . $this->scadenza . "','" . $this->cvv . "','" . 1 . "');";
+    var_dump($sqlQuery);
     $stmt = $this->conn->prepare($sqlQuery);
 
     // bind data
@@ -35,7 +36,6 @@ class CartaDiCredito {
     $stmt->bindParam(':idUtente', $this->idUtente);
 
     $stmt->execute();
-    return $stmt;
   }
 }
 

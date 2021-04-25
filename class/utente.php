@@ -51,18 +51,20 @@ class Utente {
 
   public function login() {
 
-    $sqlQuery = "SELECT *, COUNT(*) AS numRows FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "';";
+    $sqlQuery = "SELECT * FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "';";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 
 
     foreach ($stmt as $row) {
-      if($row["numRows"]>0)
-        return true;
+      if(!empty($row["id"]))
+        return $row["id"];
       else
-        return false;
+        return null;
     }
   }
+
+
 
 }
 ?>
