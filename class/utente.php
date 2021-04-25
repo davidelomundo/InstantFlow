@@ -49,12 +49,26 @@ class Utente {
     return true;
   }
 
-  public function login() {
+  public function loginUser() {
 
-    $sqlQuery = "SELECT * FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "';";
+    $sqlQuery = "SELECT * FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "' AND isAdmin=0;";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 
+
+    foreach ($stmt as $row) {
+      if(!empty($row["id"]))
+        return $row["id"];
+      else
+        return null;
+    }
+  }
+
+  public function loginAdmin() {
+
+    $sqlQuery = "SELECT * FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "' AND isAdmin=1;";
+    $stmt = $this->conn->prepare($sqlQuery);
+    $stmt->execute();
 
     foreach ($stmt as $row) {
       if(!empty($row["id"]))

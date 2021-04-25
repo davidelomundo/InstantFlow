@@ -18,7 +18,7 @@ if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]
     $utente->email = $_POST["email"];
     $utente->password = $_POST["password"];
     
-    $_SESSION["idUtente"] = $utente->login();
+    $_SESSION["idUtente"] = $utente->loginUser();
 
     if(!empty($_SESSION["idUtente"])) {
       header("Location: ./logged.php");
