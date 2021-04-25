@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../class/carteDiCredito.php";
+require_once "../class/cartaDiCredito.php";
 require_once "../includes/header.php";
 require_once "../includes/database.php";
 
@@ -16,11 +16,11 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
   $carta->scadenza = $_POST["scadenza"];
   $carta->cvv = $_POST["cvv"];
 
-  //$carta->idUtente = $_SESSION["idUtente"];
+  $carta->idUtente = $_SESSION["idUtente"];
 
 
   $carta->newPayment();
-  //header("Location: ../login/logged.php");
+  header("Location: ../login/logged.php");
 } else {
 
 ?>
