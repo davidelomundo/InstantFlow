@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once "../class/utente.php";
 require_once '../includes/header.php';
 require_once '../includes/database.php';
@@ -13,10 +13,10 @@ if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]
     $utente->email = $_POST["email"];
     $utente->password = $_POST["password"];
     
-    $_SESSION["idUtente"] = $utente->loginUser();
+    $_SESSION["idAdmin"] = $utente->loginAdmin();
 
-    if(!empty($_SESSION["idUtente"])) {
-      header("Location: ./logged.php");
+    if(!empty($_SESSION["idAdmin"])) {
+      header("Location: logged.php");
     }
 
 } else {

@@ -27,6 +27,7 @@ class Film {
     $stmt = $this->conn->prepare($sqlQuery);
 
     $stmt->execute();
+    return $stmt;
   }
 }
 

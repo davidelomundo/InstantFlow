@@ -51,7 +51,7 @@ class Utente {
 
   public function loginUser() {
 
-    $sqlQuery = "SELECT * FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "' AND isAdmin=0;";
+    $sqlQuery = "SELECT * FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "';";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 
