@@ -8,6 +8,9 @@ $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
 
+if(!empty($_SESSION["idAdmin"])) {
+  header("Location: logged.php");
+}
 if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
 {
     $utente->email = $_POST["email"];

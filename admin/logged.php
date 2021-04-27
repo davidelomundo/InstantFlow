@@ -9,8 +9,8 @@ if(empty($_SESSION["idAdmin"])) {
 }
 
 ?>
-<h1>Benvenuto</h1>
 
 <a href="newAdmin.php" class="btn btn-primary">Admin</a>
 <a href="newFilm.php" class="btn btn-primary">Film</a>
 <a href="newGenre.php" class="btn btn-primary">Genere</a>
+<a href="destruct.php" class="btn btn-danger">Esci</a>
