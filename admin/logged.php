@@ -8,8 +8,10 @@ if(empty($_SESSION["idAdmin"])) {
     header("Location: index.php");
 }
 
-echo $_SESSION["idAdmin"];
 ?>
 <h1>Benvenuto</h1>
 Aggiungere film, admin, categoria
 
+<a href="newAdmin.php" class="btn btn-primary">Admin</a>
+<a href="newFilm.php" class="btn btn-primary">Film</a>
+<a href="newCategory.php" class="btn btn-primary">Categoria</a>
