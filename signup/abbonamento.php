@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once "../class/abbonamento.php";
 require_once "../class/cartaDiCredito.php";
 require_once "../includes/header.php";
 require_once "../includes/database.php";
@@ -7,19 +8,20 @@ require_once "../includes/database.php";
 $database = new Database();
 $db = $database->getConnection();
 $carta = new CartaDiCredito($db);
-
+$abbonamento = new Abbonamento($db);
 
 if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && isset($_POST["cognomeIntestatario"]) && !empty($_POST["cognomeIntestatario"]) && isset($_POST["numero"]) && !empty($_POST["numero"]) && isset($_POST["scadenza"]) && !empty($_POST["scadenza"]) && isset($_POST["cvv"]) && !empty($_POST["cvv"])) {
+  
   $carta->nome = $_POST["nomeIntestatario"];
   $carta->cognome = $_POST["cognomeIntestatario"];
   $carta->numero = $_POST["numero"];
   $carta->scadenza = $_POST["scadenza"];
   $carta->cvv = $_POST["cvv"];
-
   $carta->idUtente = $_SESSION["idUtente"];
-
-
   $carta->newPayment();
+
+  $abbonamento->idCategoria = $_POST["categoriaAbbonamento"];
+
   header("Location: ../login/logged.php");
 } else {
 
@@ -28,7 +30,9 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
 
 
 <form method="POST">
-  <div class="row card-deck mb-3 text-center">
+<div class="container">
+  <div class="card-deck mb-3 text-center">
+    <div class="row">
         <div class="col">
           <div class="card mb-4 box-shadow">
             <div class="card-header">
@@ -39,7 +43,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Risoluzione 720p</li>
               </ul>
-              <input type="radio" class="btn-check" name="options-outlined" id="basic-outlined" autocomplete="off" checked>
+              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="basic-outlined" autocomplete="off" value="1" checked>
               <label class="btn btn-lg btn-block btn-outline-primary" for="basic-outlined">Seleziona</label>          </div>
           </div>
         </div>
@@ -54,7 +58,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Risoluzione 1080p</li>
               </ul>
-              <input type="radio" class="btn-check" name="options-outlined" id="plus-outlined" autocomplete="off">
+              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="plus-outlined" autocomplete="off" value="2">
               <label class="btn btn-lg btn-block btn-outline-primary" for="plus-outlined">Seleziona</label>          </div>
           </div>
         </div>
@@ -69,12 +73,14 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Risoluzione 2160p</li>
               </ul>
-              <input type="radio" class="btn-check" name="options-outlined" id="pro-outlined" autocomplete="off">
+              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="pro-outlined" autocomplete="off">
               <label class="btn btn-lg btn-block btn-outline-primary" for="pro-outlined">Seleziona</label>
             </div>
           </div>
         </div>
+    </div>
   </div>
+</div>
 
 
   <div class="container row gy-3">
@@ -82,7 +88,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
 
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Nome intestatario</label>
-                <input type="text" class="form-control" name="nomeIntestatario" id="cc-name" placeholder="" required="">
+                <input type="text" class="form-control" name="nomeIntestatario" id="cc-name" placeholder="" required="" value="3">
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
                   Name on card is required

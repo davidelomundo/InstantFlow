@@ -15,18 +15,11 @@ $film = new Film($db);
 if(empty($_SESSION["idUtente"]))
     header("Location: ../index.php");
 
-echo "Benvenuto idUtente: " . $_SESSION["idUtente"] . "<br>";
-echo "I tuoi dati: ";
-
-$utente->id = $_SESSION["idUtente"];
-$utente->getInfo();
-
 $stmt = $film->getFilms();
 
 ?>
 
 <h1 class="text-center">Accesso eseguito</h1>
-
 
 
 <div class="album py-5 bg-light">

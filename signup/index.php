@@ -17,7 +17,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
     $utente->password = $_POST["password"];
     
     $utente->createUser();
-    $_SESSION["idUtente"] = $utente->login();
+    $_SESSION["idUtente"] = $utente->loginUser();
 
     if($utente->createUser()) {
         header('Location: ./abbonamento.php');
