@@ -1,26 +1,25 @@
 <?php
 session_start();
-require_once "../class/utente.php";
+require_once "../class/film.php";
 require_once '../includes/header.php';
 require_once '../includes/database.php';
 
 $database = new Database();
 $db = $database->getConnection();
-$utente = new Utente($db);
+$film = new Film($db);
 
 if(empty($_SESSION["idAdmin"])) {
     header("Location: index.php");
 }
 
 
-if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
+if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizione"]) && !empty($_POST["descrizione"]) && isset($_POST["dataUscita"]) && !empty($_POST["dataUscita"]))
 {
-    $utente->nome = $_POST["firstName"];
-    $utente->cognome = $_POST["lastName"];
-    $utente->email = $_POST["email"];
-    $utente->password = $_POST["password"];
-    
-    $utente->createAdmin();
+    $film->titolo = $_POST["titolo"];
+    $film->dataUscita = "2002-12-05";//$_POST["dataUscita"];
+    $film->descrizione = $_POST["descrizione"];
+
+    $film->createFilm();
 
     header('Location: ./index.php');
 } else {
@@ -51,13 +50,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
         </div>
 
         <label for="email" class="form-label">Data</label>
-            <input type="date" name="data" class="form-control" id="data" placeholder="" required="">
-            <div class="invalid-feedback">
-            Please enter a valid email address for shipping updates.
-            </div>
-
-        <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="">
+            <input type="date" name="dataUscita" class="form-control" id="dataUscita" placeholder="" required="">
             <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
             </div>

@@ -21,6 +21,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
   $carta->newPayment();
 
   $abbonamento->idCategoria = $_POST["categoriaAbbonamento"];
+  $abbonamento->newAbbonamento();
 
   header("Location: ../login/logged.php");
 } else {
@@ -73,7 +74,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Risoluzione 2160p</li>
               </ul>
-              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="pro-outlined" autocomplete="off">
+              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="pro-outlined" autocomplete="off" value="3">
               <label class="btn btn-lg btn-block btn-outline-primary" for="pro-outlined">Seleziona</label>
             </div>
           </div>
@@ -88,7 +89,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
 
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Nome intestatario</label>
-                <input type="text" class="form-control" name="nomeIntestatario" id="cc-name" placeholder="" required="" value="3">
+                <input type="text" class="form-control" name="nomeIntestatario" id="cc-name" placeholder="" required="">
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
                   Name on card is required

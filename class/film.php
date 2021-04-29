@@ -9,16 +9,26 @@ class Film {
 
   // Properties
   public $id;
-  public $nome;
-  public $cognome;
-  public $numero;
-  public $scadenza;
-  public $cvv;
-  public $idUtente;
+  public $titolo;
+  public $dataUscita;
+  public $descrizione;
 
   // db connection
   public function __construct($db) {
     $this->conn = $db;
+  }
+
+  public function createFilm() {
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (titolo, dataUscita, descrizione) VALUES ('" . $this->titolo . "', '" . $this->dataUscita . "', '" . $this->descrizione . "');";
+    var_dump($sqlQuery);
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    // bind data
+    $stmt->bindParam(':titolo', $this->titolo);
+    $stmt->bindParam(':dataUscita', $this->dataUscita);
+    $stmt->bindParam(':descrizione', $this->descrizione);
+
+    $stmt->execute();
   }
 
   // Methods
