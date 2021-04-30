@@ -15,7 +15,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
   $carta->nome = $_POST["nomeIntestatario"];
   $carta->cognome = $_POST["cognomeIntestatario"];
   $carta->numero = $_POST["numero"];
-  $carta->scadenza = $_POST["scadenza"];
+  $carta->scadenza = date('Y-m-d', strtotime($_POST["scadenza"]));
   $carta->cvv = $_POST["cvv"];
   $carta->idUtente = $_SESSION["idUtente"];
   $carta->newPayment();
@@ -97,7 +97,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
               </div>
 
               <div class="col-md-6">
-                <label for="cc-lastname" class="form-label">Intestatario</label>
+                <label for="cc-lastname" class="form-label">Cognome intestatario</label>
                 <input type="text" class="form-control" name="cognomeIntestatario" id="cc-lastname" placeholder="" required="">
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
@@ -115,7 +115,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
 
               <div class="col-md-3">
                 <label for="cc-expiration" class="form-label">Scadenza</label>
-                <input type="text" class="form-control" name="scadenza" id="cc-expiration" placeholder="" required="">
+                <input type="date" class="form-control" name="scadenza" id="cc-expiration" placeholder="" required="">
                 <div class="invalid-feedback">
                   Expiration date required
                 </div>

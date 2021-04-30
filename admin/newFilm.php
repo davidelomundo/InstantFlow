@@ -16,7 +16,7 @@ if(empty($_SESSION["idAdmin"])) {
 if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizione"]) && !empty($_POST["descrizione"]) && isset($_POST["dataUscita"]) && !empty($_POST["dataUscita"]))
 {
     $film->titolo = $_POST["titolo"];
-    $film->dataUscita = "2002-12-05";//$_POST["dataUscita"];
+    $film->dataUscita = date('Y-m-d', strtotime($_POST["dataUscita"]));
     $film->descrizione = $_POST["descrizione"];
 
     $film->createFilm();
