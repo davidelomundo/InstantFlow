@@ -39,6 +39,18 @@ class Film {
     $stmt->execute();
     return $stmt;
   }
+
+    // Methods
+    public function findFilm() {
+      $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE titolo LIKE '%" . $this->titolo . "%';";
+      $stmt = $this->conn->prepare($sqlQuery);
+
+      // bind data
+      $stmt->bindParam(':titolo', $this->titolo);
+
+      $stmt->execute();
+      return $stmt;
+    }
 }
 
 ?>
