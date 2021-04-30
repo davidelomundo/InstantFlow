@@ -8,14 +8,14 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="index.php" class="nav-link px-2 text-secondary">Home</a></li>
 
-        <li class="nav-item dropdown show">
-              <a class="nav-link dropdown-toggle" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Profilo</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown07">
-                <a class="dropdown-item" href="#">Impostazioni</a>
-                <a class="dropdown-item" href="#">Abbonamento</a>
-                <a class="dropdown-item" href="#">Cronologia</a>
-              </div>
-        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Profilo</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown04">
+              <li><a class="dropdown-item" href="#">Impostazioni</a></li>
+              <li><a class="dropdown-item" href="#">Abbonamento</a></li>
+              <li><a class="dropdown-item" href="#">Cronologia</a></li>
+            </ul>
+          </li>
 
         <li><a href="cronologia.php" class="nav-link px-2 text-white">Categorie</a></li>
       </ul>

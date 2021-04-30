@@ -19,9 +19,6 @@ $stmt = $film->getFilms();
 
 ?>
 
-<h1 class="text-center">Accesso eseguito</h1>
-
-
 <div class="album py-5 bg-light">
     <div class="container">
 
@@ -29,7 +26,7 @@ $stmt = $film->getFilms();
       <?php foreach ($stmt as $film) {?>
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Immagine</text></svg>
+            <a href="default.asp"><img src="immagine.jpg" width="100%" height="100%"></a>
 
             <div class="card-body">
               <p class="card-text"><?php echo $film["titolo"] ?></p>

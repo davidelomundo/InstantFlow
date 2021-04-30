@@ -26,6 +26,7 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
 ?>
 
 
+
 <h1 class="text-center">Esegui l'iscrizione</h1>
 
 <div class="container">
