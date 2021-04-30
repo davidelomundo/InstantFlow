@@ -13,10 +13,14 @@ $utente = new Utente($db);
 $film = new Film($db);
 
 if(empty($_SESSION["idUtente"]))
-    header("Location: ../index.php");
+  header("Location: ../index.php");
 
-$stmt = $film->getFilms();
-
+if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
+  $film->titolo= $_GET["ricerca"];
+  $stmt = $film->findFilm();
+} else {
+  $stmt = $film->getFilms();
+}
 ?>
 
 <div class="album py-5 bg-light">

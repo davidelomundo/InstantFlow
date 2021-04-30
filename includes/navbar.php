@@ -11,17 +11,17 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Profilo</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown04">
-              <li><a class="dropdown-item" href="#">Impostazioni</a></li>
-              <li><a class="dropdown-item" href="#">Abbonamento</a></li>
-              <li><a class="dropdown-item" href="#">Cronologia</a></li>
+              <li><a class="dropdown-item" href="settings.php">Impostazioni</a></li>
+              <li><a class="dropdown-item" href="abbonamento.php">Abbonamento</a></li>
+              <li><a class="dropdown-item" href="history.php">Cronologia</a></li>
             </ul>
           </li>
 
         <li><a href="cronologia.php" class="nav-link px-2 text-white">Categorie</a></li>
       </ul>
 
-      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-5">
-        <input type="search" class="form-control form-control-dark" placeholder="Search...">
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-5" method="GET">
+        <input type="search" name="ricerca" class="form-control form-control-dark" placeholder="Search...">
       </form>
 
       <a type="button" href="destruct.php" class="btn btn-primary">Logout</a>

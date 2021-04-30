@@ -3,11 +3,12 @@ session_start();
 
 require_once '../includes/header.php';
 require_once '../includes/database.php';
-require_once "..//class/utente.php";
+require_once "../class/utente.php";
 
 $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
+$film = new Film($db);
 
 if(isset($_SESSION["idUtente"]) && !empty($_SESSION["idUtente"])) {
   header("Location: logged.php");
