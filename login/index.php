@@ -9,7 +9,7 @@ $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
 
-if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) {
+if(isset($_SESSION["idUtente"]) && !empty($_SESSION["idUtente"])) {
   header("Location: logged.php");
 }
 
