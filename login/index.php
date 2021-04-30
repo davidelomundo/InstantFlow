@@ -8,7 +8,6 @@ require_once "../class/utente.php";
 $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
-$film = new Film($db);
 
 if(isset($_SESSION["idUtente"]) && !empty($_SESSION["idUtente"])) {
   header("Location: logged.php");
