@@ -4,7 +4,6 @@ session_start();
 require_once "../includes/database.php";
 require_once "../class/utente.php";
 require_once "../class/film.php";
-require_once "../class/videoStream.php";
 require_once "../includes/header.php";
 require_once "../includes/navbar.php";
 
@@ -12,22 +11,18 @@ $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
 $film = new Film($db);
-$stream = new VideoStream("../resources/Ratchet.mp4");
-//$stream->start();
 
 if(empty($_SESSION["idUtente"]))
   header("Location: ../index.php");
 
 if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
   $film->titolo= $_GET["ricerca"];
-  $stmt = $film->findFilm();
+  $stmt = $film->findFilms();
 } else {
   $stmt = $film->getFilms();
 }
 
 ?>
-
-
 
 <div class="album py-5 bg-light">
     <div class="container">
@@ -36,7 +31,7 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
       <?php foreach ($stmt as $film) {?>
         <div class="col">
           <div class="card shadow-sm">
-            <a href=""><img src="<?= "../resources/" . $film["titolo"] . "/anteprima.jpg"?>" width="100%" height="100%"></a>
+            <a href=<?= "view.php/?id=" . $film["id"]?>><img src="<?= "../resources/" . $film["id"] . "/anteprima.jpg"?>" width="100%" height="100%"></a>
 
             <div class="card-body">
               <p class="card-text"><?php echo $film["titolo"] ?></p>
@@ -44,7 +39,7 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
               <p class="card-text"><?php echo $film["descrizione"] ?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a type="button" class="btn btn-sm btn-outline-secondary" href=<?= "view.php/?titolo=" . $film["titolo"]?>>Avvia</a>
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href=<?= "view.php/?id=" . $film["id"]?>>Avvia</a>
                 </div>
                 <small class="text-muted"><?php echo date('d/m/Y', strtotime($film["dataUscita"])) ?></small>
               </div>

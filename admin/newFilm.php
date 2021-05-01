@@ -19,9 +19,11 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
     $film->dataUscita = date('Y-m-d', strtotime($_POST["dataUscita"]));
     $film->descrizione = $_POST["descrizione"];
 
-    $film->createFilm();
+    mkdir("testad", 0777, true);
 
-    header('Location: ./index.php');
+    //$film->createFilm();
+
+    //header('Location: ./index.php');
 } else {
 ?>
 
@@ -52,6 +54,18 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
 
         <label for="email" class="form-label">Data</label>
             <input type="date" name="dataUscita" class="form-control" id="dataUscita" placeholder="" required="">
+            <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+            </div>
+        
+        <label for="email" class="form-label">Anteprima</label>
+            <input type="file" accept="image/*" name="anteprima" class="form-control" id="anteprima" placeholder="" required="">
+            <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+            </div>
+
+        <label for="email" class="form-label">Film</label>
+            <input type="file" accept="video/*" name="film" class="form-control" id="film" placeholder="" required="">
             <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
             </div>

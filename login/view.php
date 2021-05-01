@@ -12,7 +12,7 @@ $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
 $film = new Film($db);
-$stream = new VideoStream("../resources/" . $_GET["titolo"] . "/film.mp4");
+$stream = new VideoStream("../resources/" . $_GET["id"] . "/film.mp4");
 $stream->start();
 
 if(empty($_SESSION["idUtente"]))

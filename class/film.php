@@ -10,8 +10,8 @@ class Film {
   // Properties
   public $id;
   public $titolo;
-  public $dataUscita;
   public $descrizione;
+  public $dataUscita;
 
   // db connection
   public function __construct($db) {
@@ -20,7 +20,6 @@ class Film {
 
   public function createFilm() {
     $sqlQuery = "INSERT INTO " . $this->db_table . " (titolo, dataUscita, descrizione) VALUES ('" . $this->titolo . "', '" . $this->dataUscita . "', '" . $this->descrizione . "');";
-    var_dump($sqlQuery);
     $stmt = $this->conn->prepare($sqlQuery);
 
     // bind data
@@ -41,7 +40,7 @@ class Film {
   }
 
     // Methods
-    public function findFilm() {
+    public function findFilms() {
       $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE titolo LIKE '%" . $this->titolo . "%';";
       $stmt = $this->conn->prepare($sqlQuery);
 
