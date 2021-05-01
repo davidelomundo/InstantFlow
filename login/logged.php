@@ -13,7 +13,7 @@ $db = $database->getConnection();
 $utente = new Utente($db);
 $film = new Film($db);
 $stream = new VideoStream("../resources/Ratchet.mp4");
-$stream->start();
+//$stream->start();
 
 if(empty($_SESSION["idUtente"]))
   header("Location: ../index.php");
@@ -36,7 +36,7 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
       <?php foreach ($stmt as $film) {?>
         <div class="col">
           <div class="card shadow-sm">
-            <a href="default.asp"><img src="immagine.jpg" width="100%" height="100%"></a>
+            <a href="default.asp"><img src="<?= "../resources/" . $film["titolo"] . "/anteprima.jpg"?>" width="100%" height="100%"></a>
 
             <div class="card-body">
               <p class="card-text"><?php echo $film["titolo"] ?></p>
