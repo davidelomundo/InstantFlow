@@ -36,7 +36,7 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
       <?php foreach ($stmt as $film) {?>
         <div class="col">
           <div class="card shadow-sm">
-            <a href="default.asp"><img src="<?= "../resources/" . $film["titolo"] . "/anteprima.jpg"?>" width="100%" height="100%"></a>
+            <a href=""><img src="<?= "../resources/" . $film["titolo"] . "/anteprima.jpg"?>" width="100%" height="100%"></a>
 
             <div class="card-body">
               <p class="card-text"><?php echo $film["titolo"] ?></p>
@@ -44,7 +44,7 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
               <p class="card-text"><?php echo $film["descrizione"] ?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a type="button" class="btn btn-sm btn-outline-secondary" href="<?= $film["id"]?>">Avvia</a>
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href=<?= "view.php/?titolo=" . $film["titolo"]?>>Avvia</a>
                 </div>
                 <small class="text-muted"><?php echo date('d/m/Y', strtotime($film["dataUscita"])) ?></small>
               </div>
