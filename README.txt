@@ -1,1 +1,4 @@
 - Gestione redirect
+- Thread streaming
+- Upload file
+- Gestione risoluzione

@@ -19,11 +19,11 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
     $film->dataUscita = date('Y-m-d', strtotime($_POST["dataUscita"]));
     $film->descrizione = $_POST["descrizione"];
 
-    mkdir("testad", 0777, true);
+    //mkdir("testad", 0777, true);
 
-    //$film->createFilm();
+    $film->createFilm();
 
-    //header('Location: ./index.php');
+    header('Location: ./index.php');
 } else {
 ?>
 
