@@ -1,5 +1,5 @@
 <?php
-class Genere {
+class Appartiene {
 
   // connection
   private $conn;
@@ -8,8 +8,8 @@ class Genere {
   private $db_table = "Generi";
 
   // Properties
-  public $id;
-  public $nome;
+  public $idGenere;
+  public $idFilm;
 
   // db connection
   public function __construct($db) {

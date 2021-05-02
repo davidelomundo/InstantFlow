@@ -39,17 +39,24 @@ class Film {
     return $stmt;
   }
 
-    // Methods
-    public function findFilms() {
-      $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE titolo LIKE '%" . $this->titolo . "%';";
-      $stmt = $this->conn->prepare($sqlQuery);
+  public function findFilms() {
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE titolo LIKE '%" . $this->titolo . "%';";
+    $stmt = $this->conn->prepare($sqlQuery);
 
-      // bind data
-      $stmt->bindParam(':titolo', $this->titolo);
+    // bind data
+    $stmt->bindParam(':titolo', $this->titolo);
 
-      $stmt->execute();
-      return $stmt;
-    }
+    $stmt->execute();
+    return $stmt;
+  }
+
+  public function getFilmsByGenre($idGenere) {
+    $sqlQuery = "SELECT Films.* FROM " . $this->db_table . " JOIN Appartiene ON Films.id=Appartiene.idFilm WHERE Appartiene.idGenere='" . $idGenere . "';";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->execute();
+    return $stmt;
+  }
 }
 
 ?>

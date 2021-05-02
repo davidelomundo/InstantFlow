@@ -17,7 +17,7 @@
             </ul>
           </li>
 
-        <li><a href="cronologia.php" class="nav-link px-2 text-white">Categorie</a></li>
+        <li><a href="generi.php" class="nav-link px-2 text-white">Generi</a></li>
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-5" method="GET">
