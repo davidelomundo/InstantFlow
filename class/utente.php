@@ -28,6 +28,15 @@ class Utente {
     return $stmt;
   }
 
+  public function updateUser() {
+    $sqlQuery = "UPDATE " . $this->db_table . " SET nome='" . $this->nome . "', cognome='" . $this->cognome . "', email='" . $this->email . "', password='" . $this->password . "' WHERE id='" . $this->id . "';";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->execute();
+
+    return true;
+  }
+
   public function createUser() {
     $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $this->nome . "','" . $this->cognome . "','" . $this->email . "','" . $this->password . "', 0);";
     $stmt = $this->conn->prepare($sqlQuery);
@@ -106,10 +115,9 @@ class Utente {
     $stmt->execute();
 
     foreach ($stmt as $row) {
-      echo $row["email"] .  " " . $row["password"];
+      return $row;
     }
   }
-
 
 }
 ?>
