@@ -28,6 +28,11 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
   $stmt = $film->getFilms();
 }
 
+chdir("../resources/");
+echo getcwd();
+
+rmdir("77");
+mkdir("prova");
 ?>
 
 <div class="album py-5 bg-light">
