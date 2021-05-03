@@ -31,6 +31,13 @@ class Film {
   }
 
   // Methods
+  public function delete() {
+    $sqlQuery = "DELETE FROM " . $this->db_table . " WHERE id='" . $this->id . "';";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->execute();
+  }
+
   public function getFilms() {
     $sqlQuery = "SELECT * FROM " . $this->db_table . ";";
     $stmt = $this->conn->prepare($sqlQuery);

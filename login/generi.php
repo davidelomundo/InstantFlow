@@ -22,7 +22,7 @@ $stmtGenere = $genere->getGenres();
 
 foreach($stmtGenere as $rowGenere) {
   
-  echo $rowGenere["nome"] . "<hr>";
+  echo "<div class=\"container\"> " . $rowGenere["nome"] . "<hr></div>";
 
   $stmtFilm = $film->getFilmsByGenre($rowGenere["id"]);
 
