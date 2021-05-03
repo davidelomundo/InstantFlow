@@ -18,6 +18,8 @@ if(empty($_SESSION["idAdmin"])) {
 if(isset($_GET["removeFilm"]) && !empty($_GET["removeFilm"])) {
     $film->id = $_GET["removeFilm"];
     $film->delete();
+    //rmdir();
+    system("rm -rf ".escapeshellarg("../resources/" . $_GET["removeFilm"]));
     header("Location: index.php");
 }
 
@@ -28,11 +30,8 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
   $stmt = $film->getFilms();
 }
 
-chdir("../resources/");
-echo getcwd();
 
-rmdir("77");
-mkdir("prova");
+
 ?>
 
 <div class="album py-5 bg-light">

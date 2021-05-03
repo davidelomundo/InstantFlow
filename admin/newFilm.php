@@ -18,12 +18,18 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
     $film->titolo = $_POST["titolo"];
     $film->dataUscita = date('Y-m-d', strtotime($_POST["dataUscita"]));
     $film->descrizione = $_POST["descrizione"];
-
-    //mkdir("testad", 0777, true);
-
     $film->createFilm();
 
-    header('Location: ./index.php');
+    $rowFilm = $film->getInfo();
+    mkdir("../resources/" . $rowFilm["id"]);
+
+    echo "Percorso: " . $_FILES["anteprima"]["tmp_name"] . $_POST["anteprima"];
+
+    if(move_uploaded_file($_FILES["anteprima"]["tmp_name"], "../resources/5/")) {
+        echo "Ok";
+    }
+
+    //header('Location: ./index.php');
 } else {
 ?>
 

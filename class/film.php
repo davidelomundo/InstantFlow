@@ -64,6 +64,17 @@ class Film {
     $stmt->execute();
     return $stmt;
   }
+
+  public function getInfo() {
+    $sqlQuery = "SELECT Films.* FROM " . $this->db_table . " WHERE titolo='" . $this->titolo . "';";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->execute();
+
+    foreach($stmt as $row) {
+      return $row;
+    }
+  }
 }
 
 ?>
