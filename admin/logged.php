@@ -18,7 +18,6 @@ if(empty($_SESSION["idAdmin"])) {
 if(isset($_GET["removeFilm"]) && !empty($_GET["removeFilm"])) {
     $film->id = $_GET["removeFilm"];
     $film->delete();
-    //rmdir();
     system("rm -rf ".escapeshellarg("../resources/" . $_GET["removeFilm"]));
     header("Location: index.php");
 }
@@ -49,6 +48,7 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
               <p class="card-text"><?php echo $film["descrizione"] ?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
+                  <a type="button" class="btn btn-sm btn-outline-primary" href="addGenre.php">Aggiungi genere</a>
                   <a type="button" class="btn btn-sm btn-outline-danger" href=<?= "?removeFilm=" . $film["id"]?>>Elimina</a>
                 </div>
                 <small class="text-muted"><?php echo date('d/m/Y', strtotime($film["dataUscita"])) ?></small>
