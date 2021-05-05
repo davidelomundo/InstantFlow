@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 require_once "../class/film.php";
 require_once '../includes/header.php';
@@ -23,13 +26,10 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
     $rowFilm = $film->getInfo();
     mkdir("../resources/" . $rowFilm["id"]);
 
-    echo "Percorso: " . $_FILES["anteprima"]["tmp_name"] . $_POST["anteprima"];
+    move_uploaded_file($_FILES["anteprima"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/anteprima.jpg");
+    move_uploaded_file($_FILES["film"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/film.mp4");
 
-    if(move_uploaded_file($_FILES["anteprima"]["tmp_name"], "../resources/5/")) {
-        echo "Ok";
-    }
-
-    //header('Location: ./index.php');
+    header('Location: ./index.php');
 } else {
 ?>
 
@@ -39,7 +39,7 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
 
 <div class="container">
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-6">
                 <label for="titolo" class="form-label">Titolo</label>
