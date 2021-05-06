@@ -49,7 +49,7 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a type="button" class="btn btn-sm btn-outline-primary" href="addGenre.php">Aggiungi genere</a>
-                  <a type="button" class="btn btn-sm btn-outline-danger" href=<?= "?removeFilm=" . $film["id"]?>>Elimina</a>
+                  <a type="button" class="btn btn-sm btn-outline-danger" href=<?= "?removeFilm=" . $film["id"]?>><i class="bi bi-trash"></i></a>
                 </div>
                 <small class="text-muted"><?php echo date('d/m/Y', strtotime($film["dataUscita"])) ?></small>
               </div>

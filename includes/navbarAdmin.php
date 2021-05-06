@@ -17,7 +17,7 @@
         <input type="search" name="ricerca" class="form-control form-control-dark" placeholder="Search...">
       </form>
 
-      <a type="button" href="destruct.php" class="btn btn-primary">Logout</a>
+      <a type="button" href="destruct.php" class="btn btn-primary"><i class="bi bi-power"></i></a>
     </div>
   </div>
 </header>

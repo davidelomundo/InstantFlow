@@ -11,9 +11,9 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Profilo</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown04">
-              <li><a class="dropdown-item" href="settings.php">Impostazioni</a></li>
-              <li><a class="dropdown-item" href="abbonamento.php">Abbonamento</a></li>
-              <li><a class="dropdown-item" href="history.php">Cronologia</a></li>
+              <li><a class="dropdown-item" href="settings.php">Impostazioni <i class="bi bi-gear"></i></a></li>
+              <li><a class="dropdown-item" href="abbonamento.php">Abbonamento <i class="bi bi-credit-card-2-front-fill"></i></a></li>
+              <li><a class="dropdown-item" href="history.php">Cronologia <i class="bi bi-clock-history"></i></a></li>
             </ul>
           </li>
 
@@ -24,7 +24,7 @@
         <input type="search" name="ricerca" class="form-control form-control-dark" placeholder="Search...">
       </form>
 
-      <a type="button" href="destruct.php" class="btn btn-primary">Logout</a>
+      <a type="button" href="destruct.php" class="btn btn-primary"><i class="bi bi-power"></i></a>
     </div>
   </div>
 </header>
