@@ -2,6 +2,7 @@
 session_start();
 
 require_once "class/utente.php";
+require_once "class/film.php";
 require_once 'includes/header.php';
 require_once 'includes/database.php';
 
@@ -81,6 +82,10 @@ $utente = new Utente($db);
       </div>
     </div>
   </div>
+
+<hr>
+<?php echo "Numero utenti: " . $utente->count()["count"]; ?>
+
 </div>
 
 <?php

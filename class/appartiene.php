@@ -26,10 +26,11 @@ class Appartiene {
   }
 
   public function newGenre() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome) VALUES ('" . $this->nome . "');";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome) VALUES (:nome);";
     $stmt = $this->conn->prepare($sqlQuery);
 
-    // bind data
+    $this->nome = htmlspecialchars(strip_tags($this->nome));
+
     $stmt->bindParam(':nome', $this->nome);
 
     $stmt->execute();

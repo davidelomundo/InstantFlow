@@ -14,7 +14,7 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
     $utente->nome = $_POST["firstName"];
     $utente->cognome = $_POST["lastName"];
     $utente->email = $_POST["email"];
-    $utente->password = $_POST["password"];
+    $utente->password = password_hash($_POST["password"], PASSWORD_DEFAULT);
     
     $utente->createUser();
     $_SESSION["idUtente"] = $utente->loginUser();

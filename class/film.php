@@ -47,10 +47,12 @@ class Film {
   }
 
   public function findFilms() {
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE titolo LIKE '%" . $this->titolo . "%';";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE titolo LIKE :titolo;";
     $stmt = $this->conn->prepare($sqlQuery);
 
-    // bind data
+    $this->titolo = htmlspecialchars(strip_tags($this->titolo));
+
+    $this->titolo = "%" . $this->titolo . "%";
     $stmt->bindParam(':titolo', $this->titolo);
 
     $stmt->execute();
@@ -58,7 +60,7 @@ class Film {
   }
 
   public function getFilmsByGenre($idGenere) {
-    $sqlQuery = "SELECT Films.* FROM " . $this->db_table . " JOIN Appartiene ON Films.id=Appartiene.idFilm WHERE Appartiene.idGenere='" . $idGenere . "';";
+    $sqlQuery = "SELECT " . $this->db_table . "* FROM " . $this->db_table . " JOIN Appartiene ON Films.id=Appartiene.idFilm WHERE Appartiene.idGenere='" . $idGenere . "';";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $stmt->execute();
@@ -66,8 +68,12 @@ class Film {
   }
 
   public function getInfo() {
-    $sqlQuery = "SELECT Films.* FROM " . $this->db_table . " WHERE titolo='" . $this->titolo . "';";
+    $sqlQuery = "SELECT " . $this->db_table . ".* FROM " . $this->db_table . " WHERE titolo=:titolo;";
     $stmt = $this->conn->prepare($sqlQuery);
+
+    $this->titolo = htmlspecialchars(strip_tags($this->titolo));
+
+    $stmt->bindParam(':titolo', $this->titolo);
 
     $stmt->execute();
 

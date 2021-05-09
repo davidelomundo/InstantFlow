@@ -28,7 +28,6 @@ foreach($stmtGenere as $rowGenere) {
 
 //SELECT * FROM Films JOIN Appartiene ON Films.id=Appartiene.idFilm JOIN Generi ON Appartiene.idGenere=Generi.id WHERE Generi.id= $this->id;
 
-
 ?>
 
 <div class="album py-5 bg-light">

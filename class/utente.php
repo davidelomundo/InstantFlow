@@ -29,8 +29,22 @@ class Utente {
   }
 
   public function updateUser() {
-    $sqlQuery = "UPDATE " . $this->db_table . " SET nome='" . $this->nome . "', cognome='" . $this->cognome . "', email='" . $this->email . "', password='" . $this->password . "' WHERE id='" . $this->id . "';";
+    $sqlQuery = "UPDATE " . $this->db_table . " SET nome=:nome, cognome=:cognome, email=:email, password=:password WHERE id=:id;";
     $stmt = $this->conn->prepare($sqlQuery);
+
+        // sanitize
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->nome = htmlspecialchars(strip_tags($this->nome));
+        $this->cognome = htmlspecialchars(strip_tags($this->cognome));
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->psw = htmlspecialchars(strip_tags($this->password));
+    
+        // bind data
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':cognome', $this->cognome);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':password', $this->password);
 
     $stmt->execute();
 
@@ -38,7 +52,7 @@ class Utente {
   }
 
   public function createUser() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $this->nome . "','" . $this->cognome . "','" . $this->email . "','" . $this->password . "', 0);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, :email, :password, 0);";
     $stmt = $this->conn->prepare($sqlQuery);
 
     // sanitize
@@ -59,7 +73,7 @@ class Utente {
   }
 
   public function createAdmin() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES ('" . $this->nome . "','" . $this->cognome . "','" . $this->email . "','" . $this->password . "', 1);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, :email, :password, 1);";
     $stmt = $this->conn->prepare($sqlQuery);
 
     // sanitize
@@ -81,10 +95,16 @@ class Utente {
 
   public function loginUser() {
 
-    $sqlQuery = "SELECT * FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "';";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=:email AND password=:password;";
     $stmt = $this->conn->prepare($sqlQuery);
-    $stmt->execute();
 
+    $this->email = htmlspecialchars(strip_tags($this->email));
+    $this->psw = htmlspecialchars(strip_tags($this->password));
+
+    $stmt->bindParam(':email', $this->email);
+    $stmt->bindParam(':password', $this->password);
+
+    $stmt->execute();
 
     foreach ($stmt as $row) {
       if(!empty($row["id"]))
@@ -96,8 +116,15 @@ class Utente {
 
   public function loginAdmin() {
 
-    $sqlQuery = "SELECT * FROM Utenti WHERE email='" . $this->email . "' AND password='" . $this->password . "' AND isAdmin=1;";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=:email AND password=:password AND isAdmin=1;";
     $stmt = $this->conn->prepare($sqlQuery);
+
+    $this->email = htmlspecialchars(strip_tags($this->email));
+    $this->psw = htmlspecialchars(strip_tags($this->password));
+
+    $stmt->bindParam(':email', $this->email);
+    $stmt->bindParam(':password', $this->password);
+
     $stmt->execute();
 
     foreach ($stmt as $row) {
@@ -110,7 +137,18 @@ class Utente {
 
   public function getInfo() {
 
-    $sqlQuery = "SELECT * FROM Utenti WHERE id=" . $this->id . ";";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
+    $stmt = $this->conn->prepare($sqlQuery);
+    $stmt->execute();
+
+    foreach ($stmt as $row) {
+      return $row;
+    }
+  }
+
+  public function count() {
+
+    $sqlQuery = "SELECT COUNT(*) as count FROM " . $this->db_table . ";";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 
