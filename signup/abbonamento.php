@@ -1,14 +1,22 @@
 <?php
 session_start();
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once "../class/abbonamento.php";
 require_once "../class/cartaDiCredito.php";
-require_once "../includes/header.php";
+require_once "../class/categoria.php";
+
 require_once "../includes/database.php";
+require_once "../includes/header.php";
 
 $database = new Database();
 $db = $database->getConnection();
 $carta = new CartaDiCredito($db);
 $abbonamento = new Abbonamento($db);
+$categoria = new Categoria($db);
 
 if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && isset($_POST["cognomeIntestatario"]) && !empty($_POST["cognomeIntestatario"]) && isset($_POST["numero"]) && !empty($_POST["numero"]) && isset($_POST["scadenza"]) && !empty($_POST["scadenza"]) && isset($_POST["cvv"]) && !empty($_POST["cvv"])) {
   
@@ -26,6 +34,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
   header("Location: ../login/logged.php");
 } else {
 
+  $stmtCategoria = $categoria->getCategory();
 ?>
 <h1 class="text-center">Seleziona abbonamento</h1>
 
@@ -34,51 +43,22 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
 <div class="container">
   <div class="card-deck mb-3 text-center">
     <div class="row">
+    <?php foreach($stmtCategoria as $rowCategoria) { ?>
         <div class="col">
           <div class="card mb-4 box-shadow">
             <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Basic</h4>
+              <h4 class="my-0 font-weight-normal"><?php echo $rowCategoria["nome"] ?></h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">€7,99 <small class="text-muted">/ mese</small></h1>
+              <h1 class="card-title pricing-card-title"><?php echo $rowCategoria["prezzo"] ?> <small class="text-muted">/ mese</small></h1>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Risoluzione 720p</li>
               </ul>
-              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="basic-outlined" autocomplete="off" value="1" checked>
+              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="basic-outlined" autocomplete="off" value="<?= $rowCategoria["id"]?>">
               <label class="btn btn-lg btn-block btn-outline-primary" for="basic-outlined">Seleziona</label>          </div>
           </div>
         </div>
-
-        <div class="col">
-          <div class="card mb-4 box-shadow">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Plus</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">€9,99 <small class="text-muted">/ mese</small></h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>Risoluzione 1080p</li>
-              </ul>
-              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="plus-outlined" autocomplete="off" value="2">
-              <label class="btn btn-lg btn-block btn-outline-primary" for="plus-outlined">Seleziona</label>          </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card mb-4 box-shadow">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Pro</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">€14,99 <small class="text-muted">/ mese</small></h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>Risoluzione 2160p</li>
-              </ul>
-              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="pro-outlined" autocomplete="off" value="3">
-              <label class="btn btn-lg btn-block btn-outline-primary" for="pro-outlined">Seleziona</label>
-            </div>
-          </div>
-        </div>
+        <?php } ?>
     </div>
   </div>
 </div>
@@ -132,7 +112,12 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
             <hr class="my-4">
 
             <button class="w-100 btn btn-primary btn-lg" type="submit">Continua</button>
-            
+
+            <div id="paypal-payment-button">
+
+            </div>
+            <script src="https://www.paypal.com/sdk/js?client-id=AU4Ch6aleHdD0GW2goBAlWQsBG3z6E-QLPBAoxN4VqaH_NK3h9uUrBOWSg5FD4mY386NtzqnxjFOOAYO&disable-funding=credit,card,mybank,sofort&currency=EUR&locale=it_IT"></script>
+            <script src="index.js"></script>
   </div>
 </form>
 

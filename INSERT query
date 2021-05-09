@@ -1,0 +1,3 @@
+INSERT INTO Categorie (nome, prezzo) VALUES ("Basic", 7.99);
+INSERT INTO Categorie (nome, prezzo) VALUES ("Plus", 9.99);
+INSERT INTO Categorie (nome, prezzo) VALUES ("Pro", 14.99);

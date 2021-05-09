@@ -9,6 +9,7 @@ class Abbonamento {
 
   // Properties
   public $id;
+  public $dataFine;
   public $idCategoria;
   
   // db connection
@@ -18,11 +19,10 @@ class Abbonamento {
 
   // Methods
   public function newAbbonamento() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (dataFine, idCategoria) VALUES ('" . date('Y-m-d', strtotime($Date. ' + 30 days') . "', :idCategoria);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (dataFine, idCategoria) VALUES ('" . date('Y-m-d', strtotime(date('Y-m-d') . ' + 30 days')) . "', :idCategoria);";
     $stmt = $this->conn->prepare($sqlQuery);
-
     $this->idCategoria = htmlspecialchars(strip_tags($this->idCategoria));
-
+    
     $stmt->bindParam(':idCategoria', $this->idCategoria);
 
     $stmt->execute();

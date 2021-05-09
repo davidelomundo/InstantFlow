@@ -5,11 +5,13 @@ class Categoria {
   private $conn;
 
   // table
-  private $db_table = "Generi";
+  private $db_table = "Categorie";
 
   // Properties
   public $id;
   public $nome;
+  public $prezzo;
+  public $risoluzione;
 
   // db connection
   public function __construct($db) {
@@ -27,6 +29,15 @@ class Categoria {
 
     $stmt->execute();
   }
+
+  public function getCategory() {
+    $sqlQuery = "SELECT * FROM " . $this->db_table . ";";
+    $stmt = $this->conn->prepare($sqlQuery);
+    
+    $stmt->execute();
+    return $stmt;
+  }
+
 }
 
 ?>
