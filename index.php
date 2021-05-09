@@ -3,12 +3,14 @@ session_start();
 
 require_once "class/utente.php";
 require_once "class/film.php";
+
 require_once 'includes/header.php';
 require_once 'includes/database.php';
 
 $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
+$film = new Film($db);
 
 ?>
 
@@ -84,16 +86,13 @@ $utente = new Utente($db);
   </div>
 
 <hr>
-<?php echo "Numero utenti: " . $utente->count()["count"]; ?>
+<?php
+  echo "Numero utenti: " . $utente->count()["count"] . "<br>"; 
+  echo "Numero film: " . $film->count()["count"]; 
+?>
 
 </div>
 
 <?php
-
-foreach($utente->getUsers() as $row)
-{
-    //echo $row['nome'] . "";
-}
-
 require_once 'includes/footer.php';
 ?>

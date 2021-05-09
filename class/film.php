@@ -81,6 +81,17 @@ class Film {
       return $row;
     }
   }
+
+  public function count() {
+    $sqlQuery = "SELECT COUNT(*) as count FROM " . $this->db_table . ";";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->execute();
+
+    foreach($stmt as $row) {
+      return $row;
+    }
+  }
 }
 
 ?>

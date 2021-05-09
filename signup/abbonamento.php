@@ -54,8 +54,8 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Risoluzione 720p</li>
               </ul>
-              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="basic-outlined" autocomplete="off" value="<?= $rowCategoria["id"]?>">
-              <label class="btn btn-lg btn-block btn-outline-primary" for="basic-outlined">Seleziona</label>          </div>
+              <input type="radio" class="btn-check" name="categoriaAbbonamento" id="<?= $rowCategoria["nome"] . "-outlined"?>" autocomplete="off" value="<?= $rowCategoria["id"]?>">
+              <label class="btn btn-lg btn-block btn-outline-primary" for="<?= $rowCategoria["nome"] . "-outlined"?>">Seleziona</label>          </div>
           </div>
         </div>
         <?php } ?>
@@ -63,7 +63,7 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
   </div>
 </div>
 
-
+<!--
   <div class="container row gy-3">
     <h4 class="mb-3">Pagamento</h4>
 
@@ -113,11 +113,33 @@ if(isset($_POST["nomeIntestatario"]) && !empty($_POST["nomeIntestatario"]) && is
 
             <button class="w-100 btn btn-primary btn-lg" type="submit">Continua</button>
 
-            <div id="paypal-payment-button">
-
+-->
+            <div class="text-center" id="paypal-payment-button">
             </div>
             <script src="https://www.paypal.com/sdk/js?client-id=AU4Ch6aleHdD0GW2goBAlWQsBG3z6E-QLPBAoxN4VqaH_NK3h9uUrBOWSg5FD4mY386NtzqnxjFOOAYO&disable-funding=credit,card,mybank,sofort&currency=EUR&locale=it_IT"></script>
-            <script src="index.js"></script>
+            <script>
+                    paypal.Buttons({
+            style: {
+                color: 'blue',
+                shape: 'pill'
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: <?php echo 9.99; ?>
+                        }
+                    }]
+                })
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function (details) {
+                    console.log(details);
+                    window.location.replace("../login/index.php");
+                })
+            }
+          }).render('#paypal-payment-button');
+            </script>
   </div>
 </form>
 

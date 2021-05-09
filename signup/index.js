@@ -15,6 +15,7 @@ paypal.Buttons({
     onApprove: function(data, actions) {
         return actions.order.capture().then(function (details) {
             console.log(details);
+            window.location.replace("../login/index.php");
         })
     }
 }).render('#paypal-payment-button');
