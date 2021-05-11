@@ -1,2 +1,1 @@
 - Chrome bug stream
-- Protezione injection
