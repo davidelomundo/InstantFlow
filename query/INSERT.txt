@@ -1,0 +1,5 @@
+INSERT INTO categorie (nome, prezzo) VALUES ("Basic", 7.99);
+INSERT INTO categorie (nome, prezzo) VALUES ("Plus", 9.99);
+INSERT INTO categorie (nome, prezzo) VALUES ("Pro", 14.99);
+
+UPDATE utenti SET isAdmin=1 WHERE email="davidelomundo02@gmail.com";

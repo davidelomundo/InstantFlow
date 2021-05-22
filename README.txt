@@ -1,1 +1,8 @@
-- Chrome bug stream
+- Bug stream chrome
+- Mostrare info al logged
+- No upload password db (.gitignore)
+- Log accessi
+- Abilitare debug PHP
+- Criptazione dati sensibili
+- 2FA
+- Completa funzioni admin

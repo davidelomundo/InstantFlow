@@ -5,7 +5,7 @@ class Utente {
   private $conn;
 
   // table
-  private $db_table = "Utenti";
+  private $db_table = "utenti";
 
   // Properties
   public $id;
@@ -24,6 +24,7 @@ class Utente {
   public function getUsers() {
     $sqlQuery = "SELECT * FROM " . $this->db_table . ";";
     $stmt = $this->conn->prepare($sqlQuery);
+
     $stmt->execute();
     return $stmt;
   }
@@ -31,20 +32,20 @@ class Utente {
   public function updateUser() {
     $sqlQuery = "UPDATE " . $this->db_table . " SET nome=:nome, cognome=:cognome, email=:email, password=:password WHERE id=:id;";
     $stmt = $this->conn->prepare($sqlQuery);
-
-        // sanitize
-        $this->id = htmlspecialchars(strip_tags($this->id));
-        $this->nome = htmlspecialchars(strip_tags($this->nome));
-        $this->cognome = htmlspecialchars(strip_tags($this->cognome));
-        $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->psw = htmlspecialchars(strip_tags($this->password));
     
-        // bind data
-        $stmt->bindParam(':id', $this->id);
-        $stmt->bindParam(':nome', $this->nome);
-        $stmt->bindParam(':cognome', $this->cognome);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':password', $this->password);
+    // sanitize
+    $this->id = htmlspecialchars(strip_tags($this->id));
+    $this->nome = htmlspecialchars(strip_tags($this->nome));
+    $this->cognome = htmlspecialchars(strip_tags($this->cognome));
+    $this->email = htmlspecialchars(strip_tags($this->email));
+    $this->psw = htmlspecialchars(strip_tags($this->password));
+
+    // bind data
+    $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':nome', $this->nome);
+    $stmt->bindParam(':cognome', $this->cognome);
+    $stmt->bindParam(':email', $this->email);
+    $stmt->bindParam(':password', $this->password);
 
     $stmt->execute();
 
@@ -66,6 +67,7 @@ class Utente {
     $stmt->bindParam(':cognome', $this->cognome);
     $stmt->bindParam(':email', $this->email);
     $stmt->bindParam(':password', $this->password);
+    
 
     $stmt->execute();
 
@@ -95,44 +97,39 @@ class Utente {
 
   public function loginUser() {
 
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=:email AND password=:password;";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=:email;";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->email));
-    $this->psw = htmlspecialchars(strip_tags($this->password));
 
     $stmt->bindParam(':email', $this->email);
-    $stmt->bindParam(':password', $this->password);
 
     $stmt->execute();
 
+    
     foreach ($stmt as $row) {
-      if(!empty($row["id"]))
+      if(password_verify($this->password, $row["password"]))
         return $row["id"];
-      else
-        return null;
     }
+    return null;
   }
 
   public function loginAdmin() {
 
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=:email AND password=:password AND isAdmin=1;";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=:email AND isAdmin=1;";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->email));
-    $this->psw = htmlspecialchars(strip_tags($this->password));
 
     $stmt->bindParam(':email', $this->email);
-    $stmt->bindParam(':password', $this->password);
 
     $stmt->execute();
 
     foreach ($stmt as $row) {
-      if(!empty($row["id"]))
+      if(password_verify($this->password, $row["password"]))
         return $row["id"];
-      else
-        return null;
     }
+    return null;
   }
 
   public function getInfo() {

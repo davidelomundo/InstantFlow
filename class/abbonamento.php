@@ -1,15 +1,17 @@
 <?php
+
 class Abbonamento {
 
   // connection
   private $conn;
 
   // table
-  private $db_table = "Abbonamenti";
+  private $db_table = "abbonamenti";
 
   // Properties
   public $id;
   public $dataFine;
+  public $idUtente;
   public $idCategoria;
   
   // db connection
@@ -19,14 +21,28 @@ class Abbonamento {
 
   // Methods
   public function newAbbonamento() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (dataFine, idCategoria) VALUES ('" . date('Y-m-d', strtotime(date('Y-m-d') . ' + 30 days')) . "', :idCategoria);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (dataFine, idUtente, idCategoria) VALUES ('" . date('Y-m-d', strtotime(date('Y-m-d') . ' + 30 days')) . "',:idUtente,  :idCategoria);";
     $stmt = $this->conn->prepare($sqlQuery);
-    $this->idCategoria = htmlspecialchars(strip_tags($this->idCategoria));
     
+    $stmt->bindParam(':idUtente', $this->idUtente);
     $stmt->bindParam(':idCategoria', $this->idCategoria);
 
     $stmt->execute();
   }
-}
 
+  public function isSubscribed() {
+    $sqlQuery = "SELECT COUNT(*) as count FROM " . $this->db_table . " WHERE idUtente=:idUtente AND dataFine>CURDATE();";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->bindParam(':idUtente', $this->idUtente);
+
+    $stmt->execute();
+
+    foreach($stmt as $row) {
+      if($row["count"] > 0) {
+        return true;
+      }
+    }
+  }
+}
 ?>

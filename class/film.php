@@ -5,7 +5,7 @@ class Film {
   private $conn;
 
   // table
-  private $db_table = "Films";
+  private $db_table = "films";
 
   // Properties
   public $id;
@@ -60,7 +60,7 @@ class Film {
   }
 
   public function getFilmsByGenre($idGenere) {
-    $sqlQuery = "SELECT " . $this->db_table . "* FROM " . $this->db_table . " JOIN Appartiene ON Films.id=Appartiene.idFilm WHERE Appartiene.idGenere='" . $idGenere . "';";
+    $sqlQuery = "SELECT " . $this->db_table . ".* FROM " . $this->db_table . " JOIN Appartiene ON " . $this->db_table . ".id=Appartiene.idFilm WHERE appartiene.idGenere='" . $idGenere . "';";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $stmt->execute();

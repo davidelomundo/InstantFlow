@@ -5,7 +5,7 @@ class Categoria {
   private $conn;
 
   // table
-  private $db_table = "Categorie";
+  private $db_table = "categorie";
 
   // Properties
   public $id;
@@ -36,6 +36,16 @@ class Categoria {
     
     $stmt->execute();
     return $stmt;
+  }
+
+  public function findById() {
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE id='" . $this->id . "';";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->execute();
+    foreach ($stmt as $row) {
+      return $row;
+    }
   }
 
 }

@@ -5,7 +5,7 @@ class Genere {
   private $conn;
 
   // table
-  private $db_table = "Generi";
+  private $db_table = "generi";
 
   // Properties
   public $id;
@@ -34,6 +34,14 @@ class Genere {
     $stmt->bindParam(':nome', $this->nome);
 
     $stmt->execute();
+  }
+
+  public function getGenresByFilm($idFilm) {
+    $sqlQuery = "SELECT " . $this->db_table . ".* FROM " . $this->db_table . " JOIN Appartiene ON " . $this->db_table . ".id=appartiene.idGenere WHERE appartiene.idFilm='" . $idFilm . "';";
+    $stmt = $this->conn->prepare($sqlQuery);
+    
+    $stmt->execute();
+    return $stmt;
   }
 }
 
