@@ -30,7 +30,7 @@ class Utente {
   }
 
   public function updateUser() {
-    $sqlQuery = "UPDATE " . $this->db_table . " SET nome=:nome, cognome=:cognome, email=:email, password=:password WHERE id=:id;";
+    $sqlQuery = "UPDATE " . $this->db_table . " SET nome=:nome, cognome=:cognome, email=AES_ENCRYPT(:email, 'aeskey'), password=:password WHERE id=:id;";
     $stmt = $this->conn->prepare($sqlQuery);
     
     // sanitize
@@ -53,7 +53,7 @@ class Utente {
   }
 
   public function createUser() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, :email, :password, 0);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, AES_ENCRYPT(:email, 'aeskey'), :password, 0);";
     $stmt = $this->conn->prepare($sqlQuery);
 
     // sanitize
@@ -75,7 +75,7 @@ class Utente {
   }
 
   public function createAdmin() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, :email, :password, 1);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, AES_ENCRYPT(:email, 'aeskey'), :password, 1);";
     $stmt = $this->conn->prepare($sqlQuery);
 
     // sanitize
@@ -97,7 +97,7 @@ class Utente {
 
   public function loginUser() {
 
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=:email;";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=AES_ENCRYPT(:email, 'aeskey');";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->email));
@@ -116,7 +116,7 @@ class Utente {
 
   public function loginAdmin() {
 
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=:email AND isAdmin=1;";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=AES_ENCRYPT(:email, 'aeskey') AND isAdmin=1;";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->email));
