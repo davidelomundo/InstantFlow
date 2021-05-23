@@ -2,9 +2,14 @@
 class Database {
     private $host = "localhost";
     private $database_name = "InstantFlow";
-    private $username = "davidelomundo02";
-    private $password = "instantPass";
-    
+    private $username;
+    private $password;
+
+    public function __construct() {
+        $this->username = getenv("DB_USERNAME");
+        $this->password = getenv("DB_PASSWORD");
+    }
+
     public $conn;
     
     public function getConnection() {

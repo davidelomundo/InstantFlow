@@ -23,32 +23,21 @@ if(!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
     }
 }
 
-if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
-    $film->titolo= $_GET["ricerca"];
-    $stmtFilm = $film->findFilms();
-} else {
-    $stmtFilm = $film->getFilms();
+if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
+{
+    $utente->id = $_SESSION["idUtente"];
+    $utente->nome = $_POST["firstName"];
+    $utente->cognome = $_POST["lastName"];
+    $utente->email = $_POST["email"];
+    $utente->password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+    $utente->updateUser();
+
+    header("Location: logged.php");
 }
 
 $utente->id = $_SESSION["idUtente"];
 $rowUtente = $utente->getInfo();
-
-// send email
-$msg = "<h1 style='text-align: center;'>Reimposta la password</h1><br>
-Ciao " . $rowUtente["nome"] . ",<br><br>
-Reimposta la tua password per tornare a guardare InstantFlow.<br><br>
-REIMPOSTA PASSWORD
-Se non hai richiesto tu la modifica della password, ignora semplicemente questa mail.";
-$msg = wordwrap($msg,70);
-
-$header = "From: noreply@instantflow.com\r\n";
-$header.= "MIME-Version: 1.0\r\n";
-$header.= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-$header.= "X-Priority: 1\r\n";
-
-if (mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)) {
-    echo '<p>Your message has been sent!</p>';
-}
 
 ?>
 
@@ -62,9 +51,9 @@ if (mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)) {
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mr-lg-5">                                    
                                 <li class="nav-item dropdown no-caret">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $rowUtente["nome"]; ?><i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profilo<i class="fas fa-chevron-right dropdown-arrow"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
-                                        <a class="dropdown-item py-3" href="settings.php">
+                                        <a class="dropdown-item py-3" href="setting.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-gear"></i></div>
                                             <div>
                                                 <div class="small text-gray-500">Impostazioni</div>
@@ -72,7 +61,7 @@ if (mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)) {
                                             </div>
                                         </a>
                                         <div class="dropdown-divider m-0"></div>
-                                        <a class="dropdown-item py-3" href="abbonato.php">
+                                        <a class="dropdown-item py-3" href="">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-credit-card-2-front-fill"></i></div>
                                             <div>
                                                 <div class="small text-gray-500">Abbonamento</div>
@@ -115,8 +104,8 @@ if (mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)) {
                         <div class="container text-center">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-                                    <h1 class="page-header-title mb-3">Raccolta</h1>
-                                    <p class="page-header-text">La tua raccolta in espansione ogni giorno.</p>
+                                    <h1 class="page-header-title mb-3">Abbonamento</h1>
+                                    <p class="page-header-text">Gestisci i dati del tuo account in modo semplice.</p>
                                 </div>
                             </div>
                         </div>
@@ -125,19 +114,33 @@ if (mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)) {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                     </div>
                 </header>
-                <section class="bg-light py-10">
+                <section class="bg-light py-5">
                     <div class="container">
-                        <div class="row text-center">
-                            <?php foreach($stmtFilm as $rowFilm) { ?>
-                            <div class="col-lg-4 mb-5">
-                                <h6 class="mb-3"><?php echo $rowFilm["titolo"]; ?></h6>
-                                <a class="d-block rounded-lg lift lift-lg" href="<?= "view.php?id=" . $rowFilm["id"]?>"><img class="img-fluid rounded-lg" src="<?= "resources/" . $rowFilm["id"] . "/anteprima.jpg"?>"/></a>
+                        <div class="row align-items-center">
+                            <div class="col mt-4">
+                                <div class="card rounded-lg text-dark" data-aos="fade-up">
+                                    <div class="card-header py-4">Aggiorna dati</div>
+                                    <div class="card-body">
+                                        <form method="POST">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapFirstName">Nome</label><input class="form-control rounded-pill" id="leadCapFirstName" name="firstName" type="text" value="<?php echo $rowUtente["nome"]; ?>"/></div>
+                                                <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapLastName">Cognome</label><input class="form-control rounded-pill" id="leadCapLastName" name="lastName" type="text" value="<?php echo $rowUtente["cognome"]; ?>"/></div>
+                                            </div>
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapEmail">Email</label><input class="form-control rounded-pill" id="leadCapEmail" name="email" type="email" value="<?php echo $rowUtente["email"]; ?>"/></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Password nuova</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Aggiorna</button>
+                                                </div>
+                                                <div class="col">
+                                                    <button class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" type="submit">Elimina account</button>
+                                                </div>
+                                            <div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <?php } ?>
                         </div>
-                    </div>
-                    <div class="svg-border-rounded text-light">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                     </div>
                 </section>
             </main>
