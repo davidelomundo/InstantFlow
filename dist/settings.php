@@ -127,7 +127,6 @@ $rowUtente = $utente->getInfo();
                                                 <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapLastName">Cognome</label><input class="form-control rounded-pill" id="leadCapLastName" name="lastName" type="text" value="<?php echo $rowUtente["cognome"]; ?>"/></div>
                                             </div>
                                             <div class="form-group"><label class="small text-gray-600" for="leadCapEmail">Email</label><input class="form-control rounded-pill" id="leadCapEmail" name="email" type="email" value="<?php echo $rowUtente["email"]; ?>"/></div>
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Password nuova</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
                                             <div class="row">
                                                 <div class="col">
                                                     <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Aggiorna</button>
@@ -136,6 +135,25 @@ $rowUtente = $utente->getInfo();
                                                     <button class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" type="submit">Elimina account</button>
                                                 </div>
                                             <div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="bg-light py-5">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col mt-4">
+                                <div class="card rounded-lg text-dark" data-aos="fade-up">
+                                    <div class="card-header py-4">Cambio password</div>
+                                    <div class="card-body">
+                                        <form method="POST">
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Password attuale</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Nuova password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Conferma password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
+                                            <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Cambia password</button>
                                         </form>
                                     </div>
                                 </div>

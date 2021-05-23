@@ -134,7 +134,7 @@ class Utente {
 
   public function getInfo() {
 
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
+    $sqlQuery = "SELECT nome, cognome, AES_DECRYPT(email, 'aeskey') as email FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 

@@ -114,33 +114,18 @@ $rowUtente = $utente->getInfo();
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                     </div>
                 </header>
-                <section class="bg-light py-5">
+                <section class="bg-light py-10">
                     <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col mt-4">
-                                <div class="card rounded-lg text-dark" data-aos="fade-up">
-                                    <div class="card-header py-4">Aggiorna dati</div>
-                                    <div class="card-body">
-                                        <form method="POST">
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapFirstName">Nome</label><input class="form-control rounded-pill" id="leadCapFirstName" name="firstName" type="text" value="<?php echo $rowUtente["nome"]; ?>"/></div>
-                                                <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapLastName">Cognome</label><input class="form-control rounded-pill" id="leadCapLastName" name="lastName" type="text" value="<?php echo $rowUtente["cognome"]; ?>"/></div>
-                                            </div>
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapEmail">Email</label><input class="form-control rounded-pill" id="leadCapEmail" name="email" type="email" value="<?php echo $rowUtente["email"]; ?>"/></div>
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Password nuova</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Aggiorna</button>
-                                                </div>
-                                                <div class="col">
-                                                    <button class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" type="submit">Elimina account</button>
-                                                </div>
-                                            <div>
-                                        </form>
-                                    </div>
-                                </div>
+                        <div class="row text-center">
+                            <div class="col align-self-center">
+                                <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i class="bi bi-calendar"></i></div>
+                                <h3>Scadenza</h3>
+                                <p class="mb-0">Il tuo abbonamento scade il.</p>
                             </div>
                         </div>
+                    </div>
+                    <div class="svg-border-rounded text-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                     </div>
                 </section>
             </main>
