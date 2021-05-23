@@ -80,7 +80,7 @@ if (mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)) {
                                             </div>
                                         </a>
                                         <div class="dropdown-divider m-0"></div>
-                                        <a class="dropdown-item py-3" href="">
+                                        <a class="dropdown-item py-3" href="history.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-clock-history"></i></div>
                                             <div>
                                                 <div class="small text-gray-500">Cronologia</div>
