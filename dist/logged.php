@@ -131,7 +131,7 @@ if (mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)) {
                             <?php foreach($stmtFilm as $rowFilm) { ?>
                             <div class="col-lg-4 mb-5">
                                 <h6 class="mb-3"><?php echo $rowFilm["titolo"]; ?></h6>
-                                <a class="d-block rounded-lg lift lift-lg" href="<?= "view.php?id=" . $rowFilm["id"]?>"><img class="img-fluid rounded-lg" src="<?= "resources/" . $rowFilm["id"] . "/anteprima.jpg"?>"/></a>
+                                <a class="d-block rounded-lg lift lift-lg" href="<?= "view.php?id=" . $rowFilm["id"]?>"><img class="img-fluid rounded-lg" src="<?= "../resources/" . $rowFilm["id"] . "/anteprima.jpg"?>"/></a>
                             </div>
                             <?php } ?>
                         </div>
