@@ -9,7 +9,6 @@ require_once "../class/film.php";
 
 $database = new Database();
 $db = $database->getConnection();
-
 $utente = new Utente($db);
 $film = new Film($db);
 
@@ -85,12 +84,12 @@ $film = new Film($db);
                             <div class="col-lg-4 text-center mb-5">
                                 <div class="display-1 font-weight-bold text-gray-400"><?php echo $utente->count()["count"]; ?>+</div>
                                 <div class="h5">Utenti iscritti</div>
-                                <p>We've extended and restyled Bootstrap's default components, and built a suite of new custom components.</p>
+                                <p>Il numero di utenti iscritti alla piattaforma sarà ridotto fino al lancio ufficiale.</p>
                             </div>
                             <div class="col-lg-4 text-center mb-5">
                                 <div class="display-1 font-weight-bold text-gray-400"><?php echo $film->count()["count"]; ?>+</div>
                                 <div class="h5">Film disponibili</div>
-                                <p>Our pre-built page examples are a perfect way to get inspired for creating new pages and views.</p>
+                                <p>È pianificato l'arrivo di centinaia di titoli pronti per il lancio.</p>
                             </div>
                         </div>
                     </div>

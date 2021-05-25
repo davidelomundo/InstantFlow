@@ -1,6 +1,5 @@
 - Bug stream chrome
-- Log accessi
 - Abilitare debug PHP
-- Criptazione dati sensibili
 - 2FA (via mail)
 - Completa funzioni admin
+- Il bug della index non è un problema, è responsive
