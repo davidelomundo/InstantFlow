@@ -44,5 +44,18 @@ class Abbonamento {
       }
     }
   }
+
+  public function scadenza() {
+    $sqlQuery = "SELECT MAX(" . $this->db_table . ".dataFine) as scadenza FROM " . $this->db_table . " WHERE idUtente=:idUtente;";
+    $stmt = $this->conn->prepare($sqlQuery);
+    
+    $stmt->bindParam(':idUtente', $this->idUtente);
+
+    $stmt->execute();
+
+    foreach($stmt as $row) {
+      return $row;
+    }
+  }
 }
 ?>

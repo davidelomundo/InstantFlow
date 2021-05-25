@@ -39,6 +39,8 @@ if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["la
 $utente->id = $_SESSION["idUtente"];
 $rowUtente = $utente->getInfo();
 
+$abbonamento->idUtente = $_SESSION["idUtente"];
+$rowAbbonamento = $abbonamento->scadenza();
 ?>
 
 <body>
@@ -105,7 +107,7 @@ $rowUtente = $utente->getInfo();
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <h1 class="page-header-title mb-3">Abbonamento</h1>
-                                    <p class="page-header-text">Gestisci i dati del tuo account in modo semplice.</p>
+                                    <p class="page-header-text">In questa sezione potrai visualizzare la scadenza dell'abbonamento in ogni momento.</p>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +122,7 @@ $rowUtente = $utente->getInfo();
                             <div class="col align-self-center">
                                 <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i class="bi bi-calendar"></i></div>
                                 <h3>Scadenza</h3>
-                                <p class="mb-0">Il tuo abbonamento scade il.</p>
+                                <p class="mb-0">Il tuo abbonamento scade il <?php echo date("d/m/Y", strtotime($rowAbbonamento["scadenza"])); ?>.</p>
                             </div>
                         </div>
                     </div>

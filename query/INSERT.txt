@@ -2,4 +2,9 @@ INSERT INTO categorie (nome, prezzo) VALUES ("Basic", 7.99);
 INSERT INTO categorie (nome, prezzo) VALUES ("Plus", 9.99);
 INSERT INTO categorie (nome, prezzo) VALUES ("Pro", 14.99);
 
+INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Titanic", "Nave che affonda", "2005-11-07");
+INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Harry Potter", "Stregoni di Hogwarts", "2009-01-29");
+INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Spider-Man", "L'uomo ragno", "2005-06-07");
+INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Now You See Me 2", "Maghi illusionisti", "2012-03-12");
+
 UPDATE utenti SET isAdmin=1 WHERE email="davidelomundo02@gmail.com";
