@@ -123,27 +123,19 @@ $rowUtente = $utente->getInfo();
                                             <div class="form-row">
                                                 <!-- Form Group (first name)-->
                                                 <div class="form-group col-md-6">
-                                                    <label class="small mb-1" for="inputFirstName">First name</label>
-                                                    <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value=<?php echo $rowUtente["nome"]; ?> />
+                                                    <label class="small mb-1" for="inputFirstName">Nome</label>
+                                                    <input class="form-control" id="inputFirstName" type="text" value="<?php echo $rowUtente["nome"]; ?>" />
                                                 </div>
                                                 <!-- Form Group (last name)-->
                                                 <div class="form-group col-md-6">
-                                                    <label class="small mb-1" for="inputLastName">Last name</label>
-                                                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value=<?php echo $rowUtente["cognome"]; ?> />
+                                                    <label class="small mb-1" for="inputLastName">Cognome</label>
+                                                    <input class="form-control" id="inputLastName" type="text" value="<?php echo $rowUtente["cognome"]; ?>" />
                                                 </div>
                                             </div>
                                             <!-- Form Group (email address)-->
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="<?php echo $rowUtente["email"]; ?>" />
-                                            </div>
-                                            <!-- Form Row-->
-                                            <div class="form-row">
-                                                <!-- Form Group (birthday)-->
-                                                <div class="form-group col-md-6">
-                                                    <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                                    <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988" />
-                                                </div>
+                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                                <input class="form-control" id="inputEmailAddress" type="email" value="<?php echo $rowUtente["email"]; ?>" />
                                             </div>
                                             <div class="form-row">
                                                 <!-- Form Group (first name)-->
@@ -152,7 +144,7 @@ $rowUtente = $utente->getInfo();
                                                 </div>
                                                 <!-- Form Group (last name)-->
                                                 <div class="form-group col-md-3 mt-2">
-                                                    <button class="btn btn-danger" type="button">Elimina account</button>
+                                                    <a class="btn btn-danger" type="button" href="delete.php">Elimina account</a>
                                                 </div>
                                             </div>
                                         </form>
