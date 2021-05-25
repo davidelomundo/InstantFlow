@@ -132,7 +132,7 @@ $rowUtente = $utente->getInfo();
                                                     <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Aggiorna</button>
                                                 </div>
                                                 <div class="col">
-                                                    <button class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" type="submit">Elimina account</button>
+                                                    <a class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" href="delete.php">Elimina account</a>
                                                 </div>
                                             <div>
                                         </form>

@@ -15,6 +15,7 @@ CREATE TABLE utenti (
     cognome VARCHAR(30) NOT NULL,
     email VARBINARY(100) UNIQUE NOT NULL,
     password VARCHAR(70) NOT NULL,
+    is2FA BOOLEAN NOT NULL,
     isAdmin BOOLEAN NOT NULL
     )ENGINE='InnoDB';
 

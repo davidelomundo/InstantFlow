@@ -53,7 +53,7 @@ class Utente {
   }
 
   public function createUser() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, AES_ENCRYPT(:email, 'aeskey'), :password, 0);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, AES_ENCRYPT(:email, '" . getenv("AES_PASSWORD") . "'), :password, 0);";
     $stmt = $this->conn->prepare($sqlQuery);
 
     // sanitize
@@ -75,7 +75,7 @@ class Utente {
   }
 
   public function createAdmin() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, AES_ENCRYPT(:email, 'aeskey'), :password, 1);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome, cognome, email, password, isAdmin) VALUES (:nome, :cognome, AES_ENCRYPT(:email, '" . getenv("AES_PASSWORD") . "'), :password, 1);";
     $stmt = $this->conn->prepare($sqlQuery);
 
     // sanitize
@@ -97,7 +97,7 @@ class Utente {
 
   public function loginUser() {
 
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=AES_ENCRYPT(:email, 'aeskey');";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=AES_ENCRYPT(:email, '" . getenv("AES_PASSWORD") . "');";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->email));
@@ -116,7 +116,7 @@ class Utente {
 
   public function loginAdmin() {
 
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=AES_ENCRYPT(:email, 'aeskey') AND isAdmin=1;";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE email=AES_ENCRYPT(:email, '" . getenv("AES_PASSWORD") . "') AND isAdmin=1;";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->email));
@@ -134,7 +134,7 @@ class Utente {
 
   public function getInfo() {
 
-    $sqlQuery = "SELECT nome, cognome, AES_DECRYPT(email, 'aeskey') as email FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
+    $sqlQuery = "SELECT nome, cognome, AES_DECRYPT(email, '" . getenv("DB_PASSWORD") . "') as email FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 
@@ -152,6 +152,11 @@ class Utente {
     foreach ($stmt as $row) {
       return $row;
     }
+  }
+
+  public function delete() {
+    $sqlQuery = "DELETE FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
+    $this->conn->query($sqlQuery);
   }
 
 }
