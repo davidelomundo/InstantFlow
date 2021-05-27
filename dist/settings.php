@@ -53,7 +53,7 @@ $rowUtente = $utente->getInfo();
                                 <li class="nav-item dropdown no-caret">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profilo<i class="fas fa-chevron-right dropdown-arrow"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
-                                        <a class="dropdown-item py-3" href="setting.php">
+                                        <a class="dropdown-item py-3" href="settings.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-gear"></i></div>
                                             <div>
                                                 <div class="small text-gray-500">Impostazioni</div>

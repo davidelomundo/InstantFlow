@@ -23,6 +23,11 @@ $rowUtente = $utente->getInfo();
 
 $stmtFilm = $film->getFilms();
 
+if(isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
+    $film->id = $_GET["idFilm"];
+    $film->delete();
+}
+
 ?>
 
     <body class="nav-fixed">
@@ -204,7 +209,7 @@ $stmtFilm = $film->getFilms();
                                                 <td><?php echo date("d/m/Y", strtotime(date($rowFilm["dataUscita"]))); ?></td>
                                                 <td>
                                                     <button class="btn btn-datatable btn-icon btn-transparent-dark mr-2"><i data-feather="more-vertical"></i></button>
-                                                    <a type="button" class="btn btn-datatable btn-icon btn-transparent-dark" href="<?= "delete.php/?id=" . $rowFilm["id"] ?>"><i data-feather="trash-2"></i></button>
+                                                    <a type="button" class="btn btn-datatable btn-icon btn-transparent-dark" href="<?= "?idFilm=" . $rowFilm["id"] ?>"><i data-feather="trash-2"></i></button>
                                                 </td>
                                             </tr>
                                             <?php } ?>
@@ -213,6 +218,37 @@ $stmtFilm = $film->getFilms();
                                 </div>
                             </div>
                         </div>
+                        <div class="card mb-4">
+                                    <div class="card-header">Nuovo film</div>
+                                    <div class="card-body">
+                                        <form>
+                                            <!-- Form Row-->
+                                            <div class="form-row">
+                                                <!-- Form Group (first name)-->
+                                                <div class="form-group col-md-6">
+                                                    <label class="small mb-1" for="inputFirstName">Nome</label>
+                                                    <input class="form-control" id="inputFirstName" type="text" value="" />
+                                                </div>
+                                                <!-- Form Group (last name)-->
+                                                <div class="form-group col-md-6">
+                                                    <label class="small mb-1" for="inputLastName">Descrizione</label>
+                                                    <input class="form-control" id="inputLastName" type="text" value="" />
+                                                </div>
+                                            </div>
+                                            <!-- Form Group (email address)-->
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">Anteprima</label>
+                                                <input class="form-control" id="inputEmailAddress" type="file" value="" />
+                                            </div>
+                                            <div class="form-row">
+                                                <!-- Form Group (first name)-->
+                                                <div class="form-group col-md-6 mt-2">
+                                                    <button class="btn btn-primary" type="button">Salva</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                     </div>
                 </main>
                 <footer class="footer mt-auto footer-light">

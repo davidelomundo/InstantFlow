@@ -46,9 +46,7 @@ $header.= "MIME-Version: 1.0\r\n";
 $header.= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 $header.= "X-Priority: 1\r\n";
 
-if (mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)) {
-    //echo '<p>Your message has been sent!</p>';
-}
+// mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)
 
 ?>
 

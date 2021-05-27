@@ -134,7 +134,7 @@ class Utente {
 
   public function getInfo() {
 
-    $sqlQuery = "SELECT nome, cognome, AES_DECRYPT(email, '" . getenv("DB_PASSWORD") . "') as email FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
+    $sqlQuery = "SELECT nome, cognome, AES_DECRYPT(email, '" . getenv("AES_PASSWORD") . "') as email FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
     $stmt = $this->conn->prepare($sqlQuery);
     $stmt->execute();
 
@@ -157,6 +157,18 @@ class Utente {
   public function delete() {
     $sqlQuery = "DELETE FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
     $this->conn->query($sqlQuery);
+  }
+
+  public function cronologia() {
+    $sqlQuery = "SELECT * FROM guarda WHERE idUtente=:id;";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $this->email = htmlspecialchars(strip_tags($this->id));
+    $stmt->bindParam(':id', $this->id);
+
+    $stmt->execute();
+
+    return $stmt;
   }
 
 }

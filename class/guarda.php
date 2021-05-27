@@ -1,5 +1,5 @@
 <?php
-class Film {
+class Guarda {
 
   // connection
   private $conn;
@@ -9,24 +9,27 @@ class Film {
 
   // Properties
   public $id;
+  public $durata;
   public $idUtente;
   public $idFilm;
-  public $durata;
 
   // db connection
   public function __construct($db) {
     $this->conn = $db;
   }
 
-  public function createFilm() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (idUtente, idFilm, durata) VALUES ('" . $this->idUtente . "', '" . $this->idFilm . "', '" . $this->durata . "');";
+  public function createLog() {
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (durata, idUtente, idFilm) VALUES (NOW(), :idUtente, :idFilm);";
     $stmt = $this->conn->prepare($sqlQuery);
 
-    // bind data
-    $stmt->bindParam(':titolo', $this->titolo);
-    $stmt->bindParam(':dataUscita', $this->dataUscita);
-    $stmt->bindParam(':descrizione', $this->descrizione);
+    $this->email = htmlspecialchars(strip_tags($this->durata));
+    $this->email = htmlspecialchars(strip_tags($this->idFilm));
+    $this->email = htmlspecialchars(strip_tags($this->idUtente));
+    //$stmt->bindParam(':durata', $this->durata);
+    $stmt->bindParam(':idUtente', $this->idUtente);
+    $stmt->bindParam(':idFilm', $this->idFilm);
 
+    var_dump($sqlQuery);
     $stmt->execute();
   }
 }
