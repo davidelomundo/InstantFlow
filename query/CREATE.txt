@@ -4,8 +4,8 @@ USE InstantFlow;
 
 CREATE TABLE films (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    titolo VARCHAR(30) NOT NULL,
-    descrizione VARCHAR(300),
+    titolo VARCHAR(30) UNIQUE NOT NULL,
+    descrizione VARCHAR(500),
     dataUscita DATE NOT NULL
     )ENGINE='InnoDB';
 
@@ -15,15 +15,13 @@ CREATE TABLE utenti (
     cognome VARCHAR(30) NOT NULL,
     email VARBINARY(100) UNIQUE NOT NULL,
     password VARCHAR(70) NOT NULL,
-    is2FA BOOLEAN NOT NULL,
     isAdmin BOOLEAN NOT NULL
     )ENGINE='InnoDB';
 
 CREATE TABLE categorie (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(30) NOT NULL,
-    prezzo FLOAT NOT NULL,
-    risoluzione VARCHAR(10)
+    nome VARCHAR(30) UNIQUE NOT NULL,
+    prezzo FLOAT NOT NULL
     )ENGINE='InnoDB';
 
 CREATE TABLE abbonamenti (
@@ -51,7 +49,7 @@ CREATE TABLE recita (
 
 CREATE TABLE generi (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(30) NOT NULL
+    nome VARCHAR(30) UNIQUE NOT NULL
     )ENGINE='InnoDB';
 
 CREATE TABLE appartiene (
