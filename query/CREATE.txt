@@ -21,16 +21,18 @@ CREATE TABLE utenti (
 CREATE TABLE categorie (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(30) UNIQUE NOT NULL,
-    prezzo FLOAT NOT NULL
+    prezzo FLOAT NOT NULL,
+    CHECK (prezzo >= 0)
     )ENGINE='InnoDB';
 
 CREATE TABLE abbonamenti (
     id INT PRIMARY KEY AUTO_INCREMENT,
     dataFine DATE NOT NULL,
-    idUtente INT,
-    idCategoria INT,
+    idUtente INT NOT NULL,
+    idCategoria INT NOT NULL,
     FOREIGN KEY (idUtente) REFERENCES utenti(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (idCategoria) REFERENCES categorie(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (idCategoria) REFERENCES categorie(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CHECK (dataFine > CURDATE())
     )ENGINE='InnoDB';
 
 CREATE TABLE attori (
