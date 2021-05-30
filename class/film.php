@@ -60,7 +60,7 @@ class Film {
   }
 
   public function getFilmsByGenre($idGenere) {
-    $sqlQuery = "SELECT " . $this->db_table . ".* FROM " . $this->db_table . " JOIN Appartiene ON " . $this->db_table . ".id=Appartiene.idFilm WHERE appartiene.idGenere='" . $idGenere . "';";
+    $sqlQuery = "SELECT " . $this->db_table . ".* FROM " . $this->db_table . " JOIN appartiene ON " . $this->db_table . ".id=appartiene.idFilm WHERE appartiene.idGenere='" . $idGenere . "';";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $stmt->execute();
