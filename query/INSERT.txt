@@ -7,4 +7,4 @@ INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Harry Potter", "Str
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Spider-Man", "L'uomo ragno", "2005-06-07");
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Now You See Me 2", "Maghi illusionisti", "2012-03-12");
 
-UPDATE utenti SET isAdmin=1 WHERE email="davidelomundo02@gmail.com";
+UPDATE utenti SET isAdmin=1 WHERE email=AES_ENCRYPT("davidelomundo02@gmail.com", "instant.Password!123");
