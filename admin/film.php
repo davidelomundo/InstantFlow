@@ -177,8 +177,7 @@ if(isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
                                         <thead>
                                             <tr>
                                                 <th>Titolo</th>
-                                                <th>Genere</th>
-                                                <th>Attori</th>
+                                                <th>Descrizione</th>
                                                 <th>Data uscita</th>
                                                 <th>Azioni</th>
                                             </tr>
@@ -186,8 +185,7 @@ if(isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
                                         <tfoot>
                                             <tr>
                                                 <th>Titolo</th>
-                                                <th>Genere</th>
-                                                <th>Attori</th>
+                                                <th>Descrizione</th>
                                                 <th>Data uscita</th>
                                                 <th>Azioni</th>
                                             </tr>
@@ -198,14 +196,13 @@ if(isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
                                                 <td><?php echo $rowFilm["titolo"]; ?></td>
                                                 <td>
                                                     <?php 
-
+                                                    echo $rowFilm["descrizione"];
                                                     $stmtGenere = $genere->getGenresByFilm($rowFilm["id"]);
                                                     foreach($stmtGenere as $rowGenere) {
-                                                        echo $rowGenere["nome"];
+                                                        echo $rowGenere["nome"] + ", ";
                                                     }
                                                     ?>
                                                 </td>
-                                                <td>Edinburgh</td>
                                                 <td><?php echo date("d/m/Y", strtotime(date($rowFilm["dataUscita"]))); ?></td>
                                                 <td>
                                                     <button class="btn btn-datatable btn-icon btn-transparent-dark mr-2"><i data-feather="more-vertical"></i></button>
@@ -237,8 +234,20 @@ if(isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
                                             </div>
                                             <!-- Form Group (email address)-->
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Anteprima</label>
-                                                <input class="form-control" id="inputEmailAddress" type="file" value="" />
+                                                <label class="small mb-1" for="inputEmailAddress">Data uscita</label>
+                                                <input class="form-control" id="inputEmailAddress" type="date" value="" />
+                                            </div>
+                                            <!-- Form Group (email address)-->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="small mb-1" for="inputEmailAddress">Anteprima</label>
+                                                    <input class="form-control" id="inputEmailAddress" type="file" value="" />
+                                                </div>
+                                                <!-- Form Group (email address)-->
+                                                <div class="form-group col-md-6">
+                                                    <label class="small mb-1" for="inputEmailAddress">Contenuto</label>
+                                                    <input class="form-control" id="inputEmailAddress" type="file" value="" />
+                                                </div>
                                             </div>
                                             <div class="form-row">
                                                 <!-- Form Group (first name)-->

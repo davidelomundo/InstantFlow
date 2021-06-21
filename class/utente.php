@@ -160,7 +160,7 @@ class Utente {
   }
 
   public function cronologia() {
-    $sqlQuery = "SELECT * FROM guarda WHERE idUtente=:id;";
+    $sqlQuery = "SELECT * FROM guarda WHERE idUtente=:id GROUP BY idFilm;";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->id));
