@@ -4,7 +4,7 @@ USE InstantFlow;
 
 CREATE TABLE films (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    titolo VARCHAR(40) UNIQUE NOT NULL,
+    titolo VARCHAR(50) UNIQUE NOT NULL,
     descrizione VARCHAR(500),
     dataUscita DATE NOT NULL
     )ENGINE='InnoDB';
