@@ -20,7 +20,7 @@ $utente = new Utente($db);
 $film = new Film($db);
 $guarda = new Guarda($db);
 
-$stream = new VideoStream("../resources/" . $_GET["id"] . "/4K.mp4");
+$stream = new VideoStream("../resources/" . $_GET["id"] . "/film.mp4");
 
 if(empty($_SESSION["idUtente"])) {
   header("Location: ../index.php");
