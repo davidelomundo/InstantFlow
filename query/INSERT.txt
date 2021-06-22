@@ -23,5 +23,46 @@ INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Batman", "Con l
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Danish Girl", "Quando Gerda (Vikander) chiede a suo marito Einar Wegener (Redmayne) di travestirsi da modella per un ritratto, i sentimenti dell’uomo a lungo repressi riaffiorano ed Einar inizia a vivere come una donna.", "2016-02-04");
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Wolf of Wall Street", " Il film segue la folle cavalcata di Belfort, un giovane “nuovo arrivato” a Wall Street che si trasforma via via in un corrotto manipolatore dei mercati e in un cowboy della Borsa.", "2014-01-23");
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Titanic", "Rose (Kate Winslet) è una giovane donna dell'alta società che si sente soffocata dal suo arrogante promesso sposo. Jack (Leonardo DiCaprio) è un artista dallo spirito libero  che apre Rose al mondo e le ruba il cuore. Quando la nave si scontra con un iceberg nel gelido Nord Atlantico, il viaggio dei due amanti si trasforma in una disperata corsa alla sopravvivenza.", "1998-01-16");
+INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Conjuring - L'Evocazione", "Costretti ad affrontare una potente entità demoniaca, i Warren si trovano nel bel mezzo del caso più terrificante della loro vita. Vera Farmiga e Patrick Wilson sono gli investigatori mentre Ron Livingston e Lili Taylor interpretano la famiglia Perron tormentata da spiriti sinistri in questo horror realizzato dagli sceneggiatori di The Reaping e il creatore della saga Saw.", "2013-08-21");
+
+INSERT INTO generi (nome) VALUES("Eroi");
+INSERT INTO generi (nome) VALUES("Documentari");
+INSERT INTO generi (nome) VALUES("Fantascienza");
+INSERT INTO generi (nome) VALUES("Cartoon");
+INSERT INTO generi (nome) VALUES("Comico");
+INSERT INTO generi (nome) VALUES("Storie vere");
+INSERT INTO generi (nome) VALUES("Horror");
+
+INSERT INTO appartiene (idGenere, idFilm) VALUES (1, 2);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (1, 17);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (1, 18);
+
+INSERT INTO appartiene (idGenere, idFilm) VALUES (2, 3);
+
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 2);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 5);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 6);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 7);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 9);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 10);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 11);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 14);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (3, 16);
+
+INSERT INTO appartiene (idGenere, idFilm) VALUES (4, 14);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (4, 15);
+
+INSERT INTO appartiene (idGenere, idFilm) VALUES (5, 13);
+
+INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 1);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 4);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 8);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 12);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 19);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 20);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 21);
+
+
+
 
 UPDATE utenti SET isAdmin=1 WHERE email=AES_ENCRYPT("davidelomundo02@gmail.com", "instant.Password!123");

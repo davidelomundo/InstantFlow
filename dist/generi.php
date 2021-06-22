@@ -7,16 +7,31 @@ require_once "../class/database.php";
 require_once "../class/utente.php";
 require_once "../class/film.php";
 require_once "../class/genere.php";
+require_once "../class/abbonamento.php";
 
 $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
 $film = new Film($db);
 $genere = new Genere($db);
+$abbonamento = new Abbonamento($db);
+
+if(!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
+    header("Location: index.php");
+} else {
+    $abbonamento->idUtente = $_SESSION["idUtente"];
+    if(!$abbonamento->isSubscribed()) {
+        header("Location: abbonamento.php");
+    }
+}
 
 $stmtFilm = $film->getFilms();
 
 $stmtGenere = $genere->getGenres();
+
+$utente->id = $_SESSION["idUtente"];
+$rowUtente = $utente->getInfo();
+
 ?>
 
 <body>
@@ -29,7 +44,7 @@ $stmtGenere = $genere->getGenres();
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mr-lg-5">                                    
                                 <li class="nav-item dropdown no-caret">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profilo<i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $rowUtente["nome"]; ?><i class="fas fa-chevron-right dropdown-arrow"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
                                         <a class="dropdown-item py-3" href="settings.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-gear"></i></div>
@@ -102,10 +117,11 @@ $stmtGenere = $genere->getGenres();
                             <?php foreach($stmtFilm as $rowFilm) { ?>
                             <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
                                 <a class="card lift h-100" href="<?= "view.php?id=" . $rowFilm["id"]?>">
-                                    <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg"><?php echo $rowFilm["titolo"]; ?></div>
-                                    <img class="card-img-top" src="<?= "resources/" . $rowFilm["id"] . "/anteprima.jpg"?>" alt="..." />
+                                    <!--<div class="card-flag card-flag-dark card-flag-top-right card-flag-lg"><?php echo $rowFilm["titolo"]; ?></div>-->
+                                    <img class="card-img-top" src="<?= "../resources/" . $rowFilm["id"] . "/anteprima.jpg"?>" alt="..." />
                                     <div class="card-body p-3">
                                         <div class="card-title small mb-0"></div>
+                                        <div class="text-xs text-black-500"><?php echo $rowFilm["titolo"]; ?></div>
                                         <div class="text-xs text-gray-500"><?php echo date('d/m/Y', strtotime($rowFilm["dataUscita"])); ?></div>
                                     </div>
                                 </a>

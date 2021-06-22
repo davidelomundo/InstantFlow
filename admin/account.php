@@ -74,6 +74,7 @@ $rowUtente = $utente->getInfo();
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                                     <a class="nav-link" href="film.php">Film</a>
                                     <a class="nav-link" href="admin.php">Admin</a>
+                                    <a class="nav-link" href="attore.php">Attori</a>
                                 </nav>
                             </div>
                             <!-- Sidenav Heading (App Views)-->

@@ -126,10 +126,20 @@ $stmtCronologia = $utente->cronologia();
                 </header>
                 <section class="bg-light py-10">
                     <div class="container">
-                        <?php foreach($stmtCronologia as $rowCronologia) { ?>
-                            <p><?php echo $rowCronologia["id"] . " " . $rowCronologia["idUtente"] . " " . $rowCronologia["idFilm"]; ?></p><br>
+                        <div class="row text-center">
+
+                        <?php foreach($stmtCronologia as $rowCronologia) { 
+                            $film->id = $rowCronologia["idFilm"];
+                            $rowFilm = $film->getById(); ?>
+                            <div class="col-lg-4 mb-5">
+                                <h6 class="mb-3"><?php echo $rowFilm["titolo"]; ?></h6>
+                                <a class="d-block rounded-lg lift lift-lg" href="<?= "view.php?id=" . $rowFilm["id"]?>"><img class="img-fluid rounded-lg" src="<?= "../resources/" . $rowFilm["id"] . "/anteprima.jpg"?>"/></a>
+                            </div>
                         <?php } ?>
+
+                        </div>
                     </div>
+
                     <div class="svg-border-rounded text-light">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                     </div>

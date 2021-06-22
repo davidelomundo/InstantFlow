@@ -5,9 +5,6 @@ require_once "includes/head.php";
 
 require_once "../class/database.php";
 require_once "../class/utente.php";
-require_once "../class/film.php";
-require_once "../class/genere.php";
-
 
 if(empty($_SESSION["idAdmin"])) {
     header("Location: login.php");
@@ -16,14 +13,20 @@ if(empty($_SESSION["idAdmin"])) {
 $database = new Database();
 $db = $database->getConnection();
 $utente = new Utente($db);
-$film = new Film($db);
-$genere = new Genere($db);
 
 $utente->id = $_SESSION["idAdmin"];
 $rowUtente = $utente->getInfo();
 
-$stmtFilm = $film->getFilms();
-
+if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]) && isset($_POST["confermaPassword"]) && !empty($_POST["confermaPassword"])) {
+    if($_POST["password"] === $_POST["confermaPassword"]) {
+        $utente->nome = $_POST["firstName"];
+        $utente->cognome = $_POST["lastName"];
+        $utente->email = $_POST["email"];
+        $utente->password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        
+        $utente->createAdmin();
+    }
+}
 ?>
 
     <body class="nav-fixed">
@@ -121,97 +124,47 @@ $stmtFilm = $film->getFilms();
                     </header>
                     <!-- Main page content-->
                     <div class="container mt-n10">
-                        <div class="row mb-4">
-                            <div class="col-xl-6 mb-4">
-                                <div class="card card-header-actions h-100">
-                                    <div class="card-header">
-                                        Guadagni mensili
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-bar"><canvas id="myBarChart" width="100%" height="30"></canvas></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 mb-4">
-                                <!-- Pie chart with legend example-->
-                                <div class="card h-100">
-                                    <div class="card-header">Generi</div>
-                                    <div class="card-body">
-                                        <div class="chart-pie mb-4"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
-                                        <div class="list-group list-group-flush">
-                                            <div class="list-group-item d-flex align-items-center justify-content-between small px-0 py-2">
-                                                <div class="mr-3">
-                                                    <i class="fas fa-circle fa-sm mr-1 text-blue"></i>
-                                                    Direct
-                                                </div>
-                                                <div class="font-weight-500 text-dark">55%</div>
-                                            </div>
-                                            <div class="list-group-item d-flex align-items-center justify-content-between small px-0 py-2">
-                                                <div class="mr-3">
-                                                    <i class="fas fa-circle fa-sm mr-1 text-purple"></i>
-                                                    Social
-                                                </div>
-                                                <div class="font-weight-500 text-dark">15%</div>
-                                            </div>
-                                            <div class="list-group-item d-flex align-items-center justify-content-between small px-0 py-2">
-                                                <div class="mr-3">
-                                                    <i class="fas fa-circle fa-sm mr-1 text-green"></i>
-                                                    Referral
-                                                </div>
-                                                <div class="font-weight-500 text-dark">30%</div>
-                                            </div>
+                        <div class="card mb-4">
+                            <div class="card-header">Nuovo admin</div>
+                            <div class="card-body">
+                                <form method="POST">
+                                    <!-- Form Row-->
+                                    <div class="form-row">
+                                        <!-- Form Group (first name)-->
+                                        <div class="form-group col-md-6">
+                                            <label class="small mb-1" for="inputFirstName">Nome</label>
+                                            <input class="form-control" id="inputFirstName" type="text" value="" name="firstName" />
+                                        </div>
+                                        <!-- Form Group (last name)-->
+                                        <div class="form-group col-md-6">
+                                            <label class="small mb-1" for="inputLastName">Cognome</label>
+                                            <input class="form-control" id="inputLastName" type="text" value="" name="lastName" />
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">Film</div>
-                            <div class="card-body">
-                                <div class="datatable">
-                                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Titolo</th>
-                                                <th>Genere</th>
-                                                <th>Attori</th>
-                                                <th>Data uscita</th>
-                                                <th>Azioni</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Titolo</th>
-                                                <th>Genere</th>
-                                                <th>Attori</th>
-                                                <th>Data uscita</th>
-                                                <th>Azioni</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <?php foreach($stmtFilm as $rowFilm) { ?>
-                                            <tr>
-                                                <td><?php echo $rowFilm["titolo"]; ?></td>
-                                                <td>
-                                                    <?php 
-
-                                                    $stmtGenere = $genere->getGenresByFilm($rowFilm["id"]);
-                                                    foreach($stmtGenere as $rowGenere) {
-                                                        echo $rowGenere["nome"];
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td>Edinburgh</td>
-                                                <td><?php echo date("d/m/Y", strtotime(date($rowFilm["dataUscita"]))); ?></td>
-                                                <td>
-                                                    <button class="btn btn-datatable btn-icon btn-transparent-dark mr-2"><i data-feather="more-vertical"></i></button>
-                                                    <a type="button" class="btn btn-datatable btn-icon btn-transparent-dark" href="<?= "delete.php/?id=" . $rowFilm["id"] ?>"><i data-feather="trash-2"></i></button>
-                                                </td>
-                                            </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    <!-- Form Group (email address)-->
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                        <input class="form-control" id="inputEmailAddress" type="email" value="" name="email"/>
+                                    </div>
+                                    <!-- Form Group (email address)-->
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label class="small mb-1" for="inputEmailAddress">Password</label>
+                                            <input class="form-control" id="inputEmailAddress" type="password" value="" name="password"/>
+                                        </div>
+                                        <!-- Form Group (email address)-->
+                                        <div class="form-group col-md-6">
+                                            <label class="small mb-1" for="inputEmailAddress">Conferma password</label>
+                                            <input class="form-control" id="inputEmailAddress" type="password" value="" name="confermaPassword"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <!-- Form Group (first name)-->
+                                        <div class="form-group col-md-6 mt-2">
+                                            <button class="btn btn-primary" type="submit">Salva</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -67,6 +67,15 @@ class Film {
     return $stmt;
   }
 
+  public function getNumberByGenre() {
+    $sqlQuery = "SELECT COUNT(*) as count FROM appartiene GROUP BY idGenere;";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->execute();
+
+    return $stmt;
+  }
+
   public function getInfo() {
     $sqlQuery = "SELECT " . $this->db_table . ".* FROM " . $this->db_table . " WHERE titolo=:titolo;";
     $stmt = $this->conn->prepare($sqlQuery);
@@ -92,6 +101,17 @@ class Film {
       return $row;
     }
   }
-}
 
+  public function getById() {
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE id=" . $this->id . ";";
+    $stmt = $this->conn->prepare($sqlQuery);
+
+    $stmt->execute();
+
+    foreach($stmt as $row) {
+      return $row;
+    }
+  }
+
+}
 ?>

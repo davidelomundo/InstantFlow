@@ -18,7 +18,7 @@ class Genere {
 
   // Methods
   public function getGenres() {
-    $sqlQuery = "SELECT * FROM " . $this->db_table . ";";
+    $sqlQuery = "SELECT * FROM " . $this->db_table . " ORDER BY id;";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $stmt->execute();
@@ -37,7 +37,7 @@ class Genere {
   }
 
   public function getGenresByFilm($idFilm) {
-    $sqlQuery = "SELECT " . $this->db_table . ".* FROM " . $this->db_table . " JOIN Appartiene ON " . $this->db_table . ".id=appartiene.idGenere WHERE appartiene.idFilm='" . $idFilm . "';";
+    $sqlQuery = "SELECT " . $this->db_table . ".* FROM " . $this->db_table . " JOIN appartiene ON " . $this->db_table . ".id=appartiene.idGenere WHERE appartiene.idFilm='" . $idFilm . "';";
     $stmt = $this->conn->prepare($sqlQuery);
     
     $stmt->execute();
