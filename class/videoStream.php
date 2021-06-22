@@ -4,7 +4,7 @@ class VideoStream
 {
     private $path = "";
     private $stream = "";
-    private $buffer = 102400;
+    private $buffer = 5000000;
     private $start  = -1;
     private $end    = -1;
     private $size   = 0;

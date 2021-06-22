@@ -128,7 +128,11 @@ $header.= "X-Priority: 1\r\n";
                         <div class="row text-center">
                             <?php foreach($stmtFilm as $rowFilm) { ?>
                             <div class="col-lg-4 mb-5">
-                                <h6 class="mb-3"><?php echo $rowFilm["titolo"]; ?></h6>
+                                <h6 class="mb-3"><?php echo $rowFilm["titolo"]; 
+                                if(filesize("../resources/" . $rowFilm["id"] . "/film.mp4")/(1024*1000)>200) { ?>
+                                    <i class="bi bi-badge-4k text-purple"></i>
+                                <?php } ?>
+                                </h6>
                                 <a class="d-block rounded-lg lift lift-lg" href="<?= "view.php?id=" . $rowFilm["id"]?>"><img class="img-fluid rounded-lg" src="<?= "../resources/" . $rowFilm["id"] . "/anteprima.jpg"?>"/></a>
                             </div>
                             <?php } ?>
