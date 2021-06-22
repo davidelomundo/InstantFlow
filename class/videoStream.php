@@ -30,6 +30,7 @@ class VideoStream
      */
     private function setHeader()
     {
+        session_write_close();
         ob_get_clean();
         header("Content-Type: video/mp4");
         header("Cache-Control: max-age=2592000, public");
