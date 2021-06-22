@@ -29,7 +29,6 @@ class Guarda {
     $stmt->bindParam(':idUtente', $this->idUtente);
     $stmt->bindParam(':idFilm', $this->idFilm);
 
-    var_dump($sqlQuery);
     $stmt->execute();
   }
 }

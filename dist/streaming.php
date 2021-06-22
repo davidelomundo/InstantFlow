@@ -1,5 +1,5 @@
 <?php
-$file = '../resources/14/film.mp4';
+$file = '../resources/1/film.mp4';
 $fp = @fopen($file, 'rb');
 $size = filesize($file); // File size
 $length = $size; // Content length

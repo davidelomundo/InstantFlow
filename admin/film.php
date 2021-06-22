@@ -39,8 +39,8 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
     $rowFilm = $film->getInfo();
 
     mkdir("../resources/" . $rowFilm["id"]);
-    move_uploaded_file($_FILES["anteprima"]["tmp_name"], "../resources/" . $rowFilm["id"] . "anteprima.jpg");
-    move_uploaded_file($_FILES["contenuto"]["tmp_name"], "../resources/" . $rowFilm["id"] . "film.mp4");
+    move_uploaded_file($_FILES["anteprima"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/anteprima.jpg");
+    move_uploaded_file($_FILES["contenuto"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/film.mp4");
     
 
 }
@@ -204,7 +204,7 @@ if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizi
                         <div class="card mb-4">
                             <div class="card-header">Nuovo film</div>
                             <div class="card-body">
-                                <form method="POST">
+                                <form method="POST" enctype="multipart/form-data">
                                     <!-- Form Row-->
                                     <div class="form-row">
                                         <!-- Form Group (first name)-->
