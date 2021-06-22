@@ -98,7 +98,7 @@ $stmtCronologia = $utente->cronologia();
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="generi.php">Generi</a></li>
                             </ul>
-                            <form>
+                            <form action="logged.php">
                                 <div class="form-row justify-content-center">
                                     <div>
                                         <div class="form-group mr-0 mr-lg-2"><label class="sr-only" for="inputSearch">Cerca...</label><input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Cerca..." /></div>

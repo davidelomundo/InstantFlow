@@ -23,7 +23,7 @@ if(!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
     }
 }
 
-if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]))
+if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]))
 {
     $utente->id = $_SESSION["idUtente"];
     $utente->nome = $_POST["firstName"];
@@ -88,7 +88,7 @@ $rowUtente = $utente->getInfo();
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="generi.php">Generi</a></li>
                             </ul>
-                            <form>
+                            <form action="logged.php">
                                 <div class="form-row justify-content-center">
                                     <div>
                                         <div class="form-group mr-0 mr-lg-2"><label class="sr-only" for="inputSearch">Cerca...</label><input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Cerca..." /></div>

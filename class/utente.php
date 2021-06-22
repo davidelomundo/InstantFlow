@@ -30,7 +30,7 @@ class Utente {
   }
 
   public function updateUser() {
-    $sqlQuery = "UPDATE " . $this->db_table . " SET nome=:nome, cognome=:cognome, email=AES_ENCRYPT(:email, 'aeskey'), password=:password WHERE id=:id;";
+    $sqlQuery = "UPDATE " . $this->db_table . " SET nome=:nome, cognome=:cognome, email=AES_ENCRYPT(:email, 'aeskey');";
     $stmt = $this->conn->prepare($sqlQuery);
     
     // sanitize
@@ -45,7 +45,6 @@ class Utente {
     $stmt->bindParam(':nome', $this->nome);
     $stmt->bindParam(':cognome', $this->cognome);
     $stmt->bindParam(':email', $this->email);
-    $stmt->bindParam(':password', $this->password);
 
     $stmt->execute();
 
