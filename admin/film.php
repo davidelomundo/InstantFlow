@@ -28,6 +28,23 @@ if(isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
     $film->delete();
 }
 
+if(isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizione"]) && !empty($_POST["descrizione"]) && isset($_POST["dataUscita"]) && !empty($_POST["dataUscita"])) {
+
+    $film->titolo = $_POST["titolo"];
+    $film->descrizione = $_POST["descrizione"];
+    $film->dataUscita = $_POST["dataUscita"];
+    $film->createFilm();
+
+    $film->titolo = $_POST["titolo"];
+    $rowFilm = $film->getInfo();
+
+    mkdir("../resources/" . $rowFilm["id"]);
+    move_uploaded_file($_FILES["anteprima"]["tmp_name"], "../resources/" . $rowFilm["id"] . "anteprima.jpg");
+    move_uploaded_file($_FILES["contenuto"]["tmp_name"], "../resources/" . $rowFilm["id"] . "film.mp4");
+    
+
+}
+
 ?>
 
     <body class="nav-fixed">
@@ -187,41 +204,41 @@ if(isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
                         <div class="card mb-4">
                             <div class="card-header">Nuovo film</div>
                             <div class="card-body">
-                                <form>
+                                <form method="POST">
                                     <!-- Form Row-->
                                     <div class="form-row">
                                         <!-- Form Group (first name)-->
                                         <div class="form-group col-md-6">
                                             <label class="small mb-1" for="inputFirstName">Nome</label>
-                                            <input class="form-control" id="inputFirstName" type="text" value="" />
+                                            <input class="form-control" id="inputFirstName" type="text" value="" name="titolo"/>
                                         </div>
                                         <!-- Form Group (last name)-->
                                         <div class="form-group col-md-6">
                                             <label class="small mb-1" for="inputLastName">Descrizione</label>
-                                            <input class="form-control" id="inputLastName" type="text" value="" />
+                                            <input class="form-control" id="inputLastName" type="text" value="" name="descrizione"/>
                                         </div>
                                     </div>
                                     <!-- Form Group (email address)-->
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputEmailAddress">Data uscita</label>
-                                        <input class="form-control" id="inputEmailAddress" type="date" value="" />
+                                        <input class="form-control" id="inputEmailAddress" type="date" value="" name="dataUscita"/>
                                     </div>
                                     <!-- Form Group (email address)-->
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label class="small mb-1" for="inputEmailAddress">Anteprima</label>
-                                            <input class="form-control" id="inputEmailAddress" type="file" value="" />
+                                            <input class="form-control" id="inputEmailAddress" type="file" accept=".jpg" value="" name="anteprima" required/>
                                         </div>
                                         <!-- Form Group (email address)-->
                                         <div class="form-group col-md-6">
                                             <label class="small mb-1" for="inputEmailAddress">Contenuto</label>
-                                            <input class="form-control" id="inputEmailAddress" type="file" value="" />
+                                            <input class="form-control" id="inputEmailAddress" type="file" value=".mp4" name="contenuto" required/>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <!-- Form Group (first name)-->
                                         <div class="form-group col-md-6 mt-2">
-                                            <button class="btn btn-primary" type="button">Salva</button>
+                                            <button class="btn btn-primary" type="submit">Salva</button>
                                         </div>
                                     </div>
                                 </form>
@@ -266,14 +283,17 @@ if(isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
                     <?php $stmtGenere = $genere->getGenres(); ?>
                     labels: [<?php foreach($stmtGenere as $rowGenere) {
                         echo "'" . $rowGenere["nome"] . "', ";
-                    } ?>], // Nomi generi
+                    } ?>],
                     datasets: [{
-                        <?php $stmtGenere = $film->getNumberByGenre(); ?>
                         data: [
-                            <?php foreach($stmtGenere as $rowGenere) {
+                            <?php 
+                            $stmtGenere = $film->getNumberByGenre();
+
+                            foreach($stmtGenere as $rowGenere) {
                             echo intval($rowGenere["count"]) . ", ";
-                            } ?>
-                        ], //Numero per genere
+                            } 
+                            ?>
+                        ],
                         backgroundColor: [
                             "rgba(0, 97, 242, 1)",
                             "rgba(0, 172, 105, 1)",
