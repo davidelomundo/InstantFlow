@@ -19,7 +19,7 @@ class Guarda {
   }
 
   public function createLog() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (durata, idUtente, idFilm) VALUES (NOW(), :idUtente, :idFilm);";
+    $sqlQuery = "INSERT INTO " . $this->db_table . " (idUtente, idFilm, data) VALUES (:idUtente, :idFilm, NOW());";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->durata));

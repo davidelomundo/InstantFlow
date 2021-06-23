@@ -9,7 +9,7 @@ require_once "../class/film.php";
 require_once "../class/guarda.php";
 require_once "../class/videoStream.php";
 
-if(empty($_SESSION["idUtente"])) {
+if(!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
     header("Location: index.php");
 }
 

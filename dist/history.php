@@ -124,22 +124,27 @@ $stmtCronologia = $utente->cronologia();
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                     </div>
                 </header>
+
                 <section class="bg-light py-10">
                     <div class="container">
-                        <div class="row text-center">
-
+                        <div class="row">
                         <?php foreach($stmtCronologia as $rowCronologia) { 
                             $film->id = $rowCronologia["idFilm"];
                             $rowFilm = $film->getById(); ?>
-                            <div class="col-lg-4 mb-5">
-                                <h6 class="mb-3"><?php echo $rowFilm["titolo"]; ?></h6>
-                                <a class="d-block rounded-lg lift lift-lg" href="<?= "view.php?id=" . $rowFilm["id"]?>"><img class="img-fluid rounded-lg" src="<?= "../resources/" . $rowFilm["id"] . "/anteprima.jpg"?>"/></a>
+                            <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
+                                <a class="card lift h-100" href="<?= "view.php?id=" . $rowFilm["id"]?>">
+                                    <!--<div class="card-flag card-flag-dark card-flag-top-right card-flag-lg"><?php echo $rowFilm["titolo"]; ?></div>-->
+                                    <img class="card-img-top" src="<?= "../resources/" . $rowFilm["id"] . "/anteprima.jpg"?>" alt="..." />
+                                    <div class="card-body p-3">
+                                        <div class="card-title small mb-0"></div>
+                                        <div class="text-xs text-black-500"><?php echo $rowFilm["titolo"]; ?></div>
+                                        <div class="text-xs text-gray-500"><?php echo date('d/m/Y H:i:s ', strtotime($rowCronologia["data"] . ' + 1 hours')); ?></div>
+                                    </div>
+                                </a>
                             </div>
-                        <?php } ?>
-
+                            <?php } ?>
                         </div>
                     </div>
-
                     <div class="svg-border-rounded text-light">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                     </div>
