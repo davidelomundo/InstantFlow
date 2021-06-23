@@ -159,7 +159,7 @@ class Utente {
   }
 
   public function cronologia() {
-    $sqlQuery = "SELECT * FROM guarda WHERE idUtente=:id AND (data, idFilm) IN (SELECT MAX(data), idFilm FROM guarda GROUP BY idFilm) GROUP BY idFilm;";
+    $sqlQuery = "SELECT * FROM guarda WHERE idUtente=:id AND (data, idFilm) IN (SELECT MAX(data), idFilm FROM guarda GROUP BY idFilm) GROUP BY idFilm ORDER BY data DESC;";
     $stmt = $this->conn->prepare($sqlQuery);
 
     $this->email = htmlspecialchars(strip_tags($this->id));
