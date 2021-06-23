@@ -20,10 +20,10 @@ INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Raya e l'Ultimo Dra
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Sopravvissuto - The martian", "Durante una missione su Marte, l’astronauta Mark Watney (Matt Damon) viene dato per morto e abbandonato. Ma Watney è ancora vivo. Contro ogni probabilità, deve trovare il modo di contattare la Terra nella speranza che riescano ad organizzare un piano per salvarlo.", "2015-10-01");
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Spider-Man: Homecoming", "Entusiasta della sua esperienza con gli Avengers, Peter torna a casa dalla zia May e si affida al suo nuovo mentore, Tony Stark, nei panni di Iron Man.", "2017-07-06");
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Batman", "Con l'aiuto del tenente Jim Gordon e del procuratore distrettuale Harvey Dent, Batman si prepara ad eliminare una volta per tutte il crimine organizzato a Gotham.", "2022-03-04");
+INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Conjuring - L'Evocazione", "Costretti ad affrontare una potente entità demoniaca, i Warren si trovano nel bel mezzo del caso più terrificante della loro vita. Vera Farmiga e Patrick Wilson sono gli investigatori mentre Ron Livingston e Lili Taylor interpretano la famiglia Perron tormentata da spiriti sinistri in questo horror realizzato dagli sceneggiatori di The Reaping e il creatore della saga Saw.", "2013-08-21");
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Danish Girl", "Quando Gerda (Vikander) chiede a suo marito Einar Wegener (Redmayne) di travestirsi da modella per un ritratto, i sentimenti dell’uomo a lungo repressi riaffiorano ed Einar inizia a vivere come una donna.", "2016-02-04");
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Wolf of Wall Street", " Il film segue la folle cavalcata di Belfort, un giovane “nuovo arrivato” a Wall Street che si trasforma via via in un corrotto manipolatore dei mercati e in un cowboy della Borsa.", "2014-01-23");
 INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("Titanic", "Rose (Kate Winslet) è una giovane donna dell'alta società che si sente soffocata dal suo arrogante promesso sposo. Jack (Leonardo DiCaprio) è un artista dallo spirito libero  che apre Rose al mondo e le ruba il cuore. Quando la nave si scontra con un iceberg nel gelido Nord Atlantico, il viaggio dei due amanti si trasforma in una disperata corsa alla sopravvivenza.", "1998-01-16");
-INSERT INTO films (titolo, descrizione, dataUscita) VALUES ("The Conjuring - L'Evocazione", "Costretti ad affrontare una potente entità demoniaca, i Warren si trovano nel bel mezzo del caso più terrificante della loro vita. Vera Farmiga e Patrick Wilson sono gli investigatori mentre Ron Livingston e Lili Taylor interpretano la famiglia Perron tormentata da spiriti sinistri in questo horror realizzato dagli sceneggiatori di The Reaping e il creatore della saga Saw.", "2013-08-21");
 
 INSERT INTO generi (nome) VALUES("Eroi");
 INSERT INTO generi (nome) VALUES("Documentari");
@@ -58,11 +58,10 @@ INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 1);
 INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 4);
 INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 8);
 INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 12);
-INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 19);
 INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 20);
 INSERT INTO appartiene (idGenere, idFilm) VALUES (6, 21);
 
-INSERT INTO appartiene (idGenere, idFilm) VALUES (7, 22);
+INSERT INTO appartiene (idGenere, idFilm) VALUES (7, 19);
 
 
 UPDATE utenti SET isAdmin=1 WHERE email=AES_ENCRYPT("davidelomundo02@gmail.com", "instant.Password!123");

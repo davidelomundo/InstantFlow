@@ -1,5 +1,4 @@
-- Bug stream chrome
-- Abilitare debug PHP
-- 2FA (via mail)
-- Completa funzioni admin
-- Il bug della index non è un problema, è responsive
+PayPal Developer:
+sb-fyip56154676@personal.example.com
+0jGF$^.&
+

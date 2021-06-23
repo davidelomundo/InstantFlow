@@ -30,7 +30,7 @@ class Utente {
   }
 
   public function updateUser() {
-    $sqlQuery = "UPDATE " . $this->db_table . " SET nome=:nome, cognome=:cognome, email=AES_ENCRYPT(:email, 'aeskey');";
+    $sqlQuery = "UPDATE " . $this->db_table . " SET nome=:nome, cognome=:cognome, email=AES_ENCRYPT(:email, '" . getenv("AES_PASSWORD") . "') WHERE id=:id;";
     $stmt = $this->conn->prepare($sqlQuery);
     
     // sanitize
