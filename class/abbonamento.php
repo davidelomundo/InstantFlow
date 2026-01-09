@@ -12,13 +12,13 @@ class Subscription
   private $conn;
 
   /** @var string Database table name */
-  private $db_table = "abbonamenti";
+  private $db_table = "subscriptions";
 
   // Public properties mapped to table columns
   public $id;
-  public $dataFine;
-  public $idUtente;
-  public $idCategoria;
+  public $endDate;
+  public $userId;
+  public $categoryId;
 
   /**
    * Constructor
@@ -37,16 +37,16 @@ class Subscription
    */
   public function createSubscription()
   {
-    $dataFine = date('Y-m-d', strtotime('+30 days'));
+    $endDate = date('Y-m-d', strtotime('+30 days'));
 
     $sql = "
-            INSERT INTO {$this->db_table} (dataFine, idUtente, idCategoria)
-            VALUES ('{$dataFine}', :idUtente, :idCategoria)
+            INSERT INTO {$this->db_table} (end_date, user_id, category_id)
+            VALUES ('{$endDate}', :userId, :categoryId)
         ";
 
     $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(':idUtente', $this->idUtente);
-    $stmt->bindParam(':idCategoria', $this->idCategoria);
+    $stmt->bindParam(':userId', $this->userId);
+    $stmt->bindParam(':categoryId', $this->categoryId);
     $stmt->execute();
   }
 
@@ -60,11 +60,11 @@ class Subscription
     $sql = "
             SELECT COUNT(*) AS count
             FROM {$this->db_table}
-            WHERE idUtente = :idUtente AND dataFine > CURDATE()
+            WHERE user_id = :userId AND end_date > CURDATE()
         ";
 
     $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(':idUtente', $this->idUtente);
+    $stmt->bindParam(':userId', $this->userId);
     $stmt->execute();
 
     foreach ($stmt as $row) {
@@ -82,13 +82,13 @@ class Subscription
   public function getExpiration()
   {
     $sql = "
-            SELECT MAX(dataFine) AS scadenza
+            SELECT MAX(end_date) AS expiration
             FROM {$this->db_table}
-            WHERE idUtente = :idUtente
+            WHERE user_id = :userId
         ";
 
     $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(':idUtente', $this->idUtente);
+    $stmt->bindParam(':userId', $this->userId);
     $stmt->execute();
 
     foreach ($stmt as $row) {

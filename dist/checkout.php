@@ -16,7 +16,7 @@ if (empty($_SESSION["idUtente"])) {
     header("Location: index.php");
 }
 
-$subscription->idUtente = $_SESSION["idUtente"];
+$subscription->userId = $_SESSION["idUtente"];
 if ($subscription->isSubscribed()) {
     header("Location: logged.php");
 }
@@ -100,8 +100,8 @@ $rowCategory = $category->findById();
                                 return actions.order.capture().then(function(details) {
                                     console.log(details);
                                     <?php
-                                    $subscription->idUtente = $_SESSION["idUtente"];
-                                    $subscription->idCategoria = $_POST["idCategoria"];
+                                    $subscription->userId = $_SESSION["idUtente"];
+                                    $subscription->categoryId = $_POST["idCategoria"];
                                     $subscription->createSubscription();
                                     ?>
                                     window.location.replace("logged.php");

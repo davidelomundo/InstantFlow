@@ -12,7 +12,7 @@ class User
   private $conn;
 
   /** @var string Database table name */
-  private $db_table = "utenti";
+  private $db_table = "users";
 
   // Public properties mapped to table columns
   public $id;
@@ -75,8 +75,8 @@ class User
   {
     $sql = "
             UPDATE {$this->db_table}
-            SET nome = :nome,
-                cognome = :cognome,
+            SET first_name = :firstName,
+                last_name = :lastName,
                 email = AES_ENCRYPT(:email, '{$this->getAesPassword()}')
             WHERE id = :id
         ";
@@ -91,8 +91,8 @@ class User
 
     // Bind
     $stmt->bindParam(':id', $this->id);
-    $stmt->bindParam(':nome', $this->firstName);
-    $stmt->bindParam(':cognome', $this->lastName);
+    $stmt->bindParam(':firstName', $this->firstName);
+    $stmt->bindParam(':lastName', $this->lastName);
     $stmt->bindParam(':email', $this->email);
 
     $stmt->execute();
@@ -129,9 +129,9 @@ class User
   {
     $sql = "
             INSERT INTO {$this->db_table}
-            (nome, cognome, email, password, is_admin)
+            (first_name, last_name, email, password, is_admin)
             VALUES
-            (:nome, :cognome, AES_ENCRYPT(:email, '{$this->getAesPassword()}'), :password, :is_admin)
+            (:firstName, :lastName, AES_ENCRYPT(:email, '{$this->getAesPassword()}'), :password, :is_admin)
         ";
 
     $stmt = $this->conn->prepare($sql);
@@ -142,8 +142,8 @@ class User
     $this->email     = $this->sanitize($this->email);
 
     // Bind
-    $stmt->bindParam(':nome', $this->firstName);
-    $stmt->bindParam(':cognome', $this->lastName);
+    $stmt->bindParam(':firstName', $this->firstName);
+    $stmt->bindParam(':lastName', $this->lastName);
     $stmt->bindParam(':email', $this->email);
     $stmt->bindParam(':password', $this->password);
     $stmt->bindValue(':is_admin', $isAdmin ? 1 : 0, PDO::PARAM_INT);
@@ -211,7 +211,6 @@ class User
     return null;
   }
 
-
   /**
    * Get user info by ID
    *
@@ -220,14 +219,15 @@ class User
   public function getInfo()
   {
     $sql = "
-            SELECT nome,
-                   cognome,
+            SELECT first_name,
+                   last_name,
                    AES_DECRYPT(email, '{$this->getAesPassword()}') AS email
             FROM {$this->db_table}
-            WHERE id = {$this->id}
+            WHERE id = :id
         ";
 
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $this->id);
     $stmt->execute();
 
     foreach ($stmt as $row) {
@@ -260,8 +260,10 @@ class User
    */
   public function delete()
   {
-    $sql = "DELETE FROM {$this->db_table} WHERE id = {$this->id}";
-    $this->conn->query($sql);
+    $sql = "DELETE FROM {$this->db_table} WHERE id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $this->id);
+    $stmt->execute();
   }
 
   /**
@@ -273,15 +275,15 @@ class User
   {
     $sql = "
             SELECT *
-            FROM guarda
-            WHERE idUtente = :id
-              AND (data, idFilm) IN (
-                  SELECT MAX(data), idFilm
-                  FROM guarda
-                  GROUP BY idFilm
+            FROM watches
+            WHERE user_id = :id
+              AND (watched_at, film_id) IN (
+                  SELECT MAX(watched_at), film_id
+                  FROM watches
+                  GROUP BY film_id
               )
-            GROUP BY idFilm
-            ORDER BY data DESC
+            GROUP BY film_id
+            ORDER BY watched_at DESC
         ";
 
     $stmt = $this->conn->prepare($sql);

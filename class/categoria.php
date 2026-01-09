@@ -12,7 +12,7 @@ class Category
   private $conn;
 
   /** @var string Database table name */
-  private $db_table = "categorie";
+  private $db_table = "categories";
 
   // Public properties mapped to table columns
   public $id;
@@ -35,16 +35,17 @@ class Category
    *
    * @return void
    */
-  public function newCategory()
+  public function createCategory()
   {
-    $sql = "INSERT INTO {$this->db_table} (nome) VALUES (:nome)";
+    $sql = "INSERT INTO {$this->db_table} (name, price) VALUES (:name, :price)";
     $stmt = $this->conn->prepare($sql);
 
     // Sanitize input
     $this->name = htmlspecialchars(strip_tags($this->name));
 
-    // Bind parameter
-    $stmt->bindParam(':nome', $this->name);
+    // Bind parameters
+    $stmt->bindParam(':name', $this->name);
+    $stmt->bindParam(':price', $this->price);
 
     $stmt->execute();
   }
@@ -54,7 +55,7 @@ class Category
    *
    * @return PDOStatement
    */
-  public function getCategory()
+  public function getCategories()
   {
     $sql = "SELECT * FROM {$this->db_table}";
     $stmt = $this->conn->prepare($sql);

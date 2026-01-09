@@ -25,7 +25,7 @@ Originally developed as a high-school final project in 2021, it has been slightl
 |-------|-------------|
 | **Frontend** | HTML5, CSS3, JavaScript (Bootstrap) |
 | **Backend** | PHP 8 (Object-Oriented, PDO) |
-| **Database** | MariaDB 11 |
+| **Database** | MariaDB 12 |
 | **Server** | Apache 2 |
 | **Environment** | Docker + Docker Compose |
 | **Security** | AES encryption, password hashing, Let's Encrypt SSL |

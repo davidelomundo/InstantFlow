@@ -15,7 +15,7 @@ if (empty($_SESSION["idAdmin"])) {
 $database = new Database();
 $db = $database->getConnection();
 $user = new User($db);
-$film = new Movie($db);
+$film = new Film($db);
 $genre = new Genre($db);
 
 $user->id = $_SESSION["idAdmin"];

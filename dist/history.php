@@ -9,13 +9,13 @@ require_once "../class/abbonamento.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$film = new Movie($db);
+$film = new Film($db);
 $subscription = new Subscription($db);
 
 if (!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
     header("Location: index.php");
 } else {
-    $subscription->idUtente = $_SESSION["idUtente"];
+    $subscription->userId = $_SESSION["idUtente"];
     if (!$subscription->isSubscribed()) {
         header("Location: abbonamento.php");
     }

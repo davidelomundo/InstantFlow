@@ -12,11 +12,11 @@ class Genre
   private $conn;
 
   /** @var string Database table name */
-  private $db_table = "generi";
+  private $db_table = "genres";
 
   // Public properties mapped to table columns
   public $id;
-  public $nome;
+  public $name;
 
   /**
    * Constructor
@@ -46,16 +46,16 @@ class Genre
    *
    * @return void
    */
-  public function newGenre()
+  public function createGenre()
   {
-    $sql = "INSERT INTO {$this->db_table} (nome) VALUES (:nome)";
+    $sql = "INSERT INTO {$this->db_table} (name) VALUES (:name)";
     $stmt = $this->conn->prepare($sql);
 
     // Sanitize input
-    $this->nome = htmlspecialchars(strip_tags($this->nome));
+    $this->name = htmlspecialchars(strip_tags($this->name));
 
     // Bind parameter
-    $stmt->bindParam(':nome', $this->nome);
+    $stmt->bindParam(':name', $this->name);
 
     $stmt->execute();
   }
@@ -63,20 +63,21 @@ class Genre
   /**
    * Get genres associated with a specific film
    *
-   * @param int|string $idFilm
+   * @param int|string $filmId
    * @return PDOStatement
    */
-  public function getGenresByFilm($idFilm)
+  public function getGenresByFilm($filmId)
   {
     $sql = "
             SELECT {$this->db_table}.*
             FROM {$this->db_table}
-            JOIN appartiene
-              ON {$this->db_table}.id = appartiene.idGenere
-            WHERE appartiene.idFilm = '{$idFilm}'
+            JOIN has_genre
+              ON {$this->db_table}.id = has_genre.genre_id
+            WHERE has_genre.film_id = :filmId
         ";
 
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':filmId', $filmId);
     $stmt->execute();
     return $stmt;
   }

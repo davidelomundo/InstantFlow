@@ -10,7 +10,7 @@ require_once "../class/film.php";
 $database = new Database();
 $db = $database->getConnection();
 $user = new User($db);
-$movie = new Movie($db);
+$movie = new Film($db);
 
 ?>
 

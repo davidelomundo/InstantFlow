@@ -17,12 +17,12 @@ $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
-$movie = new Movie($db);
-$watchLog = new WatchLog($db);
+$movie = new Film($db);
+$watchLog = new Watch($db);
 $stream = new VideoStream("../resources/" . $_GET["id"] . "/film.mp4");
 
 $watchLog->userId = $_SESSION["idUtente"];
-$watchLog->movieId = $_GET["id"];
+$watchLog->filmId = $_GET["id"];
 $watchLog->createLog();
 
 $stream->start();

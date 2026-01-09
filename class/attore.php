@@ -12,12 +12,12 @@ class Actor
   private $conn;
 
   /** @var string Database table name */
-  private $db_table = "attori";
+  private $db_table = "actors";
 
   // Public properties mapped to table columns
   public $id;
-  public $nome;
-  public $cognome;
+  public $firstName;
+  public $lastName;
 
   /**
    * Constructor
@@ -34,18 +34,18 @@ class Actor
    *
    * @return void
    */
-  public function newActor()
+  public function createActor()
   {
-    $sql = "INSERT INTO {$this->db_table} (nome, cognome) VALUES (:nome, :cognome)";
+    $sql = "INSERT INTO {$this->db_table} (first_name, last_name) VALUES (:firstName, :lastName)";
     $stmt = $this->conn->prepare($sql);
 
     // Sanitize inputs
-    $this->nome = htmlspecialchars(strip_tags($this->nome));
-    $this->cognome = htmlspecialchars(strip_tags($this->cognome));
+    $this->firstName = htmlspecialchars(strip_tags($this->firstName));
+    $this->lastName = htmlspecialchars(strip_tags($this->lastName));
 
     // Bind parameters
-    $stmt->bindParam(':nome', $this->nome);
-    $stmt->bindParam(':cognome', $this->cognome);
+    $stmt->bindParam(':firstName', $this->firstName);
+    $stmt->bindParam(':lastName', $this->lastName);
 
     $stmt->execute();
   }

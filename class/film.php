@@ -5,7 +5,7 @@
  *
  * Handles film-related database operations.
  */
-class Movie
+class Film
 {
 
   /** @var PDO Database connection */
@@ -38,11 +38,14 @@ class Movie
   public function createFilm()
   {
     $sql = "
-            INSERT INTO {$this->db_table} (titolo, dataUscita, descrizione)
-            VALUES ('{$this->title}', '{$this->releaseDate}', '{$this->description}')
+            INSERT INTO {$this->db_table} (title, release_date, description)
+            VALUES (:title, :releaseDate, :description)
         ";
 
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':title', $this->title);
+    $stmt->bindParam(':releaseDate', $this->releaseDate);
+    $stmt->bindParam(':description', $this->description);
     $stmt->execute();
   }
 
@@ -53,8 +56,9 @@ class Movie
    */
   public function delete()
   {
-    $sql = "DELETE FROM {$this->db_table} WHERE id = '{$this->id}'";
+    $sql = "DELETE FROM {$this->db_table} WHERE id = :id";
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $this->id);
     $stmt->execute();
   }
 
@@ -78,13 +82,13 @@ class Movie
    */
   public function findFilms()
   {
-    $sql = "SELECT * FROM {$this->db_table} WHERE titolo LIKE :titolo";
+    $sql = "SELECT * FROM {$this->db_table} WHERE title LIKE :title";
     $stmt = $this->conn->prepare($sql);
 
     $this->title = htmlspecialchars(strip_tags($this->title));
     $this->title = "%{$this->title}%";
 
-    $stmt->bindParam(':titolo', $this->title);
+    $stmt->bindParam(':title', $this->title);
     $stmt->execute();
 
     return $stmt;
@@ -93,20 +97,21 @@ class Movie
   /**
    * Get films by genre
    *
-   * @param int|string $idGenere
+   * @param int|string $genreId
    * @return PDOStatement
    */
-  public function getFilmsByGenre($idGenere)
+  public function getFilmsByGenre($genreId)
   {
     $sql = "
             SELECT {$this->db_table}.*
             FROM {$this->db_table}
-            JOIN appartiene
-              ON {$this->db_table}.id = appartiene.idFilm
-            WHERE appartiene.idGenere = '{$idGenere}'
+            JOIN has_genre
+              ON {$this->db_table}.id = has_genre.film_id
+            WHERE has_genre.genre_id = :genreId
         ";
 
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':genreId', $genreId);
     $stmt->execute();
     return $stmt;
   }
@@ -118,7 +123,7 @@ class Movie
    */
   public function getNumberByGenre()
   {
-    $sql = "SELECT COUNT(*) AS count FROM appartiene GROUP BY idGenere";
+    $sql = "SELECT COUNT(*) AS count FROM has_genre GROUP BY genre_id";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     return $stmt;
@@ -131,11 +136,11 @@ class Movie
    */
   public function getInfo()
   {
-    $sql = "SELECT * FROM {$this->db_table} WHERE titolo = :titolo";
+    $sql = "SELECT * FROM {$this->db_table} WHERE title = :title";
     $stmt = $this->conn->prepare($sql);
 
     $this->title = htmlspecialchars(strip_tags($this->title));
-    $stmt->bindParam(':titolo', $this->title);
+    $stmt->bindParam(':title', $this->title);
 
     $stmt->execute();
 
@@ -170,8 +175,9 @@ class Movie
    */
   public function getById()
   {
-    $sql = "SELECT * FROM {$this->db_table} WHERE id = {$this->id}";
+    $sql = "SELECT * FROM {$this->db_table} WHERE id = :id";
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $this->id);
     $stmt->execute();
 
     foreach ($stmt as $row) {

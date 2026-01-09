@@ -1,24 +1,24 @@
 <?php
 
 /**
- * Class WatchLog
+ * Class Watch
  *
  * Handles logging of user watch activity.
  */
-class WatchLog
+class Watch
 {
 
   /** @var PDO Database connection */
   private $conn;
 
   /** @var string Database table name */
-  private $db_table = "guarda";
+  private $db_table = "watches";
 
   // Public properties mapped to table columns
   public $id;
   public $duration;
   public $userId;
-  public $movieId;
+  public $filmId;
 
   /**
    * Constructor
@@ -38,19 +38,20 @@ class WatchLog
   public function createLog()
   {
     $sql = "
-            INSERT INTO {$this->db_table} (idUtente, idFilm, data)
-            VALUES (:idUtente, :idFilm, NOW())
+            INSERT INTO {$this->db_table} (user_id, film_id, watched_at, duration)
+            VALUES (:userId, :filmId, NOW(), :duration)
         ";
 
     $stmt = $this->conn->prepare($sql);
 
     // Sanitize inputs
     $this->userId = htmlspecialchars(strip_tags($this->userId));
-    $this->movieId   = htmlspecialchars(strip_tags($this->movieId));
+    $this->filmId = htmlspecialchars(strip_tags($this->filmId));
 
     // Bind parameters
-    $stmt->bindParam(':idUtente', $this->userId);
-    $stmt->bindParam(':idFilm', $this->movieId);
+    $stmt->bindParam(':userId', $this->userId);
+    $stmt->bindParam(':filmId', $this->filmId);
+    $stmt->bindParam(':duration', $this->duration);
 
     $stmt->execute();
   }

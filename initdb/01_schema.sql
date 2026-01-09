@@ -3,84 +3,84 @@
 -- Table: films
 CREATE TABLE IF NOT EXISTS films (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    titolo VARCHAR(100) UNIQUE NOT NULL,
-    descrizione TEXT,
-    data_uscita DATE NOT NULL
+    title VARCHAR(100) UNIQUE NOT NULL,
+    description TEXT,
+    release_date DATE NOT NULL
 );
 
--- Table: utenti
-CREATE TABLE IF NOT EXISTS utenti (
+-- Table: users
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
-    cognome VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     email VARBINARY(150) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     is_admin BOOLEAN NOT NULL DEFAULT 0
 );
 
--- Table: categorie
-CREATE TABLE IF NOT EXISTS categorie (
+-- Table: categories
+CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(30) UNIQUE NOT NULL,
-    prezzo DECIMAL(6,2) NOT NULL CHECK (prezzo >= 0)
+    name VARCHAR(30) UNIQUE NOT NULL,
+    price DECIMAL(6,2) NOT NULL CHECK (price >= 0)
 );
 
--- Table: abbonamenti
-CREATE TABLE IF NOT EXISTS abbonamenti (
+-- Table: subscriptions
+CREATE TABLE IF NOT EXISTS subscriptions (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    data_fine DATE NOT NULL,
-    id_utente INT NOT NULL,
-    id_categoria INT NOT NULL,
-    FOREIGN KEY (id_utente) REFERENCES utenti(id)
+    end_date DATE NOT NULL,
+    user_id INT NOT NULL,
+    category_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
         ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (id_categoria) REFERENCES categorie(id)
+    FOREIGN KEY (category_id) REFERENCES categories(id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- Table: attori
-CREATE TABLE IF NOT EXISTS attori (
+-- Table: actors
+CREATE TABLE IF NOT EXISTS actors (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
-    cognome VARCHAR(50) NOT NULL
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL
 );
 
--- Table: recita (relationship)
-CREATE TABLE IF NOT EXISTS recita (
+-- Table: cast (relationship)
+CREATE TABLE IF NOT EXISTS cast (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_attore INT NOT NULL,
-    id_film INT NOT NULL,
-    FOREIGN KEY (id_attore) REFERENCES attori(id)
+    actor_id INT NOT NULL,
+    film_id INT NOT NULL,
+    FOREIGN KEY (actor_id) REFERENCES actors(id)
         ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (id_film) REFERENCES films(id)
+    FOREIGN KEY (film_id) REFERENCES films(id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- Table: generi
-CREATE TABLE IF NOT EXISTS generi (
+-- Table: genres
+CREATE TABLE IF NOT EXISTS genres (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) UNIQUE NOT NULL
+    name VARCHAR(50) UNIQUE NOT NULL
 );
 
--- Table: appartiene (relationship)
-CREATE TABLE IF NOT EXISTS appartiene (
+-- Table: has_genre (relationship)
+CREATE TABLE IF NOT EXISTS has_genre (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_genere INT NOT NULL,
-    id_film INT NOT NULL,
-    FOREIGN KEY (id_genere) REFERENCES generi(id)
+    genre_id INT NOT NULL,
+    film_id INT NOT NULL,
+    FOREIGN KEY (genre_id) REFERENCES genres(id)
         ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (id_film) REFERENCES films(id)
+    FOREIGN KEY (film_id) REFERENCES films(id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- Table: guarda
-CREATE TABLE IF NOT EXISTS guarda (
+-- Table: watches
+CREATE TABLE IF NOT EXISTS watches (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_utente INT NOT NULL,
-    id_film INT NOT NULL,
-    data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    durata TIME NOT NULL,
-    FOREIGN KEY (id_utente) REFERENCES utenti(id)
+    user_id INT NOT NULL,
+    film_id INT NOT NULL,
+    watched_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    duration TIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
         ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (id_film) REFERENCES films(id)
+    FOREIGN KEY (film_id) REFERENCES films(id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );

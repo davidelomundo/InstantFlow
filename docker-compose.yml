@@ -1,6 +1,6 @@
 services:
   mysql:
-    image: mariadb:11.4
+    image: mariadb:12.1
     container_name: instantflow_db
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
