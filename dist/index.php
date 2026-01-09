@@ -9,8 +9,8 @@ require_once "../class/film.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$utente = new Utente($db);
-$film = new Film($db);
+$user = new User($db);
+$movie = new Movie($db);
 
 ?>
 
@@ -20,13 +20,14 @@ $film = new Film($db);
             <main>
                 <nav class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-dark fixed-top">
                     <div class="container">
-                        <a class="navbar-brand text-white" href="index.php">InstantFlow</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
+                        <a class="navbar-brand text-white" href="index.php">InstantFlow</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mr-lg-5">
                                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="pricing.php">Prezzi</a></li>
+                                <li class="nav-item"><a class="nav-link" href="pricing.php">Pricing</a></li>
                             </ul>
-                            <a class="btn-teal btn rounded-pill px-4 ml-lg-4" href="login.php">Accedi<i class="fas fa-arrow-right ml-1"></i></a>
+                            <a class="btn-teal btn rounded-pill px-4 ml-lg-4" href="login.php">Login<i class="fas fa-arrow-right ml-1"></i></a>
                         </div>
                     </div>
                 </nav>
@@ -35,16 +36,19 @@ $film = new Film($db);
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-lg-6" data-aos="fade-up">
-                                    <h1 class="page-header-title">Benvenuto su InstantFlow</h1>
-                                    <p class="page-header-text mb-5">Benvenuto su InstantFlow, la nuova piattaforma streaming che ti darà accesso ad un catalogo di film straordinari.</p>
-                                    <a class="btn btn-teal btn-marketing rounded-pill lift lift-sm" href="login.php">Accedi<i class="fas fa-arrow-right ml-1"></i></a><a class="btn btn-link btn-marketing" href="signup.php">Iscriviti</a>
+                                    <h1 class="page-header-title">Welcome to InstantFlow</h1>
+                                    <p class="page-header-text mb-5">Welcome to InstantFlow, the new streaming platform giving you access to an amazing movie catalog.</p>
+                                    <a class="btn btn-teal btn-marketing rounded-pill lift lift-sm" href="login.php">Login<i class="fas fa-arrow-right ml-1"></i></a>
+                                    <a class="btn btn-link btn-marketing" href="signup.php">Sign Up</a>
                                 </div>
                                 <div class="col-lg-6 d-none d-lg-block" data-aos="fade-up" data-aos-delay="50"><img class="img-fluid" src="assets/img/ciak.png" /></div>
                             </div>
                         </div>
                     </div>
                     <div class="svg-border-rounded text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">
+                            <path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path>
+                        </svg>
                     </div>
                 </header>
                 <section class="bg-white py-10">
@@ -52,23 +56,25 @@ $film = new Film($db);
                         <div class="row text-center">
                             <div class="col-lg-4 mb-5 mb-lg-0">
                                 <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="layers"></i></div>
-                                <h3>Raccolta</h3>
-                                <p class="mb-0">La nostra raccolta di film sempre in espansione.</p>
+                                <h3>Collection</h3>
+                                <p class="mb-0">Our ever-growing collection of movies.</p>
                             </div>
                             <div class="col-lg-4 mb-5 mb-lg-0">
                                 <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i class="bi bi-play-btn"></i></div>
-                                <h3>Accesso istantaneo</h3>
-                                <p class="mb-0">Accedi istantaneamente al film che preferisci dove e quando vuoi.</p>
+                                <h3>Instant Access</h3>
+                                <p class="mb-0">Access your favorite movie instantly, anytime, anywhere.</p>
                             </div>
                             <div class="col-lg-4">
                                 <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i class="bi bi-badge-4k"></i></div>
-                                <h3>Risoluzione 4K</h3>
-                                <p class="mb-0">Goditi i tuoi film preferiti fino alla risoluzione 4K.</p>
+                                <h3>4K Resolution</h3>
+                                <p class="mb-0">Enjoy your favorite movies up to 4K resolution.</p>
                             </div>
                         </div>
                     </div>
                     <div class="svg-border-rounded text-light">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">
+                            <path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path>
+                        </svg>
                     </div>
                 </section>
                 <section class="bg-light py-10">
@@ -76,20 +82,20 @@ $film = new Film($db);
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="text-center mb-10">
-                                    <h2>I nostri traguardi</h2>
+                                    <h2>Our Achievements</h2>
                                 </div>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-lg-4 text-center mb-5">
-                                <div class="display-1 font-weight-bold text-gray-400"><?php echo $utente->count()["count"]; ?>+</div>
-                                <div class="h5">Utenti iscritti</div>
-                                <p>Il numero di utenti iscritti alla piattaforma sarà ridotto fino al lancio ufficiale.</p>
+                                <div class="display-1 font-weight-bold text-gray-400"><?php echo $user->count()["count"]; ?>+</div>
+                                <div class="h5">Registered Users</div>
+                                <p>The number of users registered on the platform will be limited until the official launch.</p>
                             </div>
                             <div class="col-lg-4 text-center mb-5">
-                                <div class="display-1 font-weight-bold text-gray-400"><?php echo $film->count()["count"]; ?>+</div>
-                                <div class="h5">Film disponibili</div>
-                                <p>È pianificato l'arrivo di centinaia di titoli pronti per il lancio.</p>
+                                <div class="display-1 font-weight-bold text-gray-400"><?php echo $movie->count()["count"]; ?>+</div>
+                                <div class="h5">Available Movies</div>
+                                <p>Hundreds of titles are planned for the launch.</p>
                             </div>
                         </div>
                     </div>
@@ -97,7 +103,7 @@ $film = new Film($db);
                 <section class="bg-light pt-10">
                     <div class="container">
                         <div class="text-center mb-5">
-                            <h2>Prezzi semplici</h2>
+                            <h2>Simple Pricing</h2>
                         </div>
                         <div class="row z-1">
                             <div class="col-lg-4 mb-5 mb-lg-n10" data-aos="fade-up" data-aos-delay="100">
@@ -105,11 +111,11 @@ $film = new Film($db);
                                     <div class="card-body p-5">
                                         <div class="text-center">
                                             <div class="badge badge-light badge-pill badge-marketing badge-sm">Basic</div>
-                                            <div class="pricing-price"><sup>€</sup>7,99<span class="pricing-price-period">/mese</span></div>
+                                            <div class="pricing-price"><sup>€</sup>7.99<span class="pricing-price-period">/month</span></div>
                                         </div>
                                         <ul class="fa-ul pricing-list">
                                             <li class="pricing-list-item">
-                                                <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">1 dispositivo</span>
+                                                <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">1 device</span>
                                             </li>
                                             <li class="pricing-list-item">
                                                 <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">720p</span>
@@ -123,11 +129,11 @@ $film = new Film($db);
                                     <div class="card-body p-5">
                                         <div class="text-center">
                                             <div class="badge badge-primary-soft badge-pill badge-marketing badge-sm text-primary">Plus</div>
-                                            <div class="pricing-price"><sup>€</sup>9,99<span class="pricing-price-period">/mese</span></div>
+                                            <div class="pricing-price"><sup>€</sup>9.99<span class="pricing-price-period">/month</span></div>
                                         </div>
                                         <ul class="fa-ul pricing-list">
                                             <li class="pricing-list-item">
-                                                <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">2 dispositivi</span>
+                                                <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">2 devices</span>
                                             </li>
                                             <li class="pricing-list-item">
                                                 <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">1080p</span>
@@ -141,11 +147,11 @@ $film = new Film($db);
                                     <div class="card-body p-5">
                                         <div class="text-center">
                                             <div class="badge badge-secondary-soft badge-pill badge-marketing badge-sm text-secondary">Pro</div>
-                                            <div class="pricing-price"><sup>€</sup>14,99<span class="pricing-price-period">/mese</span></div>
+                                            <div class="pricing-price"><sup>€</sup>14.99<span class="pricing-price-period">/month</span></div>
                                         </div>
                                         <ul class="fa-ul pricing-list">
                                             <li class="pricing-list-item">
-                                                <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">4 dispositivi</span>
+                                                <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">4 devices</span>
                                             </li>
                                             <li class="pricing-list-item">
                                                 <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">2160p</span>
@@ -158,7 +164,9 @@ $film = new Film($db);
                         <br><br><br><br><br><br>
                     </div>
                     <div class="svg-border-rounded text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">
+                            <path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path>
+                        </svg>
                     </div>
                 </section>
             </main>
@@ -170,7 +178,10 @@ $film = new Film($db);
                         <div class="col-lg-3">
                             <div class="footer-brand">InstantFlow</div>
                             <div class="icon-list-social mb-5">
-                                <a class="icon-list-social-link" href="javascript:void(0);"><i class="fab fa-instagram"></i></a><a class="icon-list-social-link" href="javascript:void(0);"><i class="fab fa-facebook"></i></a><a class="icon-list-social-link" href="javascript:void(0);"><i class="fab fa-github"></i></a><a class="icon-list-social-link" href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
+                                <a class="icon-list-social-link" href="javascript:void(0);"><i class="fab fa-instagram"></i></a>
+                                <a class="icon-list-social-link" href="javascript:void(0);"><i class="fab fa-facebook"></i></a>
+                                <a class="icon-list-social-link" href="javascript:void(0);"><i class="fab fa-github"></i></a>
+                                <a class="icon-list-social-link" href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-9">

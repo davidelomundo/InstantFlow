@@ -5,95 +5,92 @@ require_once "includes/head.php";
 
 require_once "../class/database.php";
 require_once "../class/utente.php";
-require_once "../class/film.php";
 require_once "../class/abbonamento.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$utente = new Utente($db);
-$film = new Film($db);
-$abbonamento = new Abbonamento($db);
+$user = new User($db);
+$subscription = new Subscription($db);
 
-if(!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
+if (!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
     header("Location: index.php");
 } else {
-    $abbonamento->idUtente = $_SESSION["idUtente"];
-    if(!$abbonamento->isSubscribed()) {
+    $subscription->idUtente = $_SESSION["idUtente"];
+    if (!$subscription->isSubscribed()) {
         header("Location: abbonamento.php");
     }
 }
 
-if(isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]))
-{
-    $utente->id = $_SESSION["idUtente"];
-    $utente->nome = $_POST["firstName"];
-    $utente->cognome = $_POST["lastName"];
-    $utente->email = $_POST["email"];
-    $utente->password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-
-    $utente->updateUser();
+if (isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"])) {
+    $user->id = $_SESSION["idUtente"];
+    $user->firstName = $_POST["firstName"];
+    $user->lastName = $_POST["lastName"];
+    $user->email = $_POST["email"];
+    $user->password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+    $user->updateUser();
 
     header("Location: logged.php");
 }
 
-$utente->id = $_SESSION["idUtente"];
-$rowUtente = $utente->getInfo();
+$user->id = $_SESSION["idUtente"];
+$rowUser = $user->getInfo();
 
 ?>
 
 <body>
     <div id="layoutDefault">
         <div id="layoutDefault_content">
-            <main>                    
+            <main>
                 <nav class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-dark fixed-top">
                     <div class="container">
-                        <a class="navbar-brand text-white" href="logged.php">InstantFlow</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
+                        <a class="navbar-brand text-white" href="logged.php">InstantFlow</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto mr-lg-5">                                    
+                            <ul class="navbar-nav ml-auto mr-lg-5">
                                 <li class="nav-item dropdown no-caret">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profilo<i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile<i class="fas fa-chevron-right dropdown-arrow"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
                                         <a class="dropdown-item py-3" href="settings.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-gear"></i></div>
                                             <div>
-                                                <div class="small text-gray-500">Impostazioni</div>
-                                                Gestisci i dati del tuo account
+                                                <div class="small text-gray-500">Settings</div>
+                                                Manage your account information
                                             </div>
                                         </a>
                                         <div class="dropdown-divider m-0"></div>
                                         <a class="dropdown-item py-3" href="abbonato.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-credit-card-2-front-fill"></i></div>
                                             <div>
-                                                <div class="small text-gray-500">Abbonamento</div>
-                                                Controlla la scadenza o rinnova l'abbonamento
+                                                <div class="small text-gray-500">Subscription</div>
+                                                Check or renew your subscription
                                             </div>
                                         </a>
                                         <div class="dropdown-divider m-0"></div>
                                         <a class="dropdown-item py-3" href="history.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-clock-history"></i></div>
                                             <div>
-                                                <div class="small text-gray-500">Cronologia</div>
-                                                La cronologia degli ultimi film che hai guardato
+                                                <div class="small text-gray-500">History</div>
+                                                View the last movies you watched
                                             </div>
                                         </a>
                                         <div class="dropdown-divider m-0"></div>
                                         <a class="dropdown-item py-3" href="destruct.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-power"></i></div>
                                             <div>
-                                                <div class="small text-gray-500">Esci</div>
-                                                Effettua il logout dalla piattaforma
+                                                <div class="small text-gray-500">Logout</div>
+                                                Log out from the platform
                                             </div>
                                         </a>
                                     </div>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="generi.php">Generi</a></li>
+                                <li class="nav-item"><a class="nav-link" href="generi.php">Genres</a></li>
                             </ul>
                             <form action="logged.php">
                                 <div class="form-row justify-content-center">
                                     <div>
-                                        <div class="form-group mr-0 mr-lg-2"><label class="sr-only" for="inputSearch">Cerca...</label><input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Cerca..." /></div>
+                                        <div class="form-group mr-0 mr-lg-2"><label class="sr-only" for="inputSearch">Search...</label><input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Search..." /></div>
                                     </div>
-                                    <div><button class="btn-teal btn rounded-pill px-4 ml-lg-4" type="submit">Cerca</button></div>
+                                    <div><button class="btn-teal btn rounded-pill px-4 ml-lg-4" type="submit">Search</button></div>
                                 </div>
                             </form>
                         </div>
@@ -104,14 +101,16 @@ $rowUtente = $utente->getInfo();
                         <div class="container text-center">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-                                    <h1 class="page-header-title mb-3">Impostazioni</h1>
-                                    <p class="page-header-text">Gestisci i dati del tuo account in modo semplice.</p>
+                                    <h1 class="page-header-title mb-3">Settings</h1>
+                                    <p class="page-header-text">Manage your account information easily.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="svg-border-rounded text-light">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">
+                            <path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path>
+                        </svg>
                     </div>
                 </header>
                 <section class="bg-light py-5">
@@ -119,22 +118,22 @@ $rowUtente = $utente->getInfo();
                         <div class="row align-items-center">
                             <div class="col mt-4">
                                 <div class="card rounded-lg text-dark" data-aos="fade-up">
-                                    <div class="card-header py-4">Aggiorna dati</div>
+                                    <div class="card-header py-4">Update Information</div>
                                     <div class="card-body">
                                         <form method="POST">
                                             <div class="form-row">
-                                                <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapFirstName">Nome</label><input class="form-control rounded-pill" id="leadCapFirstName" name="firstName" type="text" value="<?php echo $rowUtente["nome"]; ?>"/></div>
-                                                <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapLastName">Cognome</label><input class="form-control rounded-pill" id="leadCapLastName" name="lastName" type="text" value="<?php echo $rowUtente["cognome"]; ?>"/></div>
+                                                <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapFirstName">First Name</label><input class="form-control rounded-pill" id="leadCapFirstName" name="firstName" type="text" value="<?php echo $rowUser["nome"]; ?>" /></div>
+                                                <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapLastName">Last Name</label><input class="form-control rounded-pill" id="leadCapLastName" name="lastName" type="text" value="<?php echo $rowUser["cognome"]; ?>" /></div>
                                             </div>
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapEmail">Email</label><input class="form-control rounded-pill" id="leadCapEmail" name="email" type="email" value="<?php echo $rowUtente["email"]; ?>"/></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapEmail">Email</label><input class="form-control rounded-pill" id="leadCapEmail" name="email" type="email" value="<?php echo $rowUser["email"]; ?>" /></div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Aggiorna</button>
+                                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Update</button>
                                                 </div>
                                                 <div class="col">
-                                                    <a class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" href="delete.php">Elimina account</a>
+                                                    <a class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" href="delete.php">Delete Account</a>
                                                 </div>
-                                            <div>
+                                                <div>
                                         </form>
                                     </div>
                                 </div>
@@ -147,13 +146,13 @@ $rowUtente = $utente->getInfo();
                         <div class="row align-items-center">
                             <div class="col mt-4">
                                 <div class="card rounded-lg text-dark" data-aos="fade-up">
-                                    <div class="card-header py-4">Cambio password</div>
+                                    <div class="card-header py-4">Change Password</div>
                                     <div class="card-body">
                                         <form method="POST">
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Password attuale</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Nuova password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Conferma password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
-                                            <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Cambia password</button>
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Current Password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">New Password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Confirm Password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
+                                            <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Change Password</button>
                                         </form>
                                     </div>
                                 </div>

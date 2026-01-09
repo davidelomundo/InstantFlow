@@ -9,21 +9,20 @@ require_once "../class/film.php";
 require_once "../class/guarda.php";
 require_once "../class/videoStream.php";
 
-if(!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
+if (!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
     header("Location: index.php");
 }
 
 $database = new Database();
 $db = $database->getConnection();
 
-$utente = new Utente($db);
-$film = new Film($db);
-$guarda = new Guarda($db);
+$user = new User($db);
+$movie = new Movie($db);
+$watchLog = new WatchLog($db);
 $stream = new VideoStream("../resources/" . $_GET["id"] . "/film.mp4");
 
-$guarda->idUtente = $_SESSION["idUtente"];
-$guarda->idFilm = $_GET["id"];
-$guarda->createLog();
+$watchLog->userId = $_SESSION["idUtente"];
+$watchLog->movieId = $_GET["id"];
+$watchLog->createLog();
 
 $stream->start();
-?>

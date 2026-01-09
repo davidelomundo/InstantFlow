@@ -1,0 +1,47 @@
+services:
+  mysql:
+    image: mariadb:11.4
+    container_name: instantflow_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+    networks:
+      - instantflow_network
+
+  php:
+    image: php:8.5-apache
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+    ports:
+      - "8080:80"
+    volumes:
+      - ./dist:/var/www/html
+      - ./admin:/var/www/html/admin
+      - ./class:/var/www/class
+      - ./class:/var/www/html/class
+      - ./src:/var/www/html/src
+      - ./php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - mysql
+    networks:
+      - instantflow_network
+    command: >
+      bash -c "a2enmod rewrite && 
+               docker-php-ext-install pdo pdo_mysql &&
+               apache2ctl start &&
+               tail -f /dev/null"
+
+networks:
+  instantflow_network:
+    driver: bridge

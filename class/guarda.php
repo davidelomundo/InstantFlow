@@ -1,36 +1,57 @@
 <?php
-class Guarda {
 
-  // connection
+/**
+ * Class WatchLog
+ *
+ * Handles logging of user watch activity.
+ */
+class WatchLog
+{
+
+  /** @var PDO Database connection */
   private $conn;
 
-  // table
+  /** @var string Database table name */
   private $db_table = "guarda";
 
-  // Properties
+  // Public properties mapped to table columns
   public $id;
-  public $durata;
-  public $idUtente;
-  public $idFilm;
+  public $duration;
+  public $userId;
+  public $movieId;
 
-  // db connection
-  public function __construct($db) {
+  /**
+   * Constructor
+   *
+   * @param PDO $db Database connection
+   */
+  public function __construct($db)
+  {
     $this->conn = $db;
   }
 
-  public function createLog() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (idUtente, idFilm, data) VALUES (:idUtente, :idFilm, NOW());";
-    $stmt = $this->conn->prepare($sqlQuery);
+  /**
+   * Create a watch log entry
+   *
+   * @return void
+   */
+  public function createLog()
+  {
+    $sql = "
+            INSERT INTO {$this->db_table} (idUtente, idFilm, data)
+            VALUES (:idUtente, :idFilm, NOW())
+        ";
 
-    $this->email = htmlspecialchars(strip_tags($this->durata));
-    $this->email = htmlspecialchars(strip_tags($this->idFilm));
-    $this->email = htmlspecialchars(strip_tags($this->idUtente));
-    //$stmt->bindParam(':durata', $this->durata);
-    $stmt->bindParam(':idUtente', $this->idUtente);
-    $stmt->bindParam(':idFilm', $this->idFilm);
+    $stmt = $this->conn->prepare($sql);
+
+    // Sanitize inputs
+    $this->userId = htmlspecialchars(strip_tags($this->userId));
+    $this->movieId   = htmlspecialchars(strip_tags($this->movieId));
+
+    // Bind parameters
+    $stmt->bindParam(':idUtente', $this->userId);
+    $stmt->bindParam(':idFilm', $this->movieId);
 
     $stmt->execute();
   }
 }
-
-?>

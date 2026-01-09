@@ -1,25 +1,26 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
-
 require_once "../class/database.php";
 require_once "../class/utente.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$utente = new Utente($db);
+$utente = new User($db);
 
-if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"])) {
+if (isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"])) {
     $utente->email = $_POST["email"];
     $utente->password = $_POST["password"];
-    
+
     $_SESSION["idAdmin"] = $utente->loginAdmin();
 
-    if(!empty($_SESSION["idAdmin"])) {
-      header("Location: index.php");
+    if (!empty($_SESSION["idAdmin"])) {
+        header("Location: index.php");
+        exit();
     }
-} 
+}
+
+require_once "includes/head.php";
 ?>
 
 <body class="bg-primary">
@@ -31,7 +32,9 @@ if(isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]
                         <div class="col-lg-5">
                             <!-- Basic login form-->
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header justify-content-center"><h3 class="font-weight-light my-4">Login</h3></div>
+                                <div class="card-header justify-content-center">
+                                    <h3 class="font-weight-light my-4">Login</h3>
+                                </div>
                                 <div class="card-body">
                                     <!-- Login form-->
                                     <form method="POST">

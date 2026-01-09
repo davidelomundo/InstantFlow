@@ -6,11 +6,15 @@ require_once "../class/utente.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$utente = new Utente($db);
+$user = new User($db);
 
-$utente->id = $_SESSION["idUtente"];
-$utente->delete();
-session_destroy();
+if(isset($_SESSION["idUtente"])) {
+    $user->id = $_SESSION["idUtente"];
+    $user->delete();
+    session_destroy();
+}
 
-header("Location: logged.php");
+// Redirect to the homepage or login page
+header("Location: index.php");
+exit;
 ?>

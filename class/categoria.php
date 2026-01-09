@@ -1,53 +1,82 @@
 <?php
-class Categoria {
 
-  // connection
+/**
+ * Class Category
+ *
+ * Handles category-related database operations.
+ */
+class Category
+{
+
+  /** @var PDO Database connection */
   private $conn;
 
-  // table
+  /** @var string Database table name */
   private $db_table = "categorie";
 
-  // Properties
+  // Public properties mapped to table columns
   public $id;
-  public $nome;
-  public $prezzo;
-  public $risoluzione;
+  public $name;
+  public $price;
+  public $resolution;
 
-  // db connection
-  public function __construct($db) {
+  /**
+   * Constructor
+   *
+   * @param PDO $db Database connection
+   */
+  public function __construct($db)
+  {
     $this->conn = $db;
   }
 
-  // Methods
-  public function newCategory() {
-    $sqlQuery = "INSERT INTO " . $this->db_table . " (nome) VALUES (:nome);";
-    $stmt = $this->conn->prepare($sqlQuery);
+  /**
+   * Create a new category
+   *
+   * @return void
+   */
+  public function newCategory()
+  {
+    $sql = "INSERT INTO {$this->db_table} (nome) VALUES (:nome)";
+    $stmt = $this->conn->prepare($sql);
 
-    $this->nome = htmlspecialchars(strip_tags($this->nome));
+    // Sanitize input
+    $this->name = htmlspecialchars(strip_tags($this->name));
 
-    $stmt->bindParam(':nome', $this->nome);
+    // Bind parameter
+    $stmt->bindParam(':nome', $this->name);
 
     $stmt->execute();
   }
 
-  public function getCategory() {
-    $sqlQuery = "SELECT * FROM " . $this->db_table . ";";
-    $stmt = $this->conn->prepare($sqlQuery);
-    
+  /**
+   * Get all categories
+   *
+   * @return PDOStatement
+   */
+  public function getCategory()
+  {
+    $sql = "SELECT * FROM {$this->db_table}";
+    $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     return $stmt;
   }
 
-  public function findById() {
-    $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE id='" . $this->id . "';";
-    $stmt = $this->conn->prepare($sqlQuery);
-
+  /**
+   * Find category by ID
+   *
+   * @return array|null
+   */
+  public function findById()
+  {
+    $sql = "SELECT * FROM {$this->db_table} WHERE id = '{$this->id}'";
+    $stmt = $this->conn->prepare($sql);
     $stmt->execute();
+
     foreach ($stmt as $row) {
       return $row;
     }
+
+    return null;
   }
-
 }
-
-?>

@@ -10,28 +10,28 @@ require_once "../class/abbonamento.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$utente = new Utente($db);
-$film = new Film($db);
-$abbonamento = new Abbonamento($db);
+$user = new User($db);
+$movie = new Movie($db);
+$subscription = new Subscription($db);
 
 if(!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
     header("Location: index.php");
 } else {
-    $abbonamento->idUtente = $_SESSION["idUtente"];
-    if(!$abbonamento->isSubscribed()) {
+    $subscription->idUtente = $_SESSION["idUtente"];
+    if(!$subscription->isSubscribed()) {
         header("Location: abbonamento.php");
     }
-}
+}   
 
 if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
-    $film->titolo= $_GET["ricerca"];
-    $stmtFilm = $film->findFilms();
+    $movie->title= $_GET["ricerca"];
+    $stmtFilm = $movie->findFilms();
 } else {
-    $stmtFilm = $film->getFilms();
+    $stmtFilm = $movie->getFilms();
 }
 
-$utente->id = $_SESSION["idUtente"];
-$rowUtente = $utente->getInfo();
+$user->id = $_SESSION["idUtente"];
+$rowUtente = $user->getInfo();
 
 // send email
 $msg = "<h1 style='text-align: center;'>Reimposta la password</h1><br>
