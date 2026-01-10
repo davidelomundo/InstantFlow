@@ -2,9 +2,10 @@
 session_start();
 
 require_once "includes/head.php";
+require __DIR__ . '/../vendor/autoload.php';
 
-require_once "../class/database.php";
-require_once "../class/utente.php";
+use App\Models\Database;
+use App\Repositories\User;
 
 $database = new Database();
 $db = $database->getConnection();
@@ -135,7 +136,7 @@ $rowUser = $user->getInfo();
             <footer class="footer mt-auto footer-light">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6 small">Copyright &copy; InstantFlow 2021</div>
+                        <div class="col-md-6 small">Copyright &copy; InstantFlow 2026</div>
                         <div class="col-md-6 text-md-right small">
                             <a href="#!">Privacy Policy</a>
                             &middot;

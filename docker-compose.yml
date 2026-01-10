@@ -18,6 +18,7 @@ services:
 
   php:
     image: php:8.5-apache
+    container_name: instantflow_php
     environment:
       DB_NAME: ${DB_NAME}
       DB_USERNAME: ${DB_USERNAME}
@@ -26,21 +27,24 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./dist:/var/www/html
-      - ./admin:/var/www/html/admin
-      - ./class:/var/www/class
-      - ./class:/var/www/html/class
-      - ./src:/var/www/html/src
-      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./:/var/www/html
+      - ./apache.conf:/etc/apache2/sites-available/000-default.conf
     depends_on:
       - mysql
     networks:
       - instantflow_network
     command: >
-      bash -c "a2enmod rewrite && 
-               docker-php-ext-install pdo pdo_mysql &&
-               apache2ctl start &&
-               tail -f /dev/null"
+      bash -c "
+            apt-get update &&
+            apt-get install -y unzip git curl &&
+            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&
+            cd /var/www/html &&
+            composer install &&
+            a2enmod rewrite &&
+            docker-php-ext-install pdo pdo_mysql &&
+            apache2ctl start &&
+            tail -f /dev/null
+      "
 
 networks:
   instantflow_network:
