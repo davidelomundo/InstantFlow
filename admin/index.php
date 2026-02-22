@@ -93,7 +93,7 @@ require_once "includes/head.php";
                                     <h1 class="page-header-title">
                                         <?php echo "Welcome " . $rowUser["first_name"]; ?>
                                     </h1>
-                                    <div class="page-header-subtitle">Example dashboard overview and content summary</div>
+                                    <div class="page-header-subtitle">Manage your content, users, and platform settings</div>
                                 </div>
                             </div>
                         </div>

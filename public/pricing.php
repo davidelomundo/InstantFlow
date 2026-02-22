@@ -3,25 +3,16 @@ session_start();
 
 require_once "includes/head.php";
 
+// Set navbar parameters
+$isLoggedIn = false;
+
 ?>
 
 <body>
     <div id="layoutDefault">
         <div id="layoutDefault_content">
             <main>
-                <nav class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-dark fixed-top">
-                    <div class="container">
-                        <a class="navbar-brand text-white" href="index.php">InstantFlow</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto mr-lg-5">
-                                <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="pricing.php">Pricing</a></li>
-                            </ul>
-                            <a class="btn-teal btn rounded-pill px-4 ml-lg-4" href="login.php">Login<i class="fas fa-arrow-right ml-1"></i></a>
-                        </div>
-                    </div>
-                </nav>
+                <?php include "includes/navbar.php"; ?>
                 <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
                     <div class="page-header-content pt-10">
                         <div class="container text-center">
@@ -198,8 +189,7 @@ require_once "includes/head.php";
                 </div>
             </footer>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-</body>
+        <?php 
+        $footerTheme = 'dark';
+        include "includes/footer.php"; 
+        ?>
