@@ -84,7 +84,8 @@ SELECT g.id, f.id FROM genres g, films f WHERE g.name = 'Horror' AND f.title = '
 ON DUPLICATE KEY UPDATE genre_id = genre_id;
 
 -- =============================
--- ADMIN PROMOTION
+-- ADMIN USER
 -- =============================
-UPDATE users SET is_admin = 1
-WHERE email = AES_ENCRYPT('davide@email.com', 'Password!123');
+INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES
+    ('Admin', 'Admin', AES_ENCRYPT('admin@email.com', 'Password!123'), '$2y$10$YourHashedPasswordHere', 1)
+ON DUPLICATE KEY UPDATE is_admin = 1;

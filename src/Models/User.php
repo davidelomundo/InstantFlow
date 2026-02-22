@@ -75,11 +75,13 @@ class User
    */
   public function updateUser()
   {
+    $aesPassword = $this->getAesPassword();
+
     $sql = "
             UPDATE {$this->db_table}
             SET first_name = :firstName,
                 last_name = :lastName,
-                email = AES_ENCRYPT(:email, '{$this->getAesPassword()}')
+                email = AES_ENCRYPT(:email, :aesKey)
             WHERE id = :id
         ";
 
@@ -96,6 +98,7 @@ class User
     $stmt->bindParam(':firstName', $this->firstName);
     $stmt->bindParam(':lastName', $this->lastName);
     $stmt->bindParam(':email', $this->email);
+    $stmt->bindParam(':aesKey', $aesPassword);
 
     $stmt->execute();
     return true;
@@ -129,11 +132,13 @@ class User
    */
   private function create($isAdmin)
   {
+    $aesPassword = $this->getAesPassword();
+
     $sql = "
             INSERT INTO {$this->db_table}
             (first_name, last_name, email, password, is_admin)
             VALUES
-            (:firstName, :lastName, AES_ENCRYPT(:email, '{$this->getAesPassword()}'), :password, :is_admin)
+            (:firstName, :lastName, AES_ENCRYPT(:email, :aesKey), :password, :is_admin)
         ";
 
     $stmt = $this->conn->prepare($sql);
@@ -148,6 +153,7 @@ class User
     $stmt->bindParam(':lastName', $this->lastName);
     $stmt->bindParam(':email', $this->email);
     $stmt->bindParam(':password', $this->password);
+    $stmt->bindParam(':aesKey', $aesPassword);
     $stmt->bindValue(':is_admin', $isAdmin ? 1 : 0, \PDO::PARAM_INT);
 
     $stmt->execute();
@@ -161,16 +167,19 @@ class User
    */
   public function loginUser()
   {
+    $aesPassword = $this->getAesPassword();
+
     $sql = "
             SELECT *
             FROM {$this->db_table}
-            WHERE email = AES_ENCRYPT(:email, '{$this->getAesPassword()}')
+            WHERE email = AES_ENCRYPT(:email, :aesKey)
         ";
 
     $stmt = $this->conn->prepare($sql);
 
     $this->email = $this->sanitize($this->email);
     $stmt->bindParam(':email', $this->email);
+    $stmt->bindParam(':aesKey', $aesPassword);
 
     $stmt->execute();
 
@@ -190,10 +199,12 @@ class User
    */
   public function loginAdmin()
   {
+    $aesPassword = $this->getAesPassword();
+
     $sql = "
             SELECT *
             FROM {$this->db_table}
-            WHERE email = AES_ENCRYPT(:email, '{$this->getAesPassword()}')
+            WHERE email = AES_ENCRYPT(:email, :aesKey)
               AND is_admin = 1
         ";
 
@@ -201,6 +212,7 @@ class User
 
     $this->email = $this->sanitize($this->email);
     $stmt->bindParam(':email', $this->email);
+    $stmt->bindParam(':aesKey', $aesPassword);
 
     $stmt->execute();
 
@@ -220,23 +232,22 @@ class User
    */
   public function getInfo()
   {
+    $aesPassword = $this->getAesPassword();
+
     $sql = "
             SELECT first_name,
                    last_name,
-                   AES_DECRYPT(email, '{$this->getAesPassword()}') AS email
+                   AES_DECRYPT(email, :aesKey) AS email
             FROM {$this->db_table}
             WHERE id = :id
         ";
 
     $stmt = $this->conn->prepare($sql);
     $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':aesKey', $aesPassword);
     $stmt->execute();
 
-    foreach ($stmt as $row) {
-      return $row;
-    }
-
-    return null;
+    return $stmt->fetch() ?: null;
   }
 
   /**
@@ -250,11 +261,7 @@ class User
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
 
-    foreach ($stmt as $row) {
-      return $row;
-    }
-
-    return [];
+    return $stmt->fetch() ?: [];
   }
 
   /**

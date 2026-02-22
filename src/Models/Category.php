@@ -20,7 +20,6 @@ class Category
   public $id;
   public $name;
   public $price;
-  public $resolution;
 
   /**
    * Constructor
@@ -72,14 +71,11 @@ class Category
    */
   public function findById()
   {
-    $sql = "SELECT * FROM {$this->db_table} WHERE id = '{$this->id}'";
+    $sql = "SELECT * FROM {$this->db_table} WHERE id = :id";
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $this->id);
     $stmt->execute();
 
-    foreach ($stmt as $row) {
-      return $row;
-    }
-
-    return null;
+    return $stmt->fetch() ?: null;
   }
 }

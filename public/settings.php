@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
-
 require __DIR__ . '/../vendor/autoload.php';
 use App\Models\Database;
 use App\Models\User;
@@ -13,12 +11,14 @@ $db = $database->getConnection();
 $user = new User($db);
 $subscription = new Subscription($db);
 
-if (!isset($_SESSION["userId"]) && empty($_SESSION["userId"])) {
+if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
     header("Location: index.php");
+    exit;
 } else {
     $subscription->userId = $_SESSION["userId"];
     if (!$subscription->isSubscribed()) {
         header("Location: abbonamento.php");
+        exit;
     }
 }
 
@@ -31,10 +31,13 @@ if (isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["l
     $user->updateUser();
 
     header("Location: logged.php");
+    exit;
 }
 
 $user->id = $_SESSION["userId"];
 $rowUser = $user->getInfo();
+
+require_once "includes/head.php";
 
 ?>
 
@@ -139,7 +142,7 @@ $rowUser = $user->getInfo();
                                                 <div class="col">
                                                     <a class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" href="delete.php">Delete Account</a>
                                                 </div>
-                                                <div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -155,9 +158,9 @@ $rowUser = $user->getInfo();
                                     <div class="card-header py-4">Change Password</div>
                                     <div class="card-body">
                                         <form method="POST">
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Current Password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">New Password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
-                                            <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Confirm Password</label><input class="form-control rounded-pill" id="leadCapCompany" name="password" type="password" /></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="inputCurrentPassword">Current Password</label><input class="form-control rounded-pill" id="inputCurrentPassword" name="currentPassword" type="password" /></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="inputNewPassword">New Password</label><input class="form-control rounded-pill" id="inputNewPassword" name="newPassword" type="password" /></div>
+                                            <div class="form-group"><label class="small text-gray-600" for="inputConfirmPassword">Confirm Password</label><input class="form-control rounded-pill" id="inputConfirmPassword" name="confirmPassword" type="password" /></div>
                                             <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Change Password</button>
                                         </form>
                                     </div>

@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
-
 require __DIR__ . '/../vendor/autoload.php';
 use App\Models\Database;
 use App\Models\Subscription;
@@ -18,7 +16,10 @@ $stmtCategory = $category->getCategories();
 $subscription->userId = $_SESSION["userId"];
 if ($subscription->isSubscribed()) {
     header("Location: logged.php");
+    exit;
 }
+
+require_once "includes/head.php";
 ?>
 
 <body>

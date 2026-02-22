@@ -19,20 +19,16 @@ if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
     exit;
 }
 
+// Check subscription
+$subscription->userId = $_SESSION["userId"];
+if (!$subscription->isSubscribed()) {
+    header("Location: abbonamento.php");
+    exit;
+}
+
 // Get user info
 $user->id = $_SESSION["userId"];
 $userInfo = $user->getInfo();
-
-if(!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
-    header("Location: index.php");
-    exit;
-} else {
-    $subscription->userId = $_SESSION["userId"];
-    if(!$subscription->isSubscribed()) {
-        header("Location: abbonamento.php");
-        exit;
-    }
-}
 
 require_once "includes/head.php";   
 
@@ -42,21 +38,6 @@ if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
 } else {
     $stmtFilm = $movie->getFilms();
 }
-
-// send email
-$msg = "<h1 style='text-align: center;'>Reimposta la password</h1><br>
-Ciao " . $userInfo["first_name"] . ",<br><br>
-Reimposta la tua password per tornare a guardare InstantFlow.<br><br>
-REIMPOSTA PASSWORD
-Se non hai richiesto tu la modifica della password, ignora semplicemente questa mail.";
-$msg = wordwrap($msg,70);
-
-$header = "From: noreply@instantflow.com\r\n";
-$header.= "MIME-Version: 1.0\r\n";
-$header.= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-$header.= "X-Priority: 1\r\n";
-
-// mail($rowUtente["email"], 'Reset password InstantFlow', $msg, $header)
 
 ?>
 

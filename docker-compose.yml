@@ -17,7 +17,9 @@ services:
       - instantflow_network
 
   php:
-    image: php:8.5-apache
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
     container_name: instantflow_php
     environment:
       DB_NAME: ${DB_NAME}
@@ -33,18 +35,6 @@ services:
       - mysql
     networks:
       - instantflow_network
-    command: >
-      bash -c "
-            apt-get update &&
-            apt-get install -y unzip git curl &&
-            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&
-            cd /var/www/html &&
-            composer install &&
-            a2enmod rewrite &&
-            docker-php-ext-install pdo pdo_mysql &&
-            apache2ctl start &&
-            tail -f /dev/null
-      "
 
 networks:
   instantflow_network:

@@ -146,11 +146,7 @@ class Film
 
     $stmt->execute();
 
-    foreach ($stmt as $row) {
-      return $row;
-    }
-
-    return null;
+    return $stmt->fetch() ?: null;
   }
 
   /**
@@ -164,10 +160,7 @@ class Film
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
 
-    foreach ($stmt as $row) {
-      return $row;
-    }
-    return [];
+    return $stmt->fetch() ?: [];
   }
 
   /**
@@ -182,10 +175,6 @@ class Film
     $stmt->bindParam(':id', $this->id);
     $stmt->execute();
 
-    foreach ($stmt as $row) {
-      return $row;
-    }
-
-    return null;
+    return $stmt->fetch() ?: null;
   }
 }

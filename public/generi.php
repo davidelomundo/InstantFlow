@@ -31,7 +31,7 @@ $stmtFilm = $film->getFilms();
 $stmtGenere = $genre->getGenres();
 
 $user->id = $_SESSION["userId"];
-$rowUtente = $user->getInfo();
+$rowUser = $user->getInfo();
 ?>
 
 <body>
@@ -45,7 +45,7 @@ $rowUtente = $user->getInfo();
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mr-lg-5">
                                 <li class="nav-item dropdown no-caret">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $rowUtente["first_name"]; ?><i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $rowUser["first_name"]; ?><i class="fas fa-chevron-right dropdown-arrow"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
                                         <a class="dropdown-item py-3" href="settings.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-gear"></i></div>

@@ -162,7 +162,6 @@ $movie = new Film($db);
                                 </div>
                             </div>
                         </div>
-                        <br><br><br><br><br><br>
                     </div>
                     <div class="svg-border-rounded text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">

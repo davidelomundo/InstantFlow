@@ -1,15 +1,20 @@
 <?php
 session_start();
 
-require_once "../class/database.php";
-require_once "../class/utente.php";
+require __DIR__ . '/../vendor/autoload.php';
+
+use App\Models\Database;
+use App\Models\User;
 
 $database = new Database();
 $db = $database->getConnection();
-$utente = new User($db);
+$user = new User($db);
 
-$utente->id = $_SESSION["idAdmin"];
-$utente->delete();
-session_destroy();
+if (isset($_SESSION["idAdmin"])) {
+    $user->id = $_SESSION["idAdmin"];
+    $user->delete();
+    session_destroy();
+}
 
-header("Location: index.php");
+header("Location: login.php");
+exit;

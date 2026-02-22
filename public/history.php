@@ -34,9 +34,9 @@ if (isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
 }
 
 $user->id = $_SESSION["userId"];
-$rowUtente = $user->getInfo();
+$rowUser = $user->getInfo();
 
-$stmtCronologia = $user->history();
+$stmtCronologia = $user->history()->fetchAll();
 ?>
 
 <body>
@@ -50,7 +50,7 @@ $stmtCronologia = $user->history();
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mr-lg-5">
                                 <li class="nav-item dropdown no-caret">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $rowUtente["first_name"]; ?><i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $rowUser["first_name"]; ?><i class="fas fa-chevron-right dropdown-arrow"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
                                         <a class="dropdown-item py-3" href="settings.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-gear"></i></div>
@@ -124,22 +124,30 @@ $stmtCronologia = $user->history();
 
                 <section class="bg-light py-10">
                     <div class="container">
-                        <div class="row">
-                            <?php foreach ($stmtCronologia as $rowCronologia) {
-                                $film->id = $rowCronologia["idFilm"];
-                                $rowFilm = $film->getById(); ?>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="<?= "view.php?id=" . $rowFilm["id"] ?>">
-                                        <img class="card-img-top" src="<?= "../resources/" . $rowFilm["id"] . "/anteprima.jpg" ?>" alt="Preview" />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0"></div>
-                                            <div class="text-xs text-black-500"><?php echo $rowFilm["titolo"]; ?></div>
-                                            <div class="text-xs text-gray-500"><?php echo date('d/m/Y H:i:s ', strtotime($rowCronologia["data"] . ' + 1 hours')); ?></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php } ?>
-                        </div>
+                        <?php if (empty($stmtCronologia)) { ?>
+                            <div class="text-center py-5">
+                                <i class="bi bi-clock-history" style="font-size: 3rem; color: #6c757d;"></i>
+                                <h4 class="mt-3 text-gray-500">No history yet</h4>
+                                <p class="text-gray-500">Films you watch will appear here.</p>
+                            </div>
+                        <?php } else { ?>
+                            <div class="row">
+                                <?php foreach ($stmtCronologia as $rowCronologia) {
+                                    $film->id = $rowCronologia["film_id"];
+                                    $rowFilm = $film->getById(); ?>
+                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
+                                        <a class="card lift h-100" href="<?= "view.php?id=" . $rowFilm["id"] ?>">
+                                            <img class="card-img-top" src="<?= "../resources/" . $rowFilm["id"] . "/anteprima.jpg" ?>" alt="Preview" />
+                                            <div class="card-body p-3">
+                                                <div class="card-title small mb-0"></div>
+                                                <div class="text-xs text-black-500"><?php echo $rowFilm["title"]; ?></div>
+                                                <div class="text-xs text-gray-500"><?php echo date('d/m/Y H:i ', strtotime($rowCronologia["watched_at"] . ' + 1 hours')); ?></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
                     </div>
                     <div class="svg-border-rounded text-light">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">

@@ -1,15 +1,16 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
+require __DIR__ . '/../vendor/autoload.php';
 
-require_once "../class/database.php";
-require_once "../class/utente.php";
-require_once "../class/film.php";
-require_once "../class/genere.php";
+use App\Models\Database;
+use App\Models\User;
+use App\Models\Film;
+use App\Models\Genre;
 
 if (empty($_SESSION["idAdmin"])) {
     header("Location: login.php");
+    exit;
 }
 
 $database = new Database();
@@ -28,49 +29,43 @@ if (isset($_GET["idFilm"]) && !empty($_GET["idFilm"])) {
     $film->delete();
 }
 
-if (isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descrizione"]) && !empty($_POST["descrizione"]) && isset($_POST["dataUscita"]) && !empty($_POST["dataUscita"])) {
+if (isset($_POST["title"]) && !empty($_POST["title"]) && isset($_POST["description"]) && !empty($_POST["description"]) && isset($_POST["releaseDate"]) && !empty($_POST["releaseDate"])) {
 
-    $film->title = $_POST["titolo"];
-    $film->description = $_POST["descrizione"];
-    $film->releaseDate = $_POST["dataUscita"];
+    $film->title = $_POST["title"];
+    $film->description = $_POST["description"];
+    $film->releaseDate = $_POST["releaseDate"];
     $film->createFilm();
 
-    $film->title = $_POST["titolo"];
+    $film->title = $_POST["title"];
     $rowFilm = $film->getInfo();
 
     mkdir("../resources/" . $rowFilm["id"]);
-    move_uploaded_file($_FILES["anteprima"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/anteprima.jpg");
-    move_uploaded_file($_FILES["contenuto"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/film.mp4");
+    move_uploaded_file($_FILES["preview"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/anteprima.jpg");
+    move_uploaded_file($_FILES["content"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/film.mp4");
 }
 
+require_once "includes/head.php";
 ?>
 
 <body class="nav-fixed">
     <nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white" id="sidenavAccordion">
-        <!-- Navbar Brand-->
-        <!-- * * Tip * * You can use text or an image for your navbar brand.-->
-        <!-- * * * * * * When using an image, we recommend the SVG format.-->
-        <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
         <a class="navbar-brand" href="index.php">InstantFlow</a>
-        <!-- Sidenav Toggle Button-->
         <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 mr-lg-2" id="sidebarToggle"><i data-feather="menu"></i></button>
-        <!-- Navbar Items-->
         <ul class="navbar-nav align-items-center ml-auto">
-            <!-- User Dropdown-->
             <li class="nav-item dropdown no-caret mr-3 mr-lg-0 dropdown-user">
                 <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="assets/img/illustrations/profiles/profile-1.png" /></a>
                 <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                     <h6 class="dropdown-header d-flex align-items-center">
                         <img class="dropdown-user-img" src="assets/img/illustrations/profiles/profile-1.png" />
                         <div class="dropdown-user-details">
-                            <div class="dropdown-user-details-name"><?php echo $rowUser["nome"] . " " . $rowUser["cognome"]; ?></div>
+                            <div class="dropdown-user-details-name"><?php echo $rowUser["first_name"] . " " . $rowUser["last_name"]; ?></div>
                             <div class="dropdown-user-details-email"><?php echo $rowUser["email"]; ?></div>
                         </div>
                     </h6>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="destruct.php">
                         <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
-                        Esci
+                        Log Out
                     </a>
                 </div>
             </li>
@@ -81,42 +76,35 @@ if (isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descriz
             <nav class="sidenav shadow-right sidenav-light">
                 <div class="sidenav-menu">
                     <div class="nav accordion" id="accordionSidenav">
-                        <!-- Sidenav Heading (App Views)-->
-                        <div class="sidenav-menu-heading">Altro</div>
-                        <!-- Sidenav Link (Tables)-->
+                        <div class="sidenav-menu-heading">Other</div>
                         <a class="nav-link" href="index.php">
                             <div class="nav-link-icon"><i class="bi bi-collection"></i></div>
-                            Principale
+                            Dashboard
                         </a>
-                        <!-- Sidenav Menu Heading (Strumenti)-->
-                        <div class="sidenav-menu-heading">Strumenti</div>
-                        <!-- Sidenav Accordion (Azioni)-->
+                        <div class="sidenav-menu-heading">Tools</div>
                         <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseDashboards" aria-expanded="false" aria-controls="collapseDashboards">
                             <div class="nav-link-icon"><i class="bi bi-tools"></i></div>
-                            Azioni
+                            Actions
                             <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseDashboards" data-parent="#accordionSidenav">
                             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                                <a class="nav-link" href="film.php">Film</a>
-                                <a class="nav-link" href="admin.php">Admin</a>
-                                <a class="nav-link" href="attore.php">Attori</a>
+                                <a class="nav-link" href="film.php">Films</a>
+                                <a class="nav-link" href="admin.php">Admins</a>
+                                <a class="nav-link" href="attore.php">Actors</a>
                             </nav>
                         </div>
-                        <!-- Sidenav Heading (App Views)-->
-                        <div class="sidenav-menu-heading">Area personale</div>
-                        <!-- Sidenav Link (Tables)-->
+                        <div class="sidenav-menu-heading">Personal Area</div>
                         <a class="nav-link" href="account.php">
                             <div class="nav-link-icon"><i data-feather="user"></i></div>
                             Account
                         </a>
                     </div>
                 </div>
-                <!-- Sidenav Footer-->
                 <div class="sidenav-footer">
                     <div class="sidenav-footer-content">
-                        <div class="sidenav-footer-subtitle">Collegato come:</div>
-                        <div class="sidenav-footer-title"><?php echo $rowUser["nome"] . " " . $rowUser["cognome"]; ?></div>
+                        <div class="sidenav-footer-subtitle">Logged in as:</div>
+                        <div class="sidenav-footer-title"><?php echo $rowUser["first_name"] . " " . $rowUser["last_name"]; ?></div>
                     </div>
                 </div>
             </nav>
@@ -132,19 +120,18 @@ if (isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descriz
                                         <div class="page-header-icon"><i data-feather="filter"></i></div>
                                         Film
                                     </h1>
-                                    <div class="page-header-subtitle">Qui troverai gli strumenti necessari per la gestione dei film</div>
+                                    <div class="page-header-subtitle">Here you will find the tools needed to manage films</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </header>
-                <!-- Main page content-->
                 <div class="container mt-n10">
                     <div class="row mb-4">
                         <div class="col-xl-6 mb-4">
                             <div class="card card-header-actions h-100">
                                 <div class="card-header">
-                                    Guadagni mensili
+                                    Monthly Earnings
                                 </div>
                                 <div class="card-body">
                                     <div class="chart-bar"><canvas id="myBarChart" width="100%" height="30"></canvas></div>
@@ -154,7 +141,7 @@ if (isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descriz
                         <div class="col-xl-6 mb-4">
                             <!-- Pie chart with legend example-->
                             <div class="card h-100">
-                                <div class="card-header">Generi</div>
+                                <div class="card-header">Genres</div>
                                 <div class="card-body">
                                     <div class="chart-pie mb-4"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
                                 </div>
@@ -162,35 +149,35 @@ if (isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descriz
                         </div>
                     </div>
                     <div class="card mb-4">
-                        <div class="card-header">Film</div>
+                        <div class="card-header">Films</div>
                         <div class="card-body">
                             <div class="datatable">
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Titolo</th>
-                                            <th>Descrizione</th>
-                                            <th>Data uscita</th>
-                                            <th>Azioni</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Release Date</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Titolo</th>
-                                            <th>Descrizione</th>
-                                            <th>Data uscita</th>
-                                            <th>Azioni</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Release Date</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php foreach ($stmtFilm as $rowFilm) { ?>
                                             <tr>
-                                                <td><?php echo $rowFilm["titolo"]; ?></td>
-                                                <td><?php echo $rowFilm["descrizione"]; ?></td>
-                                                <td><?php echo date("d/m/Y", strtotime(date($rowFilm["dataUscita"]))); ?></td>
+                                                <td><?php echo $rowFilm["title"]; ?></td>
+                                                <td><?php echo $rowFilm["description"]; ?></td>
+                                                <td><?php echo date("d/m/Y", strtotime(date($rowFilm["release_date"]))); ?></td>
                                                 <td>
                                                     <button class="btn btn-datatable btn-icon btn-transparent-dark mr-2"><i data-feather="more-vertical"></i></button>
-                                                    <a type="button" class="btn btn-datatable btn-icon btn-transparent-dark" href="<?= "?idFilm=" . $rowFilm["id"] ?>"><i data-feather="trash-2"></i></button>
+                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark" href="<?= "?idFilm=" . $rowFilm["id"] ?>"><i data-feather="trash-2"></i></a>
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -200,43 +187,37 @@ if (isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descriz
                         </div>
                     </div>
                     <div class="card mb-4">
-                        <div class="card-header">Nuovo film</div>
+                        <div class="card-header">New Film</div>
                         <div class="card-body">
                             <form method="POST" enctype="multipart/form-data">
                                 <!-- Form Row-->
                                 <div class="form-row">
-                                    <!-- Form Group (first name)-->
                                     <div class="form-group col-md-6">
-                                        <label class="small mb-1" for="inputFirstName">Nome</label>
-                                        <input class="form-control" id="inputFirstName" type="text" value="" name="titolo" />
+                                        <label class="small mb-1" for="inputTitle">Name</label>
+                                        <input class="form-control" id="inputTitle" type="text" value="" name="title" />
                                     </div>
-                                    <!-- Form Group (last name)-->
                                     <div class="form-group col-md-6">
-                                        <label class="small mb-1" for="inputLastName">Descrizione</label>
-                                        <input class="form-control" id="inputLastName" type="text" value="" name="descrizione" />
+                                        <label class="small mb-1" for="inputDescription">Description</label>
+                                        <input class="form-control" id="inputDescription" type="text" value="" name="description" />
                                     </div>
                                 </div>
-                                <!-- Form Group (email address)-->
                                 <div class="form-group">
-                                    <label class="small mb-1" for="inputEmailAddress">Data uscita</label>
-                                    <input class="form-control" id="inputEmailAddress" type="date" value="" name="dataUscita" />
+                                    <label class="small mb-1" for="inputReleaseDate">Release Date</label>
+                                    <input class="form-control" id="inputReleaseDate" type="date" value="" name="releaseDate" />
                                 </div>
-                                <!-- Form Group (email address)-->
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label class="small mb-1" for="inputEmailAddress">Anteprima</label>
-                                        <input class="form-control" id="inputEmailAddress" type="file" accept=".jpg" value="" name="anteprima" required />
+                                        <label class="small mb-1" for="inputPreview">Preview</label>
+                                        <input class="form-control" id="inputPreview" type="file" accept=".jpg" value="" name="preview" required />
                                     </div>
-                                    <!-- Form Group (email address)-->
                                     <div class="form-group col-md-6">
-                                        <label class="small mb-1" for="inputEmailAddress">Contenuto</label>
-                                        <input class="form-control" id="inputEmailAddress" type="file" value=".mp4" name="contenuto" required />
+                                        <label class="small mb-1" for="inputContent">Content</label>
+                                        <input class="form-control" id="inputContent" type="file" accept=".mp4" name="content" required />
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <!-- Form Group (first name)-->
                                     <div class="form-group col-md-6 mt-2">
-                                        <button class="btn btn-primary" type="submit">Salva</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -280,7 +261,7 @@ if (isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descriz
             data: {
                 <?php $stmtGenre = $genre->getGenres(); ?>
                 labels: [<?php foreach ($stmtGenre as $rowGenre) {
-                                echo "'" . $rowGenre["nome"] . "', ";
+                                echo "'" . $rowGenre["name"] . "', ";
                             } ?>],
                 datasets: [{
                     data: [

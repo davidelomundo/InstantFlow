@@ -43,10 +43,11 @@ class Subscription
 
     $sql = "
             INSERT INTO {$this->db_table} (end_date, user_id, category_id)
-            VALUES ('{$endDate}', :userId, :categoryId)
+            VALUES (:endDate, :userId, :categoryId)
         ";
 
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':endDate', $endDate);
     $stmt->bindParam(':userId', $this->userId);
     $stmt->bindParam(':categoryId', $this->categoryId);
     $stmt->execute();
@@ -69,11 +70,8 @@ class Subscription
     $stmt->bindParam(':userId', $this->userId);
     $stmt->execute();
 
-    foreach ($stmt as $row) {
-      return $row['count'] > 0;
-    }
-
-    return false;
+    $row = $stmt->fetch();
+    return $row ? $row['count'] > 0 : false;
   }
 
   /**
@@ -93,10 +91,6 @@ class Subscription
     $stmt->bindParam(':userId', $this->userId);
     $stmt->execute();
 
-    foreach ($stmt as $row) {
-      return $row;
-    }
-
-    return null;
+    return $stmt->fetch() ?: null;
   }
 }

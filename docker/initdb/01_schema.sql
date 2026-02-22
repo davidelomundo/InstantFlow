@@ -1,5 +1,3 @@
--- Active: 1767691282934@@127.0.0.1@3306@instantflow
-
 -- Table: films
 CREATE TABLE IF NOT EXISTS films (
     id INT AUTO_INCREMENT PRIMARY KEY,
