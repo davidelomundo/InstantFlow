@@ -35,7 +35,7 @@ $dropdownText = $dropdownText ?? ($userInfo["first_name"] ?? 'Profile');
                                 </div>
                             </a>
                             <div class="dropdown-divider m-0"></div>
-                            <a class="dropdown-item py-3" href="abbonato.php">
+                            <a class="dropdown-item py-3" href="subscriber.php">
                                 <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-credit-card-2-front-fill"></i></div>
                                 <div>
                                     <div class="small text-gray-500">Subscription</div>
@@ -60,7 +60,7 @@ $dropdownText = $dropdownText ?? ($userInfo["first_name"] ?? 'Profile');
                             </a>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="generi.php">Genres</a></li>
+                    <li class="nav-item"><a class="nav-link" href="genres.php">Genres</a></li>
                 </ul>
                 <?php if ($showSearch): ?>
                     <form action="<?php echo $searchAction; ?>" method="GET" class="d-flex align-items-center">

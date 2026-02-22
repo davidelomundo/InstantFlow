@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use PDO, PDOException;
+
 /**
  * Class Database
  *
@@ -48,18 +50,18 @@ class Database
         $this->conn = null;
 
         try {
-            $this->conn = new \PDO(
+            $this->conn = new PDO(
                 "mysql:host={$this->host};dbname={$this->database_name}",
                 $this->username,
                 $this->password,
                 [
-                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
                 ]
             );
 
             $this->conn->exec("SET NAMES utf8");
-        } catch (\PDOException $exception) {
+        } catch (PDOException $exception) {
             // Do not expose credentials or internal details
             error_log("Database connection error: " . $exception->getMessage());
         }

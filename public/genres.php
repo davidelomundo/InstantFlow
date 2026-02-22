@@ -20,7 +20,7 @@ if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
 } else {
     $subscription->userId = $_SESSION["userId"];
     if (!$subscription->isSubscribed()) {
-        header("Location: abbonamento.php");
+        header("Location: subscription.php");
         exit;
     }
 }

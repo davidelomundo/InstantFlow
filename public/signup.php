@@ -21,7 +21,7 @@ if (isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["l
         $user->password = $_POST["password"];
         $_SESSION["userId"] = $user->loginUser();
 
-        header('Location: abbonamento.php');
+        header('Location: subscription.php');
         exit;
     }
 }

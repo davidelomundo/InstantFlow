@@ -22,7 +22,7 @@ if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
 // Check subscription
 $subscription->userId = $_SESSION["userId"];
 if (!$subscription->isSubscribed()) {
-    header("Location: abbonamento.php");
+    header("Location: subscription.php");
     exit;
 }
 
@@ -34,9 +34,11 @@ require_once "includes/head.php";
 
 if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
     $movie->title= $_GET["ricerca"];
-    $stmtFilm = $movie->findFilms();
+    $stmt = $movie->findFilms();
+    $stmtFilm = $stmt->fetchAll();
 } else {
-    $stmtFilm = $movie->getFilms();
+    $stmt = $movie->getFilms();
+    $stmtFilm = $stmt->fetchAll();
 }
 
 // Set navbar parameters
@@ -68,6 +70,13 @@ $searchAction = 'logged.php';
                 </header>
                 <section class="bg-light py-10">
                     <div class="container">
+                        <?php if(empty($stmtFilm)) { ?>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <p class="text-muted fs-5">No films found. Try another search.</p>
+                                </div>
+                            </div>
+                        <?php } else { ?>
                         <div class="row text-center">
                             <?php foreach($stmtFilm as $rowFilm) { ?>
                             <div class="col-lg-4 mb-5">
@@ -81,6 +90,7 @@ $searchAction = 'logged.php';
                             </div>
                             <?php } ?>
                         </div>
+                        <?php } ?>
                     </div>
                     <div class="svg-border-rounded text-light">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>

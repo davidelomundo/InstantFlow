@@ -92,7 +92,7 @@ $isLoggedIn = false;
                         </div>
                     </div>
                 </section>
-                <section class="bg-light pt-10">
+                <section class="bg-light pb-10">
                     <div class="container">
                         <div class="text-center mb-5">
                             <h2>Simple Pricing</h2>
