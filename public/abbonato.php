@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
-
 require __DIR__ . '/../vendor/autoload.php';
 use App\Models\Database;
 use App\Models\User;
@@ -13,17 +11,19 @@ $db = $database->getConnection();
 $user = new User($db);
 $subscription = new Subscription($db);
 
-if (!isset($_SESSION["idUtente"]) || empty($_SESSION["idUtente"])) {
+if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
     header("Location: index.php");
+    exit;
 } else {
-    $subscription->userId = $_SESSION["idUtente"];
+    $subscription->userId = $_SESSION["userId"];
     if (!$subscription->isSubscribed()) {
         header("Location: abbonamento.php");
+        exit;
     }
 }
 
 if (!empty($_POST["firstName"]) && !empty($_POST["lastName"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
-    $user->id = $_SESSION["idUtente"];
+    $user->id = $_SESSION["userId"];
     $user->firstName = $_POST["firstName"];
     $user->lastName = $_POST["lastName"];
     $user->email = $_POST["email"];
@@ -32,7 +32,10 @@ if (!empty($_POST["firstName"]) && !empty($_POST["lastName"]) && !empty($_POST["
     $user->updateUser();
 
     header("Location: logged.php");
+    exit;
 }
+
+require_once "includes/head.php";
 
 $user->id = $_SESSION["userId"];
 $rowUser = $user->getInfo();
@@ -91,15 +94,17 @@ $rowSubscription = $subscription->getExpiration();
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="generi.php">Genres</a></li>
                             </ul>
-                            <form action="logged.php">
-                                <div class="form-row justify-content-center">
+                            <form action="logged.php" method="GET" class="d-flex align-items-center">
+                                <div class="form-row align-items-center justify-content-center">
                                     <div>
-                                        <div class="form-group mr-0 mr-lg-2">
+                                        <div class="form-group mb-0 mr-0 mr-lg-2">
                                             <label class="sr-only" for="inputSearch">Search...</label>
                                             <input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Search..." />
                                         </div>
                                     </div>
-                                    <div><button class="btn-teal btn rounded-pill px-4 ml-lg-4" type="submit">Search</button></div>
+                                    <div>
+                                        <button class="btn-teal btn rounded-pill px-4 ml-lg-4" type="submit">Search</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -189,7 +194,7 @@ $rowSubscription = $subscription->getExpiration();
                     </div>
                     <hr class="my-5" />
                     <div class="row align-items-center">
-                        <div class="col-md-6 small">Copyright &copy; InstantFlow 2026</div>
+                        <div class="col-md-6 small">Copyright &copy; InstantFlow <?php echo date('Y'); ?></div>
                         <div class="col-md-6 text-md-right small">
                             <a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a>
                         </div>

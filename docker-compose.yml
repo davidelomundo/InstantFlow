@@ -12,7 +12,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./initdb:/docker-entrypoint-initdb.d
+      - ./docker/initdb:/docker-entrypoint-initdb.d
     networks:
       - instantflow_network
 
@@ -28,7 +28,7 @@ services:
       - "8080:80"
     volumes:
       - ./:/var/www/html
-      - ./apache.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/apache/apache.conf:/etc/apache2/sites-available/000-default.conf
     depends_on:
       - mysql
     networks:

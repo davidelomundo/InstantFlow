@@ -247,7 +247,7 @@ if (isset($_POST["titolo"]) && !empty($_POST["titolo"]) && isset($_POST["descriz
             <footer class="footer mt-auto footer-light">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6 small">Copyright &copy; InstantFlow 2026</div>
+                        <div class="col-md-6 small">Copyright &copy; InstantFlow <?php echo date('Y'); ?></div>
                         <div class="col-md-6 text-md-right small">
                             <a href="#!">Privacy Policy</a>
                             &middot;

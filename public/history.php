@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
-
 require __DIR__ . '/../vendor/autoload.php';
 use App\Models\Database;
 use App\Models\Film;
@@ -13,15 +11,20 @@ $database = new Database();
 $db = $database->getConnection();
 $film = new Film($db);
 $subscription = new Subscription($db);
+$user = new User($db);
 
-if (!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
+if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
     header("Location: index.php");
+    exit;
 } else {
-    $subscription->userId = $_SESSION["idUtente"];
+    $subscription->userId = $_SESSION["userId"];
     if (!$subscription->isSubscribed()) {
         header("Location: abbonamento.php");
+        exit;
     }
 }
+
+require_once "includes/head.php";
 
 if (isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
     $film->title = $_GET["ricerca"];
@@ -47,7 +50,7 @@ $stmtCronologia = $user->history();
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mr-lg-5">
                                 <li class="nav-item dropdown no-caret">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $rowUtente["nome"]; ?><i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $rowUtente["first_name"]; ?><i class="fas fa-chevron-right dropdown-arrow"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
                                         <a class="dropdown-item py-3" href="settings.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-gear"></i></div>
@@ -84,12 +87,17 @@ $stmtCronologia = $user->history();
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="generi.php">Genres</a></li>
                             </ul>
-                            <form action="logged.php">
-                                <div class="form-row justify-content-center">
+                            <form action="logged.php" method="GET" class="d-flex align-items-center">
+                                <div class="form-row align-items-center justify-content-center">
                                     <div>
-                                        <div class="form-group mr-0 mr-lg-2"><label class="sr-only" for="inputSearch">Search...</label><input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Search..." /></div>
+                                        <div class="form-group mb-0 mr-0 mr-lg-2">
+                                            <label class="sr-only" for="inputSearch">Search...</label>
+                                            <input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Search..." />
+                                        </div>
                                     </div>
-                                    <div><button class="btn-teal btn rounded-pill px-4 ml-lg-4" type="submit">Search</button></div>
+                                    <div>
+                                        <button class="btn-teal btn rounded-pill px-4 ml-lg-4" type="submit">Search</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -201,7 +209,7 @@ $stmtCronologia = $user->history();
                     </div>
                     <hr class="my-5" />
                     <div class="row align-items-center">
-                        <div class="col-md-6 small">&copy; InstantFlow 2026</div>
+                        <div class="col-md-6 small">Copyright &copy; InstantFlow <?php echo date('Y'); ?></div>
                         <div class="col-md-6 text-md-right small">
                             <a href="#">Privacy Policy</a>
                             &middot;

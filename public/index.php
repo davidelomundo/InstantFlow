@@ -231,7 +231,7 @@ $movie = new Film($db);
                     </div>
                     <hr class="my-5" />
                     <div class="row align-items-center">
-                        <div class="col-md-6 small">Copyright &copy; InstantFlow 2026</div>
+                        <div class="col-md-6 small">Copyright &copy; InstantFlow <?php echo date('Y'); ?></div>
                         <div class="col-md-6 text-md-right small">
                             <a href="javascript:void(0);">Privacy Policy</a>
                             &middot;

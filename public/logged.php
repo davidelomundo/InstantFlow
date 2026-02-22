@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
-
 require __DIR__ . '/../vendor/autoload.php';
 use App\Models\Database;
 use App\Models\User;
@@ -25,14 +23,18 @@ if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
 $user->id = $_SESSION["userId"];
 $userInfo = $user->getInfo();
 
-if(!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
+if(!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
     header("Location: index.php");
+    exit;
 } else {
-    $subscription->userId = $_SESSION["idUtente"];
+    $subscription->userId = $_SESSION["userId"];
     if(!$subscription->isSubscribed()) {
         header("Location: abbonamento.php");
+        exit;
     }
-}   
+}
+
+require_once "includes/head.php";   
 
 if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
     $movie->title= $_GET["ricerca"];
@@ -73,44 +75,49 @@ $header.= "X-Priority: 1\r\n";
                                         <a class="dropdown-item py-3" href="settings.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-gear"></i></div>
                                             <div>
-                                                <div class="small text-gray-500">Impostazioni</div>
-                                                Gestisci i dati del tuo account
+                                                <div class="small text-gray-500">Settings</div>
+                                                Manage your account
                                             </div>
                                         </a>
                                         <div class="dropdown-divider m-0"></div>
                                         <a class="dropdown-item py-3" href="abbonato.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-credit-card-2-front-fill"></i></div>
                                             <div>
-                                                <div class="small text-gray-500">Abbonamento</div>
-                                                Controlla la scadenza o rinnova l'abbonamento
+                                                <div class="small text-gray-500">Subscription</div>
+                                                Check or renew your subscription
                                             </div>
                                         </a>
                                         <div class="dropdown-divider m-0"></div>
                                         <a class="dropdown-item py-3" href="history.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-clock-history"></i></div>
                                             <div>
-                                                <div class="small text-gray-500">Cronologia</div>
-                                                La cronologia degli ultimi film che hai guardato
+                                                <div class="small text-gray-500">History</div>
+                                                Recently watched films
                                             </div>
                                         </a>
                                         <div class="dropdown-divider m-0"></div>
                                         <a class="dropdown-item py-3" href="destruct.php">
                                             <div class="icon-stack bg-primary-soft text-primary mr-4"><i class="bi bi-power"></i></div>
                                             <div>
-                                                <div class="small text-gray-500">Esci</div>
-                                                Effettua il logout dalla piattaforma
+                                                <div class="small text-gray-500">Log Out</div>
+                                                Sign out
                                             </div>
                                         </a>
                                     </div>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="generi.php">Generi</a></li>
+                                <li class="nav-item"><a class="nav-link" href="generi.php">Genres</a></li>
                             </ul>
-                            <form>
-                                <div class="form-row justify-content-center">
+                            <form action="logged.php" method="GET" class="d-flex align-items-center">
+                                <div class="form-row align-items-center justify-content-center">
                                     <div>
-                                        <div class="form-group mr-0 mr-lg-2"><label class="sr-only" for="inputSearch">Cerca...</label><input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Cerca..." /></div>
+                                        <div class="form-group mb-0 mr-0 mr-lg-2">
+                                            <label class="sr-only" for="inputSearch">Search...</label>
+                                            <input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Search..." />
+                                        </div>
                                     </div>
-                                    <div><button class="btn-teal btn rounded-pill px-4 ml-lg-4" type="submit">Cerca</button></div>
+                                    <div>
+                                        <button class="btn-teal btn rounded-pill px-4 ml-lg-4" type="submit">Search</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -121,8 +128,8 @@ $header.= "X-Priority: 1\r\n";
                         <div class="container text-center">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-                                    <h1 class="page-header-title mb-3">Raccolta</h1>
-                                    <p class="page-header-text">La tua raccolta in espansione ogni giorno.</p>
+                                    <h1 class="page-header-title mb-3">Collection</h1>
+                                    <p class="page-header-text">Your collection expanding every day.</p>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +144,8 @@ $header.= "X-Priority: 1\r\n";
                             <?php foreach($stmtFilm as $rowFilm) { ?>
                             <div class="col-lg-4 mb-5">
                                 <h6 class="mb-3"><?php echo $rowFilm["title"]; 
-                                if(filesize("../resources/" . $rowFilm["id"] . "/film.mp4")/(1024*1000)>200) { ?>
+                                $filmPath = "../resources/" . $rowFilm["id"] . "/film.mp4";
+                                if(file_exists($filmPath) && filesize($filmPath)/(1024*1000)>200) { ?>
                                     <i class="bi bi-badge-4k text-purple"></i>
                                 <?php } ?>
                                 </h6>
@@ -208,7 +216,7 @@ $header.= "X-Priority: 1\r\n";
                     </div>
                     <hr class="my-5" />
                     <div class="row align-items-center">
-                        <div class="col-md-6 small">Copyright &copy; InstantFlow 2026</div>
+                        <div class="col-md-6 small">Copyright &copy; InstantFlow <?php echo date('Y'); ?></div>
                         <div class="col-md-6 text-md-right small">
                             <a href="javascript:void(0);">Privacy Policy</a>
                             &middot;

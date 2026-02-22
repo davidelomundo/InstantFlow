@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
-
 require __DIR__ . '/../vendor/autoload.php';
 use App\Models\Database;
 use App\Models\User;
@@ -16,14 +14,18 @@ $film = new Film($db);
 $genre = new Genre($db);
 $subscription = new Subscription($db);
 
-if (!isset($_SESSION["idUtente"]) && empty($_SESSION["idUtente"])) {
+if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
     header("Location: index.php");
+    exit;
 } else {
-    $subscription->userId = $_SESSION["idUtente"];
+    $subscription->userId = $_SESSION["userId"];
     if (!$subscription->isSubscribed()) {
         header("Location: abbonamento.php");
+        exit;
     }
 }
+
+require_once "includes/head.php";
 $user = new User($db);
 $stmtFilm = $film->getFilms();
 $stmtGenere = $genre->getGenres();
@@ -80,10 +82,10 @@ $rowUtente = $user->getInfo();
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="generi.php">Genres</a></li>
                             </ul>
-                            <form action="logged.php" method="GET">
-                                <div class="form-row justify-content-center">
+                            <form action="logged.php" method="GET" class="d-flex align-items-center">
+                                <div class="form-row align-items-center justify-content-center">
                                     <div>
-                                        <div class="form-group mr-0 mr-lg-2">
+                                        <div class="form-group mb-0 mr-0 mr-lg-2">
                                             <label class="sr-only" for="inputSearch">Search...</label>
                                             <input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Search..." />
                                         </div>
@@ -200,7 +202,7 @@ $rowUtente = $user->getInfo();
                     </div>
                     <hr class="my-5" />
                     <div class="row align-items-center">
-                        <div class="col-md-6 small">&copy; InstantFlow 2020</div>
+                        <div class="col-md-6 small">Copyright &copy; InstantFlow <?php echo date('Y'); ?></div>
                         <div class="col-md-6 text-md-right small">
                             <a href="#">Privacy Policy</a>
                             &middot;

@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once "includes/head.php";
-
 require __DIR__ . '/../vendor/autoload.php';
 use App\Models\Database;
 use App\Models\Subscription;
@@ -15,19 +13,24 @@ $category = new Category($db);
 
 if (empty($_SESSION["userId"])) {
     header("Location: index.php");
+    exit;
 }
 
 $subscription->userId = $_SESSION["userId"];
 if ($subscription->isSubscribed()) {
     header("Location: logged.php");
+    exit;
 }
 
 if (empty($_POST["idCategoria"])) {
     header("Location: logged.php");
+    exit;
 }
 
 $category->id = $_POST["idCategoria"];
 $rowCategory = $category->findById();
+
+require_once "includes/head.php";
 ?>
 
 <main>

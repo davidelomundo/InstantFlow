@@ -55,7 +55,7 @@ All database interactions are handled via **PDO** with prepared statements, ensu
 ### 🐳 Run with Docker
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 Access the app at [http://localhost:8080](http://localhost:8080)
 
