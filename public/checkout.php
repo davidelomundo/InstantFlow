@@ -23,12 +23,12 @@ if ($subscription->isSubscribed()) {
     exit;
 }
 
-if (empty($_POST["idCategoria"])) {
+if (empty($_POST["idCategory"])) {
     header("Location: logged.php");
     exit;
 }
 
-$category->id = $_POST["idCategoria"];
+$category->id = $_POST["idCategory"];
 $rowCategory = $category->findById();
 
 require_once "includes/head.php";
@@ -106,7 +106,7 @@ require_once "includes/head.php";
                                     console.log(details);
                                     <?php
                                     $subscription->userId = $_SESSION["userId"];
-                                    $subscription->categoryId = $_POST["idCategoria"];
+                                    $subscription->categoryId = $_POST["idCategory"];
                                     $subscription->createSubscription();
                                     ?>
                                     window.location.replace("logged.php");

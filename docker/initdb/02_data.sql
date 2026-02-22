@@ -1,4 +1,4 @@
--- INSERT SCRIPT FOR INSTANTFLOW DATABASE (OPTIMIZED)
+-- INSERT SCRIPT FOR INSTANTFLOW DATABASE
 -- Populates initial data: categories, movies, genres, relationships
 
 SET NAMES utf8mb4;
@@ -75,8 +75,14 @@ SELECT g.id, f.id FROM genres g, films f WHERE g.name = 'Horror' AND f.title = '
 ON DUPLICATE KEY UPDATE genre_id = genre_id;
 
 -- =============================
--- ADMIN USER
+-- ADMIN USER WITH SUBSCRIPTION
 -- =============================
+-- Email: name@email.com (AES encrypted)
+-- Password: Hello.123 (bcrypt hashed)
 INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES
-    ('Admin', 'Admin', AES_ENCRYPT('admin@email.com', 'Password!123'), '$2y$10$YourHashedPasswordHere', 1)
+    ('Admin', 'Admin', AES_ENCRYPT('name@email.com', 'your_secure_aes_password_here'), '$2y$12$0KQxZnxq.24EclKHdUw20eO5P0R0NJh31ZKBhYdyn11C8Xx0JNrl6', 1)
 ON DUPLICATE KEY UPDATE is_admin = 1;
+
+INSERT INTO subscriptions (user_id, category_id, end_date) VALUES
+    ((SELECT id FROM users WHERE email = AES_ENCRYPT('name@email.com', 'your_secure_aes_password_here')), 3, '9999-01-01')
+ON DUPLICATE KEY UPDATE category_id = VALUES(category_id), end_date = VALUES(end_date);

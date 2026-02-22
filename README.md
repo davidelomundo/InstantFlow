@@ -67,7 +67,19 @@ DB_HOST=instantflow_db
 DB_NAME=instantflow_db
 DB_USERNAME=instantflow_user
 DB_PASSWORD=instantflow_password
+
+AES_PASSWORD=your_secure_aes_password_here
 ```
+
+### 👤 Default Admin User
+
+A default admin account is created automatically during initialization:
+
+| Field | Value |
+|-------|-------|
+| **Email** | name@email.com |
+| **Password** | Hello.123 |
+| **Access** | [Admin Panel](http://localhost:8080/admin/login.php) |
 
 ---
 

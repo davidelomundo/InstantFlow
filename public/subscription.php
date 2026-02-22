@@ -71,7 +71,7 @@ $isLoggedIn = false;
                                                     <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">720p</span>
                                                 </li>
                                             </ul>
-                                            <div class="mt-5 text-center"><input type="radio" class="btn btn-primary-outlined btn-marketing rounded-pill" name="idCategoria" value="1" checked></div>
+                                            <div class="mt-5 text-center"><input type="radio" class="btn btn-primary-outlined btn-marketing rounded-pill" name="idCategory" value="1" checked></div>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@ $isLoggedIn = false;
                                                     <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">1080p</span>
                                                 </li>
                                             </ul>
-                                            <div class="mt-5 text-center"><input type="radio" class="btn btn-primary-outlined btn-marketing rounded-pill" name="idCategoria" value="2"></div>
+                                            <div class="mt-5 text-center"><input type="radio" class="btn btn-primary-outlined btn-marketing rounded-pill" name="idCategory" value="2"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@ $isLoggedIn = false;
                                                     <span class="fa-li"><i class="far fa-check-circle text-teal"></i></span><span class="text-dark">2160p</span>
                                                 </li>
                                             </ul>
-                                            <div class="mt-5 text-center"><input type="radio" class="btn btn-primary-outlined btn-marketing rounded-pill" name="idCategoria" value="3"></div>
+                                            <div class="mt-5 text-center"><input type="radio" class="btn btn-primary-outlined btn-marketing rounded-pill" name="idCategory" value="3"></div>
                                         </div>
                                     </div>
                                 </div>

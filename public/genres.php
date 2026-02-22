@@ -29,7 +29,7 @@ if (!isset($_SESSION["userId"]) || empty($_SESSION["userId"])) {
 require_once "includes/head.php";
 $user = new User($db);
 $stmtFilm = $film->getFilms();
-$stmtGenere = $genre->getGenres();
+$stmtGenre = $genre->getGenres();
 
 $user->id = $_SESSION["userId"];
 $rowUser = $user->getInfo();
@@ -67,7 +67,7 @@ $searchAction = 'logged.php';
 
                 <section class="bg-light py-10">
                     <div class="container">
-                        <?php foreach ($stmtGenere as $genre) {
+                        <?php foreach ($stmtGenre as $genre) {
                             $stmtFilm = $film->getFilmsByGenre($genre["id"]);
                         ?>
                             <h2 class="mb-4"><?php echo $genre["name"]; ?></h2>

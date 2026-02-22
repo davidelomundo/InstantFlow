@@ -68,7 +68,7 @@ $dropdownText = $dropdownText ?? ($userInfo["first_name"] ?? 'Profile');
                             <div>
                                 <div class="form-group mb-0 mr-0 mr-lg-2">
                                     <label class="sr-only" for="inputSearch">Search...</label>
-                                    <input class="form-control form-control-solid rounded-pill" id="inputSearch" name="ricerca" type="text" placeholder="Search..." />
+                                    <input class="form-control form-control-solid rounded-pill" id="inputSearch" name="search" type="text" placeholder="Search..." />
                                 </div>
                             </div>
                             <div>

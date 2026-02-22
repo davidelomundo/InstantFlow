@@ -49,10 +49,15 @@ class User
    * Get AES password from environment
    *
    * @return string
+   * @throws \Exception If AES_PASSWORD is not set
    */
   private function getAesPassword()
   {
-    return getenv("AES_PASSWORD");
+    $aesPassword = getenv("AES_PASSWORD");
+    if (!$aesPassword) {
+      throw new \Exception("AES_PASSWORD environment variable is not set. Please configure it in your .env file or docker-compose configuration.");
+    }
+    return $aesPassword;
   }
 
   /**

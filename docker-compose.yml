@@ -9,6 +9,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_CHARSET: utf8mb4
       MYSQL_COLLATION: utf8mb4_unicode_ci
+      AES_PASSWORD: ${AES_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -26,6 +27,7 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_HOST: ${DB_HOST}
+      AES_PASSWORD: ${AES_PASSWORD}
     ports:
       - "8080:80"
     volumes:

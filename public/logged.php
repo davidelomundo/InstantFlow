@@ -32,8 +32,8 @@ $userInfo = $user->getInfo();
 
 require_once "includes/head.php";   
 
-if(isset($_GET["ricerca"]) && !empty($_GET["ricerca"])) {
-    $movie->title= $_GET["ricerca"];
+if(isset($_GET["search"]) && !empty($_GET["search"])) {
+    $movie->title= $_GET["search"];
     $stmt = $movie->findFilms();
     $stmtFilm = $stmt->fetchAll();
 } else {
