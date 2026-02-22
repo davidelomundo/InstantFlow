@@ -40,7 +40,7 @@ if (isset($_POST["title"]) && !empty($_POST["title"]) && isset($_POST["descripti
     $rowFilm = $film->getInfo();
 
     mkdir("../resources/" . $rowFilm["id"]);
-    move_uploaded_file($_FILES["preview"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/anteprima.jpg");
+    move_uploaded_file($_FILES["preview"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/preview.jpg");
     move_uploaded_file($_FILES["content"]["tmp_name"], "../resources/" . $rowFilm["id"] . "/film.mp4");
 }
 

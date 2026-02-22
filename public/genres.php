@@ -75,7 +75,7 @@ $searchAction = 'logged.php';
                                 <?php foreach ($stmtFilm as $rowFilm) { ?>
                                     <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
                                         <a class="card lift h-100" href="<?= "view.php?id=" . $rowFilm["id"] ?>">
-                                            <img class="card-img-top" src="<?= "/resources/" . $rowFilm["id"] . "/anteprima.jpg" ?>" alt="Preview" />
+                                            <img class="card-img-top" src="<?= "/resources/" . $rowFilm["id"] . "/preview.jpg" ?>" alt="Preview" />
                                             <div class="card-body p-3">
                                                 <div class="card-title small mb-0"></div>
                                                 <div class="text-xs text-black-500"><?php echo $rowFilm["title"]; ?></div>

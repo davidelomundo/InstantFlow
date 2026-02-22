@@ -86,7 +86,7 @@ $searchAction = 'logged.php';
                                     <i class="bi bi-badge-4k text-purple"></i>
                                 <?php } ?>
                                 </h6>
-                                <a class="d-block rounded-lg lift lift-lg" href="<?= "view.php?id=" . $rowFilm["id"]?>"><img class="img-fluid rounded-lg" src="<?= "/resources/" . $rowFilm["id"] . "/anteprima.jpg"?>"/></a>
+                                <a class="d-block rounded-lg lift lift-lg" href="<?= "view.php?id=" . $rowFilm["id"]?>"><img class="img-fluid rounded-lg" src="<?= "/resources/" . $rowFilm["id"] . "/preview.jpg"?>"/></a>
                             </div>
                             <?php } ?>
                         </div>

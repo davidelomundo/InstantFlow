@@ -1,5 +1,4 @@
 .htaccess
-resources/
 .DS_Store
 .env
 vendor/
