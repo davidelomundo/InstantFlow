@@ -2,6 +2,7 @@
 session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
+
 use App\Models\Database;
 use App\Models\User;
 
@@ -89,9 +90,9 @@ $isLoggedIn = false;
             </main>
         </div>
         <div id="layoutDefault_footer">
-            <?php 
+            <?php
             $enableAOS = true;
             $footerTheme = 'dark';
-            include "includes/footer.php"; 
+            include "includes/footer.php";
             ?>
         </div>

@@ -2,6 +2,7 @@
 session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
+
 use App\Models\Database;
 use App\Models\User;
 
@@ -76,9 +77,9 @@ $loginButtonText = 'Sign Up';
             </main>
         </div>
         <div id="layoutDefault_footer">
-            <?php 
+            <?php
             $footerTheme = 'dark';
             $enableAOS = true;
-            include "includes/footer.php"; 
+            include "includes/footer.php";
             ?>
         </div>

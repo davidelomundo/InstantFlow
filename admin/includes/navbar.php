@@ -42,7 +42,7 @@
                             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                                 <a class="nav-link" href="film.php">Films</a>
                                 <a class="nav-link" href="admin.php">Admins</a>
-                                <a class="nav-link" href="attore.php">Actors</a>
+                                <a class="nav-link" href="actor.php">Actors</a>
                             </nav>
                         </div>
                         <div class="sidenav-menu-heading">Personal Area</div>

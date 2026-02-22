@@ -121,8 +121,8 @@ $isLoggedIn = false;
             </main>
         </div>
         <div id="layoutDefault_footer">
-            <?php 
+            <?php
             $footerTheme = 'dark';
-            include "includes/footer.php"; 
+            include "includes/footer.php";
             ?>
         </div>

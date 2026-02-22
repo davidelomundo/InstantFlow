@@ -2,6 +2,7 @@
 session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
+
 use App\Models\Database;
 use App\Models\Film;
 use App\Models\User;

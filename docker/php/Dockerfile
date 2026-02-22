@@ -9,6 +9,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN docker-php-ext-install pdo pdo_mysql
 RUN a2enmod rewrite
 
+# PHP upload and POST size limits for video uploads
+RUN echo 'upload_max_filesize = 5G' > /usr/local/etc/php/conf.d/uploads.ini && \
+    echo 'post_max_size = 5G' >> /usr/local/etc/php/conf.d/uploads.ini && \
+    echo 'max_execution_time = 300' >> /usr/local/etc/php/conf.d/uploads.ini
+
 WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
