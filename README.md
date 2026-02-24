@@ -34,7 +34,7 @@ Originally developed as a high-school final project in 2021, it has been slightl
 
 ## 🛢️ Database
 
-![ER Diagram](./docs/instantflow_er_diagram.png)
+![ER Diagram](./docs/er_diagram.png)
 
 Key entities and relationships:
 
