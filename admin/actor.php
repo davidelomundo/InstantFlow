@@ -18,17 +18,6 @@ $user = new User($db);
 $user->id = $_SESSION["idAdmin"];
 $rowUser = $user->getInfo();
 
-if (isset($_POST["firstName"]) && !empty($_POST["firstName"]) && isset($_POST["lastName"]) && !empty($_POST["lastName"]) && isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]) && isset($_POST["confirmPassword"]) && !empty($_POST["confirmPassword"])) {
-    if ($_POST["password"] === $_POST["confirmPassword"]) {
-        $user->firstName = $_POST["firstName"];
-        $user->lastName = $_POST["lastName"];
-        $user->email = $_POST["email"];
-        $user->password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-
-        $user->createAdmin();
-    }
-}
-
 require_once "includes/head.php";
 include "includes/navbar.php";
 ?>
@@ -41,9 +30,9 @@ include "includes/navbar.php";
                     <div class="col-auto mt-4">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="filter"></i></div>
-                            Admin
+                            Actors
                         </h1>
-                        <div class="page-header-subtitle">Here you will find the tools needed to manage admins</div>
+                        <div class="page-header-subtitle">Here you will find the tools needed to manage actors</div>
                     </div>
                 </div>
             </div>
@@ -51,7 +40,7 @@ include "includes/navbar.php";
     </header>
     <div class="container mt-n10">
         <div class="card mb-4">
-            <div class="card-header">New Admin</div>
+            <div class="card-header">New Actor</div>
             <div class="card-body">
                 <form method="POST">
                     <!-- Form Row-->
@@ -63,20 +52,6 @@ include "includes/navbar.php";
                         <div class="form-group col-md-6">
                             <label class="small mb-1" for="inputLastName">Last Name</label>
                             <input class="form-control" id="inputLastName" type="text" value="" name="lastName" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="small mb-1" for="inputEmailAddress">Email</label>
-                        <input class="form-control" id="inputEmailAddress" type="email" value="" name="email" />
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label class="small mb-1" for="inputPassword">Password</label>
-                            <input class="form-control" id="inputPassword" type="password" value="" name="password" />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="small mb-1" for="inputConfirmPassword">Confirm Password</label>
-                            <input class="form-control" id="inputConfirmPassword" type="password" value="" name="confirmPassword" />
                         </div>
                     </div>
                     <div class="form-row">
